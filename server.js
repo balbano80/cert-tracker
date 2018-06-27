@@ -1,19 +1,43 @@
-const express = require("express");
-const path = require("path");
-const PORT = process.env.PORT || 3001;
-const app = express();
+var express = require("express");
+var bodyParser = require("body-parser");
+var multer = require("multer");
+var path = require("path");
+var session = require("express-session");
+// Requiring passport as we've configured it
+var passport = require("./config/passport");
 
-// Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
+var db = require("./models");
 
-// Send every request to the React app
-// Define any API routes before this runs
-app.get("*", function(req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+var app = express();
+var PORT = process.env.PORT || 3000;
 
-app.listen(PORT, function() {
-  console.log(`🌎 ==> Server now on port ${PORT}!`);
+
+// Parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Parse application/json
+app.use(bodyParser.json());
+app.use(express.static("public"));
+
+app.use(multer({ dest: "public/tmp/" }));
+app.use(express.static(path.join(__dirname, "bower_components")));
+
+// We need to use sessions to keep track of our user's login status
+app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+// Route config -------------------------------------------/
+require("./routes/apiRoutes.js")(app);
+
+// Starting the server, syncing our models ------------------------------------/
+db.sequelize.sync().then(function () {
+  app.listen(PORT, function () {
+    console.info(
+      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
+      PORT,
+      PORT
+    );
+  });
 });

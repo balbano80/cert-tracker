@@ -1,7 +1,7 @@
 {
-  "name": "cert-tracker",
+  "name": "sharebnb",
   "version": "1.0.0",
-  "description": "Company Certification Tracker",
+  "description": "A fun app that allows people to share the space in thier yard or driveway",
   "main": "server.js",
   "scripts": {
     "server": "node server.js",
@@ -12,18 +12,23 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "installDeps": "yarn && cd client && yarn"
   },
-  "author": "Mike, Rishi Sophie Bryan Byron",
+  "author": "project3",
   "license": "ISC",
-  "devDependencies": {
-    "concurrently": "^3.5.0",
-    "nodemon": "^1.11.0"
-  },
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.15.4",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
+    "concurrently": "^3.6.0",
+    "express": "^4.16.2",
     "express-session": "^1.15.6",
-    "mysql": "^2.15.0",
-    "path": "^0.12.7",
-    "sequelize": "^4.38.0"
+    "jquery": "^3.3.1",
+    "method-override": "^2.3.10",
+    "multer": "^0.1.6",
+    "mysql": "^2.11.1",
+    "mysql2": "^1.5.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "random-bytes": "^1.0.0",
+    "react-scripts": "^1.1.4",
+    "sequelize": "^4.29.2"
   }
 }
