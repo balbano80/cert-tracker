@@ -1,0 +1,29 @@
+{
+  "name": "cert-tracker",
+  "version": "1.0.0",
+  "description": "Company Certification Tracker",
+  "main": "server.js",
+  "scripts": {
+    "server": "node server.js",
+    "client": "cd client && npm run start",
+    "start": "./node_modules/.bin/concurrently \"./node_modules/.bin/nodemon\" \"npm run client\"",
+    "build": "cd client && npm run build",
+    "deploy": "yarn build && git add . && git commit -m \"Building for production\" && git push heroku master",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "installDeps": "yarn && cd client && yarn"
+  },
+  "author": "Mike, Rishi Sophie Bryan Byron",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^3.5.0",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.15.4",
+    "express-session": "^1.15.6",
+    "mysql": "^2.15.0",
+    "path": "^0.12.7",
+    "sequelize": "^4.38.0"
+  }
+}
