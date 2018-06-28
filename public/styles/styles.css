@@ -1,0 +1,93 @@
+.top-nav-collapse {
+  background-color: #5e5e5e !important;
+}
+.navbar:not(.top-nav-collapse) {
+  background:  rgba(126, 126, 126, 0.5) !important;
+}
+
+.navbar.navbar-dark .breadcrumb .nav-item .nav-link,
+.navbar.navbar-dark .navbar-nav .nav-item .nav-link {
+  color: #fff;
+  text-shadow: 2px 2px 4px #000000;
+  -webkit-transition: 0.35s;
+  -o-transition: 0.35s;
+  transition: 0.35s; }
+@media (max-width: 768px) {
+  .navbar:not(.top-nav-collapse) {
+      background: #5e5e5e !important;
+  }
+}
+
+#hp-main-h1 {
+  text-shadow: 3px 3px 8px #000000;
+}
+
+#hp-main-h4 {
+  text-shadow: 3px 3px 6px #000000;
+}
+
+/* #hp-main-h3 {
+  text-shadow: 2px 2px 4px #000000;
+} */
+
+.card {
+  background-color: rgba(229, 228, 255, 0.9);
+}
+
+/* .card {
+  background-color: rgba(229, 228, 255, 0.4);
+} */
+
+
+.md-form .prefix {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+.md-form label {
+  color: #ffffff;
+}
+h6 {
+  line-height: 1.7;
+}
+@media (max-width: 740px) {
+  .full-height,
+  .full-height body,
+  .full-height header,
+  .full-height header .view {
+      height: 1040px;
+  }
+}
+
+#home-wrapper h1 {
+  color: #4a90e2;
+}
+
+#home-wrapper h2 {
+  color: #ff3c2c;
+}
+
+#home-wrapper h3 {
+  color: #ff8500;
+}
+.jumbotron {
+  /* margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom:0px; */
+  text-shadow: 2px 2px 4px #000000;
+  font-weight: bold;
+  color: white;
+  background:transparent;
+  background-size: cover;
+  height:360px;
+  /* background-image: url("http://nomon.club/wp-content/uploads/2017/10/backyard-party-themes-best-backyard-party-themes-for-summer-barnyard-themes-for-party.jpg") */
+  background-image: url("../images/themes-for-party.jpg")
+}
+
+.aForm {
+  margin-bottom: 0px;
+}
+
+.append_results {
+  overflow: auto;
+  height: 30em;
+}
