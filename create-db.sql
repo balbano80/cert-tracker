@@ -1,2 +1,2 @@
 
-CREATE DATABASE sharebnb_db;
+CREATE DATABASE certtracker_db;

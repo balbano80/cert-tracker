@@ -1,12 +1,9 @@
-# ShareBnB
+# Cert Tracker
 
-Share BnB is an web application to monetize and utilize front/backyard home assets which can be rented with a frictionless platform using the web app’s system of finding potential matches based on geographical proximity. By streamlining the process of viewing local neighborhood outdoor assets such as swimming pools, yard, BBQ, driveways, tennis courts etc. with a simple web application. This is an untapped resource for the host to rent his outdoor facilities which can be monetized when not in use. Similar to AirBnb of collaborative consumption and sharing app but for the outside the home instead of inside. Host offer experiences and use of outdoor facilities instead of accommodation to guests by using a variety of filters types, dates, location and price. Before booking users must provide a valid name, email address and contact information. 
 
-*Video of functionality*:
-https://drive.google.com/file/d/1kRAj1yJtZTh-GXiM524BVxrbLbzw0i2H/view
+
 
 *ScreenShot*
-<img src="https://cdn.discordapp.com/attachments/446103300069392385/458155705107742720/unknown.png">
 
 * * *
 
@@ -31,24 +28,6 @@ https://drive.google.com/file/d/1kRAj1yJtZTh-GXiM524BVxrbLbzw0i2H/view
 
 ## Usage
 
-1. Homescreen will provide two options; one for sign-up and one for sign-in <br><br>
-<img src="https://cdn.discordapp.com/attachments/446103300069392385/458155705107742720/unknown.png" height="300px" width="600px"><br><br>
-2. If user is not logged in, the nav bar will display home, sign-up, find-space, and log-in. If user is signed in, the nav bar will display member area, become a host, find-space, and log-out<br><br>
-<img src="https://cdn.discordapp.com/attachments/446103300069392385/458157880210620418/unknown.png"><br><br>
-<img src="https://cdn.discordapp.com/attachments/446103300069392385/458158158251294725/unknown.png"><br><br>
-3. Sign-up, into sign-in, into member's area, then options provided for positive UX<br><br>
-* Sign-Up <br><br>
-<img src="https://cdn.discordapp.com/attachments/446103300069392385/458158876408283147/unknown.png" height="300px" width="600px"><br><br>
-* Sign-In <br><br>
-<img src="https://cdn.discordapp.com/attachments/446103300069392385/458159017777299456/unknown.png" height="300px" width="600px"><br><br>
-* Member's Area <br><br>
-<img src="https://cdn.discordapp.com/attachments/446103300069392385/458159154880577546/unknown.png" height="300px" width="600px"><br>
-4. Becoming a host will generate an initial row upon image upload, submission will complete the row in the database via AJAX call<br><br>
-<img src="https://cdn.discordapp.com/attachments/446103300069392385/458159547299659786/unknown.png" height="300px" width="600px"><br><br>
-<img src="https://cdn.discordapp.com/attachments/446103300069392385/458159641906642945/unknown.png" height="300px" width="600px"><br><br>
-<img src="https://cdn.discordapp.com/attachments/446103300069392385/458159865328828416/unknown.png" height="300px" width="600px"><br><br>
-5. Find a space is available to non-signed in users as well as signed-in users. Filling out appropriate fields will make an AJAX call to populate the search area dynamically<br><br>
-<img src="https://cdn.discordapp.com/attachments/446103300069392385/458161725078896661/unknown.png" height="300px" width="600px"><br>
 
 * * *
 
@@ -64,9 +43,6 @@ https://drive.google.com/file/d/1kRAj1yJtZTh-GXiM524BVxrbLbzw0i2H/view
 * Passport v0.4.0 - [Passport NPM](https://www.npmjs.com/package/passport)
 * Multer v1.3.0 - [Multer NPM](https://www.npmjs.com/package/multer)
 * Body-Parser v1.18.3 - [Body-Parser NPM](https://www.npmjs.com/package/body-parser)
-* Handlebars v4.0.11 - [HandlebarsJS Templating](https://handlebarsjs.com/installation.html)
-* Bower v1.8.4 - [Bower NPM](https://bower.io/)
-* DropzoneJS v5.2.0 - [DropzoneJS](http://www.dropzonejs.com/)
 * Github - [Github](https://pages.github.com/)
 * JawsDB - [JawsDB MySQL](https://elements.heroku.com/addons/jawsdb)
 * Heroku - [Heroku](https://www.heroku.com/)
@@ -74,10 +50,10 @@ https://drive.google.com/file/d/1kRAj1yJtZTh-GXiM524BVxrbLbzw0i2H/view
 * * *
 
 ## Authors
-* Mike White - Lead Developer
-* Nicholas Chan - Developer
-* Rishi Mehta - PM/Developer
-* Elmalick Ndiaye - Researcher/Developer
+* 
+* 
+* 
+* 
 
 * * *
 
