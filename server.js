@@ -25,7 +25,7 @@ app.use(passport.session());
 
 
 // Route config -------------------------------------------/
-// require("./routes/apiRoutes.js")(app);
+require("./routes/apiRoutes.js")(app);
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync().then(function () {
