@@ -119,5 +119,9 @@ module.exports = function (app) {
       res.json(data);
     });
   });
+
+  app.get('/', function(req,res){
+    res.redirect('/Home')
+  })
 };
 
