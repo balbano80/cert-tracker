@@ -2,6 +2,7 @@
   "name": "cert-tracker",
   "version": "1.0.0",
   "description": "track certs easily with cert tracker",
+  "homepage": "https://balbino80.github.io/cert-tracker",
   "main": "server.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
