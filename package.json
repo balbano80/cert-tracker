@@ -2,7 +2,7 @@
   "name": "cert-tracker",
   "version": "1.0.0",
   "description": "track certs easily with cert tracker",
-  "homepage" : "http://balbano80.github.io/cert-tracker",
+  "homepage": "http://balbano80.github.io/cert-tracker",
   "main": "server.js",
   "scripts": {
     "server": "node server.js",
