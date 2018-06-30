@@ -73,10 +73,6 @@ module.exports = function (sequelize, DataTypes) {
                 len: [1]
             }
         },
-        is_host: {
-            type: DataTypes.BOOLEAN,
-
-        },
         // The password cannot be null
         password: {
             type: DataTypes.STRING,

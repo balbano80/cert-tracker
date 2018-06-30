@@ -3,6 +3,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Line, Chart } from 'react-chartjs-2';
 import { Container, Row, Col, Button, Card, CardBody, CardTitle, CardText, TabPane, TabContent, Table, Nav, NavItem, NavLink, Fa } from 'mdbreact';
 import classnames from 'classnames';
+import DashbAddSiteModal from '../../components/DashbAddSiteModal';
+
 
 // Line chart
 const data = {
@@ -184,10 +186,11 @@ class DashboardPage extends React.Component {
   render() {
     return (
       <Router>
-        <Container className="mt-4">
+        <Container className="mt-5">
           <Row>
             <Col md="12">
-            <h2 className="mt-5">Dashboard</h2>
+            <DashbAddSiteModal/>
+            <h2 className="mt-3">Dashboard</h2>
             <Nav tabs className="nav-justified" color="mdb-color">
                 <NavItem>
                   <NavLink to="#" className={classnames({ active: this.state.activeItemOuterTabs === '1' })} onClick={() => { this.toggleOuterTabs('1'); }} role="tab">
