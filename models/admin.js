@@ -31,15 +31,15 @@ module.exports = function (sequelize, DataTypes) {
     });
 
 
-    Admin.associate = function (models) {
-        // We're saying that a Asset should belong to an User
-        // An Asset can't be created without an user due to the foreign key constraint
-        Admin.belongsTo(models.Company, {
-            foreignKey: {
-                allowNull: false
-            }
-        });
-    };
+    // Admin.associate = function (models) {
+    //     // We're saying that a Asset should belong to an User
+    //     // An Asset can't be created without an user due to the foreign key constraint
+    //     Admin.belongsTo(models.Company, {
+    //         foreignKey: {
+    //             allowNull: false
+    //         }
+    //     });
+    // };
 
       
     // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
