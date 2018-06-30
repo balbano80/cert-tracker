@@ -5,6 +5,7 @@ import { Container, Row, Col, Button, Card, CardBody, CardTitle, CardText, TabPa
 import classnames from 'classnames';
 
 // Line chart
+// We have to link database to this object?
 const data = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
@@ -191,7 +192,7 @@ class DashboardPage extends React.Component {
         <Container className="mt-4">
           <Row>
             <Col md="12">
-            <h2 className="mt-5">Dashboard</h2>
+            <h2 className="mt-5 text-center">Dashboard</h2>
             <Nav tabs className="nav-justified" color="mdb-color">
                 <NavItem>
                   <NavLink to="#" className={classnames({ active: this.state.activeItemOuterTabs === '1' })} onClick={() => { this.toggleOuterTabs('1'); }} role="tab">
@@ -229,32 +230,6 @@ class DashboardPage extends React.Component {
                               <CardBody>
                                 <h4 className="h4-responsive">Richmond Crews
                                 <Button outline color="primary" onClick={this.toggle}>+Add Crew</Button>
-                                
-
-    
-            {/* <Modal isOpen={this.state.modal} toggle={this.toggle} className="cascading-modal">
-              <div className="modal-header primary-color white-text">
-                <h4 className="title">
-                  <Fa className="fa fa-pencil" /> Contact form</h4>
-                <button type="button" className="close" onClick={this.toggle}>
-                  <span aria-hidden="true">×</span>
-                </button>
-              </div>
-              <ModalBody className="grey-text">
-                <Input size="sm" label="Your name" icon="user" group type="text" validate error="wrong" success="right"/>
-                <Input size="sm" label="Your email" icon="envelope" group type="email" validate error="wrong" success="right"/>
-                <Input size="sm" label="Subject" icon="tag" group type="text" validate error="wrong" success="right"/>
-                <Input size="sm" type="textarea" rows="2" label="Your message" icon="pencil"/>
-              </ModalBody>
-              <ModalFooter>
-                <Button color="secondary" onClick={this.toggle}>Close</Button>{' '}
-                <Button color="primary">Save changes</Button>
-              </ModalFooter>
-            </Modal> */}
-
-
-
-
                                 <Button outline color="primary" onClick={this.toggle}>Edit Crew</Button>
                                 </h4>
                           
@@ -409,6 +384,7 @@ class DashboardPage extends React.Component {
           <Row>
             <div style={{marginTop: '100px'}}>
               <Container>
+              <h2 className="mt-5 text-center">Company Overview</h2>
                 <Row>
                   <Col md="7" className="md-0 mb-1">
                     <h3>Line chart</h3>
