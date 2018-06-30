@@ -14,11 +14,11 @@ module.exports = function (sequelize, DataTypes) {
 
         //to set up relationships
 
-        Certificate.hasMany(models.Crew, {
-            foreignKey: {
-                allowNull: false
-            }
-        });
+        // Certificate.hasMany(models.Crew, {
+        //     foreignKey: {
+        //         allowNull: false
+        //     }
+        // });
         // Certificate.belongsTo(models.Employee-cert, {
         //     foreignKey: {
         //         allowNull: false

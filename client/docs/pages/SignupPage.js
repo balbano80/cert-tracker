@@ -33,7 +33,7 @@ class SignupPage extends React.Component  {
                     <Input label="Your password" icon="lock" group type="password" validate/>
                   </div>
                   <div className="text-center py-4 mt-3">
-                    <Button color="cyan" type="submit">Register</Button>
+                    <Button color="cyan" type="submit" to="/login">Register</Button>
                   </div>
                 </form>
               </CardBody>
