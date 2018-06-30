@@ -51,7 +51,7 @@ class App extends Component {
                   <NavLink onClick={this.handleNavbarClick} to="/login">Login</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink onClick={this.handleNavbarClick} to="/employeeform">Employee Form</NavLink>
+                  <NavLink onClick={this.handleNavbarClick} to="/employee">Employee Form</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink onClick={this.handleNavbarClick} to="/dashboard">Dashboard</NavLink>

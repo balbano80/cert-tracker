@@ -11,6 +11,14 @@ class FormEmployeePage extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+    // Handles updating component state when the user types into the input field
+    handleInputChange = event => {
+      const { name, value } = event.target;
+      this.setState({
+        [name]: value
+      });
+    };
+
   handleChange(event) {
     this.setState({value: event.target.value});
   }
@@ -31,19 +39,19 @@ class FormEmployeePage extends React.Component {
                 <form>             
                     <div className="form-group col-md-12 grey-text">
                       <label htmlFor="first-name">First Name</label>
-                      <input type="text" className="form-control" id="first-name" placeholder="First Name" />
+                      <input value={this.state.first_name} onChange={this.handleChange} type="text" className="form-control" id="first-name" placeholder="First Name" />
                     </div>
                     <div className="form-group col-md-12 grey-text">
                       <label htmlFor="last-name">Last Name</label>
-                      <input type="text" className="form-control" id="last-name" placeholder="Last Name" />
+                      <input value={this.state.last_name} onChange={this.handleChange} type="text" className="form-control" id="last-name" placeholder="Last Name" />
                     </div>
                   <div className="form-group col-md-12 grey-text">
                     <label htmlFor="phone-number">Phone Number</label>
-                    <input type="text" className="form-control" id="phone-nmber" placeholder="555 555 55555" />
+                    <input value={this.state.phone_number} onChange={this.handleChange} type="text" className="form-control" id="phone-nmber" placeholder="555 555 55555" />
                   </div>
                   <div className="form-group col-md-12 grey-text">
                     <label htmlFor="inputEmail4">Email</label>
-                    <input type="email" className="form-control" id="inputEmail4" placeholder="Email" />
+                    <input value={this.state.email} onChange={this.handleChange} type="email" className="form-control" id="inputEmail4" placeholder="Email" />
                   </div>
                   <br />
                   <hr />
@@ -75,7 +83,7 @@ class FormEmployeePage extends React.Component {
                       </Col>
                     </Row>
 
-                  <button type="submit" className="btn btn-primary btn-md">Submit</button>
+                  <Button onClick={this.handleSubmit}>Submit</Button>
                 </form>
               </CardBody>
             </Card>                    
