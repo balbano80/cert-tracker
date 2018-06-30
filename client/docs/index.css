@@ -31,3 +31,7 @@
 	color:rgba(0,0,0,.35);
 	float:right;
 }
+
+.page-footer {
+	z-index: 100;
+}
