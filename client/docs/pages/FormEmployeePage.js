@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Table, Input, Button, Fa, Card, CardBody, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
 import DatePickerMod from '../../components/DatePickerMod';
+import API from '../../utils/API';
 
 class FormEmployeePage extends React.Component {
   constructor(props) {
@@ -24,6 +25,11 @@ class FormEmployeePage extends React.Component {
   }
 
   handleSubmit(event) {
+    API.getEmployee().then(function(res){
+      console.log(res);
+    }).catch(err => {
+      console.log(err)
+    })
     alert('Input value: ' + this.state.value);
     event.preventDefault();
   }

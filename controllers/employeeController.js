@@ -8,6 +8,8 @@ module.exports = {
     db.Employee.findAll({})
     .then(function(dbEmployee) {
       res.json(dbEmployee);
+      res.json('{message: "hello"}')
+
     });
   },
   findById: function(req, res) {
