@@ -18,7 +18,6 @@ const AboutUs = () =>  {
               <p className="text-uppercase blue-text">Lead Full Stack Web Developer</p>
               <p className="grey-text"></p>
               <ul className="list-unstyled mb-0">
-
                 <a className="p-2 fa-lg">
                   <Fa icon="facebook" className="blue-text"/>
                 </a>
@@ -66,7 +65,7 @@ const AboutUs = () =>  {
               </ul>
             </Col>
 
-            <Col lg="2" md="3"  className="mb-lg-0 mb-5">
+            <Col lg="2" className="mb-lg-0 mb-5">
             </Col>
 
             <Col lg="4" md="6"  className="mb-lg-0 mb-5">
@@ -84,6 +83,7 @@ const AboutUs = () =>  {
                 </a>
               </ul>
             </Col>
+
 
              <Col lg="4" md="6"  className="mb-lg-0 mb-5">
               <Avatar tag="img" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(32).jpg" className="rounded-circle z-depth-1 img-fluid" alt="Sample avatar"/>

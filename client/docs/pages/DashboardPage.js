@@ -129,7 +129,11 @@ class DashboardPage extends React.Component {
     };
   }
 
-
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
+    });
+  }
   toggle(tab) {
     if (this.state.activeItem !== tab) {
       this.setState({
@@ -223,7 +227,37 @@ class DashboardPage extends React.Component {
                           <Col md="12">
                             <Card>
                               <CardBody>
-                                <h4 className="h4-responsive">Richmond Crews</h4>
+                                <h4 className="h4-responsive">Richmond Crews
+                                <Button outline color="primary" onClick={this.toggle}>+Add Crew</Button>
+                                
+
+    
+            {/* <Modal isOpen={this.state.modal} toggle={this.toggle} className="cascading-modal">
+              <div className="modal-header primary-color white-text">
+                <h4 className="title">
+                  <Fa className="fa fa-pencil" /> Contact form</h4>
+                <button type="button" className="close" onClick={this.toggle}>
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <ModalBody className="grey-text">
+                <Input size="sm" label="Your name" icon="user" group type="text" validate error="wrong" success="right"/>
+                <Input size="sm" label="Your email" icon="envelope" group type="email" validate error="wrong" success="right"/>
+                <Input size="sm" label="Subject" icon="tag" group type="text" validate error="wrong" success="right"/>
+                <Input size="sm" type="textarea" rows="2" label="Your message" icon="pencil"/>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="secondary" onClick={this.toggle}>Close</Button>{' '}
+                <Button color="primary">Save changes</Button>
+              </ModalFooter>
+            </Modal> */}
+
+
+
+
+                                <Button outline color="primary" onClick={this.toggle}>Edit Crew</Button>
+                                </h4>
+                          
                                 <Table striped bordered small>
                                   <thead>
                                     <tr>
@@ -264,7 +298,10 @@ class DashboardPage extends React.Component {
                           <Col md="12">
                             <Card>
                               <CardBody>
-                                <h4 className="h4-responsive">Benicia Crews</h4>
+                                <h4 className="h4-responsive">Benicia Crews
+                                <Button outline color="primary" onClick={this.toggle}>+Add Crew</Button>
+                                <Button outline color="primary" onClick={this.toggle}>Edit Crew</Button>
+                                </h4>
                                 <Table striped bordered small>
                                   <thead>
                                     <tr>
@@ -305,7 +342,10 @@ class DashboardPage extends React.Component {
                           <Col md="12">
                             <Card>
                               <CardBody>
-                                <h4 className="h4-responsive">Tesoro Crews</h4>
+                                <h4 className="h4-responsive">Tesoro Crews
+                                <Button outline color="primary" onClick={this.toggle}>+Add Crew</Button>
+                                <Button outline color="primary" onClick={this.toggle}>Edit Crew</Button>
+                                </h4>
                                 <Table striped bordered small>
                                   <thead>
                                     <tr>
