@@ -43,14 +43,15 @@ class DashboardPage extends React.Component {
     new Chart(ctxB, {
       type: 'bar',
       data: {
-          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          labels: ["30 days", "60 days", "90 days"],
           datasets: [{
-              label: '# of Votes',
-              data: [12, 19, 3, 5, 2, 3],
+              label: ["certification expiry dates" ],
+              // Change data to reflect database
+              data: [12, 19, 10, 5, 2, 3],
               backgroundColor: [
                   'rgba(255, 99, 132, 0.2)',
                   'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
                   'rgba(75, 192, 192, 0.2)',
                   'rgba(153, 102, 255, 0.2)',
                   'rgba(255, 159, 64, 0.2)'
@@ -58,7 +59,7 @@ class DashboardPage extends React.Component {
               borderColor: [
                   'rgba(255,99,132,1)',
                   'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
                   'rgba(75, 192, 192, 1)',
                   'rgba(153, 102, 255, 1)',
                   'rgba(255, 159, 64, 1)'
@@ -84,6 +85,7 @@ class DashboardPage extends React.Component {
             labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
             datasets: [
                 {
+                  // Content data to database
                     data: [300, 50, 100, 40, 120],
                     backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
                     hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
@@ -126,7 +128,9 @@ class DashboardPage extends React.Component {
       activeItemOuterTabs: '1',
       activeItemInnerPills: '1',
       activeItemClassicTabs1: '1',
-      activeItemClassicTabs2: '1'
+      activeItemClassicTabs2: '1',
+      modal: false
+      
     };
   }
 
@@ -387,19 +391,19 @@ class DashboardPage extends React.Component {
               <h2 className="mt-5 text-center">Company Overview</h2>
                 <Row>
                   <Col md="7" className="md-0 mb-1">
-                    <h3>Line chart</h3>
+                    <h3 className= "text-center">Line chart</h3>
                     <Line data={data} />
                   </Col>
                   <Col md="5" className="md-0 mb-5">
-                  <h3 className="mt-5">Doughnut Chart</h3>
+                  <h3 className="mt-5 text-center">Doughnut Chart</h3>
                     <canvas id="doughnutChart"></canvas>
                   </Col>
                   <Col md="7" className="md-0 mb-5">
-                    <h3>Bar chart</h3>
+                    <h3 className="text-center">Bar chart</h3>
                     <canvas id="barChart"></canvas>
                   </Col>
                   <Col md="5" className="md-0 mb-5">
-                  <h3 className="mt-5">Pie Chart</h3>
+                  <h3 className="mt-5 text-center">Pie Chart</h3>
                     <canvas id="pieChart"></canvas>
                   </Col>
               </Row>
