@@ -27,7 +27,7 @@ class DashbAddSiteModal extends React.Component  {
       <Container className="mt-3">
         <Row>
           <Col size="12" className="mb-1">
-            <Button className="btn-rounded" color="mdb-color" onClick={this.toggle}>Add New Site</Button>
+            <Button className="btn" color="mdb-color" onClick={this.toggle}>Add New Site</Button>
             <Modal isOpen={this.state.modal} toggle={this.toggle}>
               <form>
                 <ModalHeader style={modStyle}  toggle={this.toggle}>Add New Site</ModalHeader>

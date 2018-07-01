@@ -3,7 +3,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Line, Chart } from 'react-chartjs-2';
 import { Container, Row, Col, Button, Card, CardBody, CardTitle, CardText, TabPane, TabContent, Table, Nav, NavItem, NavLink, Fa } from 'mdbreact';
 import classnames from 'classnames';
-import DashbAddSiteModal from '../../components/DashbAddSiteModal';
+import DashbAddSiteModal from '../../components/DashbAddSiteModal'; 
+import DashbEditSiteModal from '../../components/DashbEditSiteModal'; 
 
 
 // Line chart
@@ -190,6 +191,7 @@ class DashboardPage extends React.Component {
           <Row>
             <Col md="12">
             <DashbAddSiteModal/>
+            
             <h2 className="mt-3">Dashboard</h2>
             <Nav tabs className="nav-justified" color="mdb-color">
                 <NavItem>
@@ -226,7 +228,14 @@ class DashboardPage extends React.Component {
                           <Col md="12">
                             <Card>
                               <CardBody>
-                                <h4 className="h4-responsive">Richmond Crews</h4>
+                              <Row>
+                              <Col><p className="h4-responsive">Richmond Crews</p> 
+                              </Col>
+                              <Col>
+                              <DashbEditSiteModal/>
+                              </Col>
+                              </Row>
+                                
                                 <Table striped bordered small>
                                   <thead>
                                     <tr>
