@@ -1,10 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Line, Chart } from 'react-chartjs-2';
-import { Container, Row, Col, Button, Card, CardBody, CardTitle, CardText, TabPane, TabContent, Table, Nav, NavItem, NavLink, Fa } from 'mdbreact';
+import { Container, Row, Col, Button, Card, CardBody, CardTitle, CardText, TabPane, TabContent, Table, Nav, NavItem, NavLink, Fa, SideNavCat, SideNav, SideNavNav } from 'mdbreact';
 import classnames from 'classnames';
 import DashbAddSiteModal from '../../components/DashbAddSiteModal'; 
 import DashbEditSiteModal from '../../components/DashbEditSiteModal'; 
+import DashSideNav from '../components/DashSideNav/DashSideNav.css';
 
 
 // Line chart
@@ -186,41 +187,31 @@ class DashboardPage extends React.Component {
 
   render() {
     return (
+      <div>
       <Router>
-        <Container className="mt-5">
+        <Container className="mt-4">
+        <Row>
+          <Col md="2">
+            <div className="container" style={{height: "10px"}}>
+              <SideNav fixed breakWidth={1300} className="stylish-color-dark">
+                <SideNavNav>
+                  <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '1' })} onClick={() => { this.toggleInnerPills('1'); }} name="Main" icon="bar-chart"></SideNavCat>
+                  <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '2' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('2'); }} name="Site 1" icon="building-o"></SideNavCat>
+                  <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '3' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('3'); }} name="Site 2" icon="building-o"></SideNavCat>
+                  <SideNavCat name="Add Site" href="#" className="add-site" icon="plus" ></SideNavCat>
+                </SideNavNav>
+              </SideNav>
+            </div>
+          </Col>
+          <Col>
           <Row>
             <Col md="12">
-            <DashbAddSiteModal/>
-            
-            <h2 className="mt-3">Dashboard</h2>
-            <Nav tabs className="nav-justified" color="mdb-color">
-                <NavItem>
-                  <NavLink to="#" className={classnames({ active: this.state.activeItemOuterTabs === '1' })} onClick={() => { this.toggleOuterTabs('1'); }} role="tab">
-                  <Fa icon="building"/> Company
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink to="#" className={classnames({ active: this.state.activeItemOuterTabs === '2' })} onClick={() => { this.toggleOuterTabs('2'); }} role="tab">
-                  <Fa icon="user"/> Profile
-                  </NavLink>
-                </NavItem>
-              </Nav>
+            <h2 className="mt-5"></h2>
+
               <TabContent className="card" activeItem={this.state.activeItemOuterTabs}>
                 <TabPane tabId="1" role="tabpanel">
                   <Row>
-                  <Col md="3">
-                    <Nav pills color="primary" className="flex-column">
-                    <NavItem>
-                      <NavLink to="#" className={classnames({ active: this.state.activeItemInnerPills === '1' })} onClick={() => { this.toggleInnerPills('1'); }}>Site 1 <Fa icon="address-card" className="ml-2"/></NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink to="#" className={classnames({ active: this.state.activeItemInnerPills === '2' })} onClick={() => { this.toggleInnerPills('2'); }}>Site 2 <Fa icon="address-card" className="ml-2"/></NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink to="#" className={classnames({ active: this.state.activeItemInnerPills === '3' })} onClick={() => { this.toggleInnerPills('3'); }}>Site 3 <Fa icon="address-card" className="ml-2"/></NavLink>
-                    </NavItem>
-                    </Nav>
-                  </Col>
+
                   <Col md="9">
                     <TabContent activeItem={this.state.activeItemInnerPills}>
                       <TabPane tabId="1">
@@ -402,8 +393,11 @@ class DashboardPage extends React.Component {
             </Container>
           </div>
           </Row>
+          </Col>
+          </Row>
         </Container>
       </Router>
+      </div>
 
     );
   }
