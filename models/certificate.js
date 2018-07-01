@@ -35,18 +35,7 @@ module.exports = function (sequelize, DataTypes) {
         //         allowNull: false
         //     }
         // });
-    };
-    //     Certificate.belongsTo(models.Cert-crew, {
-    //         foreignKey: {
-    //             allowNull: false
-    //         }
-    //     });
-    //     // Certificate.belongsTo(models.Employee-cert, {
-    //     //     foreignKey: {
-    //     //         allowNull: false
-    //     //     }
-    //     // });
-    // };
 
     return Certificate;
+
 };

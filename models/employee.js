@@ -48,11 +48,6 @@ module.exports = function (sequelize, DataTypes) {
         //     onDelete: "cascade"
         // });
 
-    //     Employee.hasMany(models.Employee-cert, {
-    //         onDelete: "cascade"
-    //     });
-
-
     // };
 
     return Employee;
