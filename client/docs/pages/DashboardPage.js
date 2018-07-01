@@ -3,8 +3,9 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Line, Chart } from 'react-chartjs-2';
 import { Container, Row, Col, Button, Card, CardBody, CardTitle, CardText, TabPane, TabContent, Table, Nav, NavItem, NavLink, Fa, SideNavCat, SideNav, SideNavNav } from 'mdbreact';
 import classnames from 'classnames';
-import DashbAddSiteModal from '../../components/DashbAddSiteModal'; 
-import DashbEditSiteModal from '../../components/DashbEditSiteModal'; 
+import DashbAddSiteModal from '../../components/DashbAddSiteModal';
+import DashbEditSiteModal from '../../components/DashbEditSiteModal';
+import DashbEditCertificationModal from '../../components/DashbEditCertificationModal';
 import DashSideNav from '../components/DashSideNav/DashSideNav.css';
 
 
@@ -47,76 +48,76 @@ class DashboardPage extends React.Component {
     new Chart(ctxB, {
       type: 'bar',
       data: {
-          labels: ["30 days", "60 days", "90 days"],
-          datasets: [{
-              label: ["certification expiry dates" ],
-              // Change data to reflect database
-              data: [12, 19, 10, 5, 2, 3],
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(255,99,132,1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
-          }]
+        labels: ["30 days", "60 days", "90 days"],
+        datasets: [{
+          label: ["certification expiry dates"],
+          // Change data to reflect database
+          data: [12, 19, 10, 5, 2, 3],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
       },
       optionss: {
-          scales: {
-              yAxes: [{
-                  ticks: {
-                      beginAtZero:true
-                  }
-              }]
-          }
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
       }
     });
     // Pie chart
     var ctxP = document.getElementById("pieChart").getContext('2d');
     new Chart(ctxP, {
-        type: 'pie',
-        data: {
-            labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
-            datasets: [
-                {
-                  // Content data to database
-                    data: [300, 50, 100, 40, 120],
-                    backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
-                    hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
-                }
-            ]
-        },
-        options: {
-            responsive: true
-        }    
+      type: 'pie',
+      data: {
+        labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+        datasets: [
+          {
+            // Content data to database
+            data: [300, 50, 100, 40, 120],
+            backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+            hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+          }
+        ]
+      },
+      options: {
+        responsive: true
+      }
     });
     //doughnut
     var ctxD = document.getElementById("doughnutChart").getContext('2d');
     new Chart(ctxD, {
-        type: 'doughnut',
-        data: {
-            labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
-            datasets: [
-                {
-                    data: [300, 50, 100, 40, 120],
-                    backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
-                    hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
-                }
-            ]
-        },
-        options: {
-            responsive: true
-        }    
+      type: 'doughnut',
+      data: {
+        labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+        datasets: [
+          {
+            data: [300, 50, 100, 40, 120],
+            backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+            hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+          }
+        ]
+      },
+      options: {
+        responsive: true
+      }
     });
   }
 
@@ -124,7 +125,7 @@ class DashboardPage extends React.Component {
   constructor(props) {
     super(props);
 
-    
+
     this.state = {
       activeItem: '1',
       activeItemPills: '1',
@@ -197,221 +198,278 @@ class DashboardPage extends React.Component {
   render() {
     return (
       <div>
-      <Router>
-        <Container className="mt-4">
-        <Row>
-          <Col md="2">
-            <div className="container" style={{height: "10px"}}>
-              <SideNav fixed breakWidth={1300} className="stylish-color-dark">
-                <SideNavNav>
-                  <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '1' })} onClick={() => { this.toggleInnerPills('1'); }} name="Main" icon="bar-chart"></SideNavCat>
-                  <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '2' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('2'); }} name="Site 1" icon="building-o"></SideNavCat>
-                  <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '3' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('3'); }} name="Site 2" icon="building-o"></SideNavCat>
-                  {/* <SideNavCat name="Add Site" href="#" className="add-site" icon="plus" ></SideNavCat> */}
-                  <DashbAddSiteModal/>
-                </SideNavNav>
-              </SideNav>
-            </div>
-          </Col>
-          <Col>
-          <Row>
-            <Col md="12">
+        <Router>
+          <Container className="mt-4">
+            <Row>
+              <Col md="2">
+                <div className="container" style={{ height: "10px" }}>
+                  <SideNav fixed breakWidth={1300} className="stylish-color-dark">
+                    <SideNavNav>
+                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '1' })} onClick={() => { this.toggleInnerPills('1'); }} name="Main" icon="bar-chart"></SideNavCat>
+                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '2' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('2'); }} name="Site 1" icon="building-o"></SideNavCat>
+                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '3' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('3'); }} name="Site 2" icon="building-o"></SideNavCat>
+                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '4' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('4'); }} name="Site 3" icon="building-o"></SideNavCat>
+                      {/* <SideNavCat name="Add Site" href="#" className="add-site" icon="plus" ></SideNavCat> */}
+                      <DashbAddSiteModal />
+                    </SideNavNav>
+                  </SideNav>
+                </div>
+              </Col>
+              <Col>
+                <Row>
+                  <Col md="12">
 
-            <h2 className="mt-5 text-center">Dashboard</h2>
-              <TabContent className="card" activeItem={this.state.activeItemOuterTabs}>
-                <TabPane tabId="1" role="tabpanel">
-                  <Row>
+                    {/* <h2 className="mt-5 text-center">Dashboard</h2> */}
+                    <TabContent activeItem={this.state.activeItemOuterTabs}>
 
-                  <Col md="9">
-                    <TabContent activeItem={this.state.activeItemInnerPills}>
-                      <TabPane tabId="1">
-                        <Row className="pb-3">
-                          <Col md="12">
-                            <Card>
-                              <CardBody>
-                    
+                      <TabPane tabId="1" role="tabpanel">
+                        <Row>
 
-                              <Row>
-                              <Col><p className="h4-responsive">Richmond Crews</p> 
-                              </Col>
-                              </Row>
-                                
-
-                                <Table striped bordered small>
-                                  <thead>
-                                    <tr>
-                                      <th>#</th>
-                                      <th>Crew Names</th>
-                                      <th>Crew Type</th>
-                                      <th>Number of members</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <th scope="row">1</th>
-                                      <td>RT</td>
-                                      <td>Radiography</td>
-                                      <td>24</td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">2</th>
-                                      <td>Ropes</td>
-                                      <td>Rope Access</td>
-                                      <td>12</td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">3</th>
-                                      <td>Ground</td>
-                                      <td>Ground Inspection</td>
-                                      <td>56</td>
-                                    </tr>
-                                  </tbody>
-                                </Table>
-                              </CardBody>
-                            </Card>
+                          <Col md="9">
+                            <TabContent activeItem={this.state.activeItemInnerPills}>
+                              <TabPane tabId="2">
+                                <Row className="pb-3">
+                                  <Col md="12">
+                                    <Card>
+                                      <CardBody>
+                                        <Row>
+                                          <Col><h4 className="h4-responsive text-center">Richmond Crews</h4>
+                                            <DashbEditSiteModal />
+                                          </Col>
+                                        </Row>
+                                        <Table striped bordered small>
+                                          <thead>
+                                            <tr>
+                                              <th>#</th>
+                                              <th>Crew Names</th>
+                                              <th>Crew Type</th>
+                                              <th>Number of members</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr>
+                                              <th scope="row">1</th>
+                                              <td>RT</td>
+                                              <td>Radiography</td>
+                                              <td>24</td>
+                                            </tr>
+                                            <tr>
+                                              <th scope="row">2</th>
+                                              <td>Ropes</td>
+                                              <td>Rope Access</td>
+                                              <td>12</td>
+                                            </tr>
+                                            <tr>
+                                              <th scope="row">3</th>
+                                              <td>Ground</td>
+                                              <td>Ground Inspection</td>
+                                              <td>56</td>
+                                            </tr>
+                                          </tbody>
+                                        </Table>
+                                      </CardBody>
+                                    </Card>
+                                    <br></br>
+                                    <Card>
+                                      <CardBody>
+                                        <h4 className="h4-responsive text-center">Certifications</h4>
+                                        <DashbEditCertificationModal />
+                                        <Table striped bordered small>
+                                          <tbody>
+                                            <tr>
+                                              <td>Fire Safety</td>
+                                            </tr>
+                                            <tr>
+                                              <td>Sexual Harrassment Training</td>
+                                            </tr>
+                                            <tr>
+                                              <td>Ladder Safety</td>
+                                            </tr>
+                                          </tbody>
+                                        </Table>
+                                      </CardBody>
+                                    </Card>
+                                  </Col>
+                                </Row>
+                              </TabPane>
+                              <TabPane tabId="3">
+                                <Row className="pb-3">
+                                  <Col md="12">
+                                    <Card>
+                                      <CardBody>
+                                        <h4 className="h4-responsive text-center">Benicia Crews</h4>
+                                        <DashbEditSiteModal />
+                                        <Table striped bordered small>
+                                          <thead>
+                                            <tr>
+                                              <th>#</th>
+                                              <th>Crew Names</th>
+                                              <th>Crew Type</th>
+                                              <th>Number of members</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr>
+                                              <th scope="row">1</th>
+                                              <td>RT</td>
+                                              <td>Radiography</td>
+                                              <td>24</td>
+                                            </tr>
+                                            <tr>
+                                              <th scope="row">2</th>
+                                              <td>Ropes</td>
+                                              <td>Rope Access</td>
+                                              <td>12</td>
+                                            </tr>
+                                            <tr>
+                                              <th scope="row">3</th>
+                                              <td>Ground</td>
+                                              <td>Ground Inspection</td>
+                                              <td>56</td>
+                                            </tr>
+                                          </tbody>
+                                        </Table>
+                                      </CardBody>
+                                    </Card>
+                                    <br></br>
+                                    <Card>
+                                      <CardBody>
+                                        <h4 className="h4-responsive text-center">Certifications</h4>
+                                        <DashbEditCertificationModal />
+                                        <Table striped bordered small>
+                                          <tbody>
+                                            <tr>
+                                              <td>Fire Safety</td>
+                                            </tr>
+                                            <tr>
+                                              <td>Sexual Harrassment Training</td>
+                                            </tr>
+                                            <tr>
+                                              <td>Ladder Safety</td>
+                                            </tr>
+                                          </tbody>
+                                        </Table>
+                                      </CardBody>
+                                    </Card>
+                                  </Col>
+                                </Row>
+                              </TabPane>
+                              <TabPane tabId="4">
+                                <Row className="pb-3">
+                                  <Col md="12">
+                                    <Card>
+                                      <CardBody>
+                                        <h4 className="h4-responsive text-center">Tesoro Crew</h4>
+                                        <DashbEditSiteModal />
+                                        <Table striped bordered small>
+                                          <thead>
+                                            <tr>
+                                              <th>#</th>
+                                              <th>Crew Names</th>
+                                              <th>Crew Type</th>
+                                              <th>Number of members</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr>
+                                              <th scope="row">1</th>
+                                              <td>RT</td>
+                                              <td>Radiography</td>
+                                              <td>24</td>
+                                            </tr>
+                                            <tr>
+                                              <th scope="row">2</th>
+                                              <td>Ropes</td>
+                                              <td>Rope Access</td>
+                                              <td>12</td>
+                                            </tr>
+                                            <tr>
+                                              <th scope="row">3</th>
+                                              <td>Ground</td>
+                                              <td>Ground Inspection</td>
+                                              <td>56</td>
+                                            </tr>
+                                          </tbody>
+                                        </Table>
+                                      </CardBody>
+                                    </Card>
+                                    <br></br>
+                                    <Card>
+                                      <CardBody>
+                                        <h4 className="h4-responsive text-center">Certifications</h4>
+                                        <DashbEditCertificationModal />
+                                        <Table striped bordered small>
+                                          <tbody>
+                                            <tr>
+                                              <td>Fire Safety</td>
+                                            </tr>
+                                            <tr>
+                                              <td>Sexual Harrassment Training</td>
+                                            </tr>
+                                            <tr>
+                                              <td>Ladder Safety</td>
+                                            </tr>
+                                          </tbody>
+                                        </Table>
+                                      </CardBody>
+                                    </Card>
+                                  </Col>
+                                </Row>
+                              </TabPane>
+                            </TabContent>
                           </Col>
                         </Row>
                       </TabPane>
-                      <TabPane tabId="2">
-                      <Row className="pb-3">
-                          <Col md="12">
-                            <Card>
-                              <CardBody>
-                                <h4 className="h4-responsive">Benicia Crews
-                                <DashbEditSiteModal/>
-                                </h4>
-                                <Table striped bordered small>
-                                  <thead>
-                                    <tr>
-                                      <th>#</th>
-                                      <th>Crew Names</th>
-                                      <th>Crew Type</th>
-                                      <th>Number of members</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <th scope="row">1</th>
-                                      <td>RT</td>
-                                      <td>Radiography</td>
-                                      <td>24</td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">2</th>
-                                      <td>Ropes</td>
-                                      <td>Rope Access</td>
-                                      <td>12</td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">3</th>
-                                      <td>Ground</td>
-                                      <td>Ground Inspection</td>
-                                      <td>56</td>
-                                    </tr>
-                                  </tbody>
-                                </Table>
-                              </CardBody>
-                            </Card>
+                      <TabPane tabId="2" role="tabpanel">
+                        <Row>
+                          <Col md="6">
+                            <CardBody>
+                              <CardTitle>Special Title Treatment</CardTitle>
+                              <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+                              <Button>Go somewhere</Button>
+                            </CardBody>
                           </Col>
-                        </Row>
-                      </TabPane>
-                      <TabPane tabId="3">
-                      <Row className="pb-3">
-                          <Col md="12">
-                            <Card>
-                              <CardBody>
-                                <h4 className="h4-responsive">Tesoro Crews
-                                <DashbEditSiteModal/>
-                                </h4>
-                                <Table striped bordered small>
-                                  <thead>
-                                    <tr>
-                                      <th>#</th>
-                                      <th>Crew Names</th>
-                                      <th>Crew Type</th>
-                                      <th>Number of members</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <th scope="row">1</th>
-                                      <td>RT</td>
-                                      <td>Radiography</td>
-                                      <td>24</td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">2</th>
-                                      <td>Ropes</td>
-                                      <td>Rope Access</td>
-                                      <td>12</td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">3</th>
-                                      <td>Ground</td>
-                                      <td>Ground Inspection</td>
-                                      <td>56</td>
-                                    </tr>
-                                  </tbody>
-                                </Table>
-                              </CardBody>
-                            </Card>
+                          <Col md="6">
+                            <CardBody>
+                              <CardTitle>Special Title Treatment</CardTitle>
+                              <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+                              <Button>Go somewhere</Button>
+                            </CardBody>
                           </Col>
                         </Row>
                       </TabPane>
                     </TabContent>
                   </Col>
                 </Row>
-                </TabPane>
-                <TabPane tabId="2" role="tabpanel">
-                  <Row>
-                    <Col md="6">
-                      <CardBody>
-                        <CardTitle>Special Title Treatment</CardTitle>
-                        <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                        <Button>Go somewhere</Button>
-                      </CardBody>
-                    </Col>
-                    <Col md="6">
-                      <CardBody>
-                        <CardTitle>Special Title Treatment</CardTitle>
-                        <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                        <Button>Go somewhere</Button>
-                      </CardBody>
-                    </Col>
-                  </Row>
-                </TabPane>
-              </TabContent>
-            </Col>
-          </Row>
-          <Row>
-            <div style={{marginTop: '100px'}}>
-              <Container>
-              <h2 className="mt-5 text-center">Company Overview</h2>
                 <Row>
-                  <Col md="7" className="md-0 mb-1">
-                    <h3 className= "text-center">Line chart</h3>
-                    <Line data={data} />
-                  </Col>
-                  <Col md="5" className="md-0 mb-5">
-                  <h3 className="mt-5 text-center">Doughnut Chart</h3>
-                    <canvas id="doughnutChart"></canvas>
-                  </Col>
-                  <Col md="7" className="md-0 mb-5">
-                    <h3 className="text-center">Bar chart</h3>
-                    <canvas id="barChart"></canvas>
-                  </Col>
-                  <Col md="5" className="md-0 mb-5">
-                  <h3 className="mt-5 text-center">Pie Chart</h3>
-                    <canvas id="pieChart"></canvas>
-                  </Col>
-              </Row>
-            </Container>
-          </div>
-          </Row>
-          </Col>
-          </Row>
-        </Container>
-      </Router>
+                  <div>
+                    <Container>
+                      <h2 className="mt-5 text-center">Company Overview</h2>
+                      <Row>
+                        <Col md="7" className="md-0 mb-1">
+                          <h3 className="text-center">Line chart</h3>
+                          <Line data={data} />
+                        </Col>
+                        <Col md="5" className="md-0 mb-5">
+                          <h3 className="mt-5 text-center">Doughnut Chart</h3>
+                          <canvas id="doughnutChart"></canvas>
+                        </Col>
+                        <Col md="7" className="md-0 mb-5">
+                          <h3 className="text-center">Bar chart</h3>
+                          <canvas id="barChart"></canvas>
+                        </Col>
+                        <Col md="5" className="md-0 mb-5">
+                          <h3 className="mt-5 text-center">Pie Chart</h3>
+                          <canvas id="pieChart"></canvas>
+                        </Col>
+                      </Row>
+                    </Container>
+                  </div>
+                </Row>
+              </Col>
+            </Row>
+          </Container>
+        </Router>
       </div>
 
     );
