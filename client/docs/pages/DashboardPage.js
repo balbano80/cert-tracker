@@ -1,12 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Line, Chart } from 'react-chartjs-2';
-import { Container, Row, Col, Button, Card, CardBody, CardTitle, CardText, TabPane, TabContent, Table, Nav, NavItem, NavLink, Fa, SideNavCat, SideNav, SideNavNav } from 'mdbreact';
+import { Container, Row, Col, Card, CardBody, TabPane, TabContent, Table, SideNavCat, SideNav, SideNavNav } from 'mdbreact';
 import classnames from 'classnames';
 import DashbAddSiteModal from '../../components/DashbAddSiteModal';
 import DashbEditSiteModal from '../../components/DashbEditSiteModal';
-import DashbAddCertificationModal from '../../components/DashbAddCertificationModal';
-import DashbEditCertificationModal from '../../components/DashbEditCertificationModal';
+import DashbMainCertModal from '../../components/DashbMainCertModal';
 import DashSideNav from '../components/DashSideNav/DashSideNav.css';
 
 
@@ -38,7 +37,6 @@ const data = {
     }
   ]
 };
-
 
 
 class DashboardPage extends React.Component {
@@ -218,7 +216,6 @@ class DashboardPage extends React.Component {
               <Col>
                 <Row>
                   <Col lg="12">
-
                     <h2 className="mt-5 text-center">Dashboard</h2>
                     <TabContent className="card" activeItem={this.state.activeItemOuterTabs}>
                       <TabPane tabId="1" role="tabpanel">
@@ -299,26 +296,8 @@ class DashboardPage extends React.Component {
                                       </CardBody>
                                     </Card>
                                     <br /><br />
-                                    <Card>
-                                      <CardBody>
-                                        <h4 className="h4-responsive text-center">Certifications</h4>
-                                        <DashbEditCertificationModal />
-                                        <DashbAddCertificationModal />
-                                        <Table striped bordered small>
-                                          <tbody>
-                                            <tr>
-                                              <td>Fire Safety</td>
-                                            </tr>
-                                            <tr>
-                                              <td>Sexual Harrassment Training</td>
-                                            </tr>
-                                            <tr>
-                                              <td>Ladder Safety</td>
-                                            </tr>
-                                          </tbody>
-                                        </Table>
-                                      </CardBody>
-                                    </Card>
+                                      <DashbMainCertModal />
+
                                   </Col>
                                 </Row>
                               </TabPane>
@@ -368,26 +347,8 @@ class DashboardPage extends React.Component {
                                       </CardBody>
                                     </Card>
                                     <br /><br />
-                                    <Card>
-                                      <CardBody>
-                                        <h4 className="h4-responsive text-center">Certifications</h4>
-                                        <DashbEditCertificationModal />
-                                        <DashbAddCertificationModal />
-                                        <Table striped bordered small>
-                                          <tbody>
-                                            <tr>
-                                              <td>Fire Safety</td>
-                                            </tr>
-                                            <tr>
-                                              <td>Sexual Harrassment Training</td>
-                                            </tr>
-                                            <tr>
-                                              <td>Ladder Safety</td>
-                                            </tr>
-                                          </tbody>
-                                        </Table>
-                                      </CardBody>
-                                    </Card>
+                                      <DashbMainCertModal />
+
                                   </Col>
                                 </Row>
                               </TabPane>
@@ -436,36 +397,10 @@ class DashboardPage extends React.Component {
                                         </Table>
                                       </CardBody>
                                     </Card>
-                                    <br /><br />
-                                    <Card>
-                                      <CardBody>
-                                      <Row>
-                                          <Col>
-                                          <h4 className="h4-responsive">Certifications</h4>
-                                          </Col>
-                                          <Col>
-                                          <DashbEditCertificationModal />
-                                          </Col>
-                                          <Col>
-                                          <DashbAddCertificationModal />
-                                          </Col>
-                                        </Row>
 
-                                        <Table striped bordered small>
-                                          <tbody>
-                                            <tr>
-                                              <td>Fire Safety</td>
-                                            </tr>
-                                            <tr>
-                                              <td>Sexual Harrassment Training</td>
-                                            </tr>
-                                            <tr>
-                                              <td>Ladder Safety</td>
-                                            </tr>
-                                          </tbody>
-                                        </Table>
-                                      </CardBody>
-                                    </Card>
+                                      <br /><br />
+                                      <DashbMainCertModal />
+
                                   </Col>
                                 </Row>
                               </TabPane>
