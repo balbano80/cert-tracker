@@ -27,9 +27,9 @@ class DashbAddCertificationModal extends React.Component  {
       <Container>
  <Row>
           <Col size="12" className="text-center mb-5">
-            <Button outline color="primary" onClick={this.toggle}>Edit Certification</Button>
+            <Button outline color="primary" onClick={this.toggle}>Add Certification</Button>
             <Modal isOpen={this.state.modal} toggle={this.toggle}>
-                <ModalHeader className="blue-grey-text" toggle={this.toggle}>Edit Certification</ModalHeader>
+                <ModalHeader className="blue-grey-text" toggle={this.toggle}>Add Certification</ModalHeader>
                 <ModalBody className="blue-grey-text">
                 <Input size="sm" label="Your name" icon="user" group type="text" validate error="wrong" success="right"/>
                 <Input size="sm" label="Your email" icon="envelope" group type="email" validate error="wrong" success="right"/>
@@ -48,4 +48,4 @@ class DashbAddCertificationModal extends React.Component  {
   }
 };
 
-export default DashbAddCertificationModal;
+export default DashbAddCertificationModal;  
