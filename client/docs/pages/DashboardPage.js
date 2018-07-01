@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Line, Chart } from 'react-chartjs-2';
-import { Container, Row, Col, Button, Card, CardBody, CardTitle, CardText, TabPane, TabContent, Table, Nav, NavItem, NavLink, Fa } from 'mdbreact';
+import { Container, Row, Col, Button, Card, CardBody, CardTitle, Modal, ModalBody, ModalHeader, ModalFooter, CardText, TabPane, TabContent, Table, Nav, NavItem, NavLink, Fa } from 'mdbreact';
 import classnames from 'classnames';
 
 // Line chart
@@ -10,7 +10,7 @@ const data = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
     {
-      label: 'My First dataset',
+      label: 'Number of expired certifications',
       fill: false,
       lineTension: 0.1,
       backgroundColor: '#848484',
@@ -120,7 +120,7 @@ class DashboardPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.toggle = this.toggle.bind(this);
+    
     this.state = {
       activeItem: '1',
       activeItemPills: '1',
@@ -130,8 +130,8 @@ class DashboardPage extends React.Component {
       activeItemClassicTabs1: '1',
       activeItemClassicTabs2: '1',
       modal: false
-      
     };
+    this.toggle = this.toggle.bind(this);
   }
 
   toggle() {
@@ -232,11 +232,10 @@ class DashboardPage extends React.Component {
                           <Col md="12">
                             <Card>
                               <CardBody>
-                                <h4 className="h4-responsive">Richmond Crews
+                                <h4 className="h4-responsive">Richmond Crews                                
                                 <Button outline color="primary" onClick={this.toggle}>+Add Crew</Button>
                                 <Button outline color="primary" onClick={this.toggle}>Edit Crew</Button>
-                                </h4>
-                          
+                                </h4>                      
                                 <Table striped bordered small>
                                   <thead>
                                     <tr>
