@@ -16,5 +16,11 @@ export default {
   // Saves a employee to the database
   saveEmployee: function(employeeData) {
     return axios.post("/api/employee", employeeData);
+  },
+
+  // creates a new Admin in the admins table of the database
+  createAdmin: function(newAdmin) {
+    console.log("in utils API folder", newAdmin);
+    return axios.post("/api/signup", newAdmin);
   }
 };
