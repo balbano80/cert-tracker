@@ -1693,7 +1693,7 @@ a.text-light:hover, a.text-light:focus {
   border: none;
   outline: none;
   color: inherit;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
   font-size: 1em;
   line-height: 1em;
   text-align: center;
@@ -6542,7 +6542,7 @@ button, html [type="button"], [type="reset"], [type="submit"] {
 /* Prevent selection and tap highlights */
 .pswp__container,
 .pswp__img {
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-touch-callout: none;
   user-select: none; }
 
@@ -6816,7 +6816,7 @@ a.pswp__share--facebook:before {
   position: absolute;
   top: -12px;
   right: 15px;
-  border: 6px solid transparent;
+  border: 6px solid rgba(0, 0, 0, 0);
   border-bottom-color: #FFF;
   -webkit-pointer-events: none;
   -moz-pointer-events: none;
