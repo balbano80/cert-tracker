@@ -208,6 +208,7 @@ class DashboardPage extends React.Component {
                   <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '2' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('2'); }} name="Site 1" icon="building-o"></SideNavCat>
                   <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '3' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('3'); }} name="Site 2" icon="building-o"></SideNavCat>
                   <SideNavCat name="Add Site" href="#" className="add-site" icon="plus" ></SideNavCat>
+                  <DashbAddSiteModal/>
                 </SideNavNav>
               </SideNav>
             </div>
@@ -217,8 +218,6 @@ class DashboardPage extends React.Component {
             <Col md="12">
 
             <h2 className="mt-5 text-center">Dashboard</h2>
-
-
               <TabContent className="card" activeItem={this.state.activeItemOuterTabs}>
                 <TabPane tabId="1" role="tabpanel">
                   <Row>
@@ -234,9 +233,6 @@ class DashboardPage extends React.Component {
 
                               <Row>
                               <Col><p className="h4-responsive">Richmond Crews</p> 
-                              </Col>
-                              <Col>
-                              <DashbAddSiteModal/>
                               </Col>
                               </Row>
                                 

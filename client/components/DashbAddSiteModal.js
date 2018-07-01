@@ -1,11 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Input, Button, Fa, Card, CardBody, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
 
-const modStyle = {
-  'text': 'center',
-  'background-color': '#b1bace',
-  'color': 'white'
-}
+
 
 class DashbAddSiteModal extends React.Component  {
   constructor(props) {
@@ -27,10 +23,11 @@ class DashbAddSiteModal extends React.Component  {
       <Container className="mt-3">
         <Row>
           <Col size="12" className="mb-1">
-            <Button outline color="primary" onClick={this.toggle}>Add New Site</Button>
+            <Button color="mdb-color" onClick={this.toggle}>
+              <Fa icon="plus" className="mr-1"/>Add Site</Button>
             <Modal isOpen={this.state.modal} toggle={this.toggle}>
               <form>
-                <ModalHeader style={modStyle}  toggle={this.toggle}>Add New Site</ModalHeader>
+                <ModalHeader color="blue-grey" toggle={this.toggle}>Add New Site</ModalHeader>
                 <ModalBody>
                   <Row>
                     <Col size="4" className="lg-4">
@@ -41,7 +38,7 @@ class DashbAddSiteModal extends React.Component  {
                       </Col>
                   </Row>
                 </ModalBody>
-                <ModalFooter style={modStyle}>
+                <ModalFooter>
                   <Button color="mdb-color">Submit</Button>
                 </ModalFooter>
               </form>

@@ -28,9 +28,9 @@ class DashbEditSiteModal extends React.Component  {
  <Row>
           <Col size="12" className="text-center mb-5">
             <Button outline color="primary" onClick={this.toggle}>Edit Site</Button>
-            <Modal isOpen={this.state.modal} toggle={this.toggle} className="cascading-modal">
-            <ModalHeader style={modStyle}  toggle={this.toggle}>Edit this Site</ModalHeader>
-              <ModalBody className="grey-text">
+            <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                <ModalHeader className="blue-grey-text" toggle={this.toggle}>Edit this Site</ModalHeader>
+                <ModalBody className="blue-grey-text">
                 <Input size="sm" label="Your name" icon="user" group type="text" validate error="wrong" success="right"/>
                 <Input size="sm" label="Your email" icon="envelope" group type="email" validate error="wrong" success="right"/>
                 <Input size="sm" label="Subject" icon="tag" group type="text" validate error="wrong" success="right"/>
