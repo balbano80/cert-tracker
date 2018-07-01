@@ -10,9 +10,10 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
-    Crew_certs.associate = function (models) {
+    // Crew_certs.associate = function (models) {
 
-        //to set up relationships
+    //     //to set up relationships
+
 
         // Certificate.hasMany(models.Crew, {
         //     foreignKey: {
@@ -25,5 +26,18 @@ module.exports = function (sequelize, DataTypes) {
         //     }
         // });
     };
+
+    //     Certificate.hasMany(models.Crew, {
+    //         foreignKey: {
+    //             allowNull: false
+    //         }
+    //     });
+    //     // Certificate.belongsTo(models.Employee-cert, {
+    //     //     foreignKey: {
+    //     //         allowNull: false
+    //     //     }
+    //     // });
+    // };
+
     return Crew_certs;
 };

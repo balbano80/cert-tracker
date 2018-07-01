@@ -34,20 +34,26 @@ module.exports = function (sequelize, DataTypes) {
     });
 
 
-    Employee.associate = function (models) {
-        // We're saying that a Asset should belong to an User
-        // An Asset can't be created without an user due to the foreign key constraint
-        Employee.belongsTo(models.Crew, {
-            foreignKey: {
-                allowNull: false
-            }
-        });
+    // Employee.associate = function (models) {
+    //     // We're saying that a Asset should belong to an User
+    //     // An Asset can't be created without an user due to the foreign key constraint
+    //     Employee.belongsTo(models.Crew, {
+    //         foreignKey: {
+    //             allowNull: false
+    //         }
+    //     });
+
 
         // Employee.hasMany(models.Employee-cert, {
         //     onDelete: "cascade"
         // });
 
-    };
+    //     Employee.hasMany(models.Employee-cert, {
+    //         onDelete: "cascade"
+    //     });
+
+
+    // };
 
     return Employee;
 }
