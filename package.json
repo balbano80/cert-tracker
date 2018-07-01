@@ -6,8 +6,8 @@
   "scripts": {
     "start": "if-env NODE_ENV=production && yarn run start:prod || yarn run start:dev",
     "start:prod": "node server.js",
-    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"yarn run client\"",
-    "client": "cd client && yarn run sass-compile && concurrently --kill-others \"yarn run sass-compile --watch\" \"yarn run webpack\"",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"yarn run \"",
+    "client": "cd client && concurrently --kill-others \"yarn run sass-compile --watch\" \"yarn run webpack\"",
     "seed": "node scripts/seedDB.js",
     "install": "cd client && yarn install",
     "build": "cd client && npm run build",
@@ -29,7 +29,7 @@
     "random-bytes": "^1.0.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^1.1.4",
-    "sequelize": "^4.29.2"
+    "sequelize": "^4.38.0"
   },
   "devDependencies": {
     "concurrently": "^3.6.0"

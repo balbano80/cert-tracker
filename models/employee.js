@@ -43,9 +43,15 @@ module.exports = function (sequelize, DataTypes) {
     //         }
     //     });
 
+
+        // Employee.hasMany(models.Employee-cert, {
+        //     onDelete: "cascade"
+        // });
+
     //     Employee.hasMany(models.Employee-cert, {
     //         onDelete: "cascade"
     //     });
+
 
     // };
 

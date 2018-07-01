@@ -25,6 +25,17 @@ module.exports = function (sequelize, DataTypes) {
 
     //     //to set up relationships
 
+        // Certificate.belongsTo(models.Cert-crew, {
+        //     foreignKey: {
+        //         allowNull: false
+        //     }
+        // });
+        // Certificate.belongsTo(models.Employee-cert, {
+        //     foreignKey: {
+        //         allowNull: false
+        //     }
+        // });
+    };
     //     Certificate.belongsTo(models.Cert-crew, {
     //         foreignKey: {
     //             allowNull: false
@@ -36,5 +47,6 @@ module.exports = function (sequelize, DataTypes) {
     //     //     }
     //     // });
     // };
+
     return Certificate;
 };
