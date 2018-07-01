@@ -8,7 +8,7 @@ var passport = require("./config/passport");
 var db = require("./models");
 
 var app = express();
-var PORT = process.env.PORT || 3001;
+var PORT = process.env.PORT || 8080;
 
 var routes = require("./routes");
 
@@ -17,8 +17,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Parse application/json
 app.use(bodyParser.json());
-// app.use(express.static("public"));
-app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
+// app.use(express.static("client/public"));
+app.use(express.static(path.resolve(__dirname, 'client/public')));
 
 // We need to use sessions to keep track of our user's login status
 app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
@@ -29,12 +29,10 @@ app.use(passport.session());
 // Route config -------------------------------------------/
 app.use(routes);
 
-
-
-// app.get('/api', function(req, res) {
-//   res.set('Content-Type', 'application/json');
-//   res.send('{"message":"Hello World"}')
-// });
+app.get('/api', function(req, res) {
+  res.set('Content-Type', 'application/json');
+  res.send('{"message":"Hello World"}')
+});
 
 // If no API routes are hit, send the React app
 app.get('*', function(req, res) {
