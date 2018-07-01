@@ -226,13 +226,12 @@ class DashboardPage extends React.Component {
                       <TabPane tabId="1">
                         <Row className="pb-3">
                                 <div style={{marginTop: '10px'}}>
+                                <h2 className="grey-text">Company Overview</h2>
                                   <Container>
-                                  <h2 className="grey-text">Company Overview</h2>
-                                    <Row>
-                                    
-                                        <h3 className="grey-text text-center">Bar chart</h3>
+                                  
+                                    <Row className="text-center grey-text">
+                                        <h3 className="text-center grey-text">Bar chart</h3>
                                         <canvas id="barChart"></canvas>
-                                      
                                       </Row>
                                       <Row>
                                       <Col lg="6" className="md-0 mb-2">
@@ -245,10 +244,8 @@ class DashboardPage extends React.Component {
                                       </Col>
                                       </Row>
                                       <Row>
-                                        
-                                        <h3 className= "grey-text text-center">Line chart</h3>
+                                        <h3 className="grey-text text-center">Line chart</h3>
                                         <Line data={data} />
-                                      
                                   </Row>
                                 </Container>
                               </div>
