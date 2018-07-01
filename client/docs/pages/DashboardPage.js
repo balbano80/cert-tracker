@@ -200,14 +200,14 @@ class DashboardPage extends React.Component {
       <Router>
         <Container className="mt-4">
         <Row>
-          <Col md="2">
+          <Col lg="12">
             <div className="container" style={{height: "10px"}}>
               <SideNav fixed breakWidth={1300} className="stylish-color-dark">
                 <SideNavNav>
                   <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '1' })} onClick={() => { this.toggleInnerPills('1'); }} name="Main" icon="bar-chart"></SideNavCat>
                   <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '2' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('2'); }} name="Site 1" icon="building-o"></SideNavCat>
                   <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '3' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('3'); }} name="Site 2" icon="building-o"></SideNavCat>
-                  {/* <SideNavCat name="Add Site" href="#" className="add-site" icon="plus" ></SideNavCat> */}
+                  <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '4' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('4'); }} name="Site 3" icon="building-o"></SideNavCat>
                   <DashbAddSiteModal/>
                 </SideNavNav>
               </SideNav>
@@ -215,71 +215,58 @@ class DashboardPage extends React.Component {
           </Col>
           <Col>
           <Row>
-            <Col md="12">
+            <Col lg="12">
 
             <h2 className="mt-5 text-center">Dashboard</h2>
               <TabContent className="card" activeItem={this.state.activeItemOuterTabs}>
                 <TabPane tabId="1" role="tabpanel">
                   <Row>
-
-                  <Col md="9">
+                  <Col lg="12">
                     <TabContent activeItem={this.state.activeItemInnerPills}>
                       <TabPane tabId="1">
                         <Row className="pb-3">
-                          <Col md="12">
-                            <Card>
-                              <CardBody>
-                    
-
-                              <Row>
-                              <Col><p className="h4-responsive">Richmond Crews</p> 
-                              </Col>
+                                <div style={{marginTop: '10px'}}>
+                                  <Container>
+                                  <h2 className="grey-text">Company Overview</h2>
+                                    <Row>
+                                    
+                                        <h3 className="grey-text text-center">Bar chart</h3>
+                                        <canvas id="barChart"></canvas>
+                                      
+                                      </Row>
+                                      <Row>
+                                      <Col lg="6" className="md-0 mb-2">
+                                      <h3 className="text-center">Doughnut Chart</h3>
+                                        <canvas id="doughnutChart"></canvas>
+                                      </Col>
+                                      <Col lg="6" className="md-0 mb-2">
+                                      <h3 className="text-center">Pie Chart</h3>
+                                        <canvas id="pieChart"></canvas>
+                                      </Col>
+                                      </Row>
+                                      <Row>
+                                        
+                                        <h3 className= "grey-text text-center">Line chart</h3>
+                                        <Line data={data} />
+                                      
+                                  </Row>
+                                </Container>
+                              </div>
                               </Row>
-                                
-
-                                <Table striped bordered small>
-                                  <thead>
-                                    <tr>
-                                      <th>#</th>
-                                      <th>Crew Names</th>
-                                      <th>Crew Type</th>
-                                      <th>Number of members</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <th scope="row">1</th>
-                                      <td>RT</td>
-                                      <td>Radiography</td>
-                                      <td>24</td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">2</th>
-                                      <td>Ropes</td>
-                                      <td>Rope Access</td>
-                                      <td>12</td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">3</th>
-                                      <td>Ground</td>
-                                      <td>Ground Inspection</td>
-                                      <td>56</td>
-                                    </tr>
-                                  </tbody>
-                                </Table>
-                              </CardBody>
-                            </Card>
-                          </Col>
-                        </Row>
                       </TabPane>
                       <TabPane tabId="2">
                       <Row className="pb-3">
                           <Col md="12">
                             <Card>
                               <CardBody>
-                                <h4 className="h4-responsive">Benicia Crews
+                              <Row>
+                              <Col>
+                                <h4 className="h4-responsive">Benicia Crews</h4>
+                              </Col>
+                              <Col>
                                 <DashbEditSiteModal/>
-                                </h4>
+                              </Col>
+                              </Row>
                                 <Table striped bordered small>
                                   <thead>
                                     <tr>
@@ -320,9 +307,62 @@ class DashboardPage extends React.Component {
                           <Col md="12">
                             <Card>
                               <CardBody>
-                                <h4 className="h4-responsive">Tesoro Crews
+                              <Row>
+                              <Col>
+                                <h4 className="h4-responsive">Tesoro Crews</h4>
+                              </Col>
+                              <Col>
                                 <DashbEditSiteModal/>
-                                </h4>
+                              </Col>
+                              </Row>
+                                <Table striped bordered small>
+                                  <thead>
+                                    <tr>
+                                      <th>#</th>
+                                      <th>Crew Names</th>
+                                      <th>Crew Type</th>
+                                      <th>Number of members</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">1</th>
+                                      <td>RT</td>
+                                      <td>Radiography</td>
+                                      <td>24</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">2</th>
+                                      <td>Ropes</td>
+                                      <td>Rope Access</td>
+                                      <td>12</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">3</th>
+                                      <td>Ground</td>
+                                      <td>Ground Inspection</td>
+                                      <td>56</td>
+                                    </tr>
+                                  </tbody>
+                                </Table>
+                              </CardBody>
+                            </Card>
+                          </Col>
+                        </Row>
+                      </TabPane>
+                      <TabPane tabId="4">
+                      <Row className="pb-3">
+                          <Col md="12">
+                            <Card>
+                              <CardBody>
+                              <Row>
+                              <Col>
+                                <h4 className="h4-responsive">Richmond Crews</h4>
+                              </Col>
+                              <Col>
+                                <DashbEditSiteModal/>
+                              </Col>
+                              </Row>
                                 <Table striped bordered small>
                                   <thead>
                                     <tr>
@@ -382,31 +422,6 @@ class DashboardPage extends React.Component {
                 </TabPane>
               </TabContent>
             </Col>
-          </Row>
-          <Row>
-            <div style={{marginTop: '100px'}}>
-              <Container>
-              <h2 className="mt-5 text-center">Company Overview</h2>
-                <Row>
-                  <Col md="7" className="md-0 mb-1">
-                    <h3 className= "text-center">Line chart</h3>
-                    <Line data={data} />
-                  </Col>
-                  <Col md="5" className="md-0 mb-5">
-                  <h3 className="mt-5 text-center">Doughnut Chart</h3>
-                    <canvas id="doughnutChart"></canvas>
-                  </Col>
-                  <Col md="7" className="md-0 mb-5">
-                    <h3 className="text-center">Bar chart</h3>
-                    <canvas id="barChart"></canvas>
-                  </Col>
-                  <Col md="5" className="md-0 mb-5">
-                  <h3 className="mt-5 text-center">Pie Chart</h3>
-                    <canvas id="pieChart"></canvas>
-                  </Col>
-              </Row>
-            </Container>
-          </div>
           </Row>
           </Col>
           </Row>
