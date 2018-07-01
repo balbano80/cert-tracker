@@ -127,14 +127,14 @@ module.exports = function (sequelize, DataTypes) {
         }
 
     });
-    Asset.associate = function (models) {
-        // We're saying that a Asset should belong to an User
-        // An Asset can't be created without an user due to the foreign key constraint
-        Asset.belongsTo(models.User, {
-            foreignKey: {
-                allowNull: false
-            }
-        });
-    };
+    // Asset.associate = function (models) {
+    //     // We're saying that a Asset should belong to an User
+    //     // An Asset can't be created without an user due to the foreign key constraint
+    //     Asset.belongsTo(models.User, {
+    //         foreignKey: {
+    //             allowNull: false
+    //         }
+    //     });
+    // };
     return Asset;
 };

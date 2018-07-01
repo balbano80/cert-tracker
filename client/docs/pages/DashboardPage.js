@@ -3,7 +3,10 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Line, Chart } from 'react-chartjs-2';
 import { Container, Row, Col, Button, Card, CardBody, CardTitle, CardText, TabPane, TabContent, Table, Nav, NavItem, NavLink, Fa, SideNavCat, SideNav, SideNavNav } from 'mdbreact';
 import classnames from 'classnames';
+import DashbAddSiteModal from '../../components/DashbAddSiteModal'; 
+import DashbEditSiteModal from '../../components/DashbEditSiteModal'; 
 import DashSideNav from '../components/DashSideNav/DashSideNav.css';
+
 
 // Line chart
 const data = {
@@ -204,6 +207,7 @@ class DashboardPage extends React.Component {
           <Row>
             <Col md="12">
             <h2 className="mt-5"></h2>
+
               <TabContent className="card" activeItem={this.state.activeItemOuterTabs}>
                 <TabPane tabId="1" role="tabpanel">
                   <Row>
@@ -215,7 +219,14 @@ class DashboardPage extends React.Component {
                           <Col md="12">
                             <Card>
                               <CardBody>
-                                <h4 className="h4-responsive">Richmond Crews</h4>
+                              <Row>
+                              <Col><p className="h4-responsive">Richmond Crews</p> 
+                              </Col>
+                              <Col>
+                              <DashbEditSiteModal/>
+                              </Col>
+                              </Row>
+                                
                                 <Table striped bordered small>
                                   <thead>
                                     <tr>

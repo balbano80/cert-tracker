@@ -1,91 +1,102 @@
 import React from 'react';
-import { Container, Row, Col, Input, Button, Fa, Card, CardBody, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
+import { Container, Row, Col, Table, Input, Button, Fa, Card, CardBody, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
+import DatePickerMod from '../../components/DatePickerMod';
+import API from '../../utils/API';
 
-class FormsPage extends React.Component  {
+class FormEmployeePage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      modal: false
-    }
-    this.toggle = this.toggle.bind(this);
+    this.state = {value: 'John Doe'};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  toggle() {
-    this.setState({
-      modal: !this.state.modal
-    });
+    // Handles updating component state when the user types into the input field
+    handleInputChange = event => {
+      const { name, value } = event.target;
+      this.setState({
+        [name]: value
+      });
+    };
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    API.getEmployee().then(function(res){
+      console.log(res);
+    }).catch(err => {
+      console.log(err)
+    })
+    alert('Input value: ' + this.state.value);
+    event.preventDefault();
   }
 
   render() {
     return(
       <Container className="mt-5">
-        <h2 className="mb-5">Employee Form</h2>
+        <h2 className="mb-5">Certificate Tracking</h2>
         <Row>
           <Col md="6">
             <Card>
               <CardBody>
-                <form>
-                  <p className="h4 text-center py-4">Sign up</p>
-                  <div className="grey-text">
-                    <Input label="Your name" icon="user" group type="text" validate error="wrong" success="right"/>
-                    <Input label="Your email" icon="envelope" group type="email" validate error="wrong" success="right"/>
-                    <Input label="Confirm your email" icon="exclamation-triangle" group type="text" validate error="wrong" success="right"/>
-                    <Input label="Your password" icon="lock" group type="password" validate/>
+                <form>             
+                    <div className="form-group col-md-12 grey-text">
+                      <label htmlFor="first-name">First Name</label>
+                      <input value={this.state.first_name} onChange={this.handleChange} type="text" className="form-control" id="first-name" placeholder="First Name" />
+                    </div>
+                    <div className="form-group col-md-12 grey-text">
+                      <label htmlFor="last-name">Last Name</label>
+                      <input value={this.state.last_name} onChange={this.handleChange} type="text" className="form-control" id="last-name" placeholder="Last Name" />
+                    </div>
+                  <div className="form-group col-md-12 grey-text">
+                    <label htmlFor="phone-number">Phone Number</label>
+                    <input value={this.state.phone_number} onChange={this.handleChange} type="text" className="form-control" id="phone-nmber" placeholder="555 555 55555" />
                   </div>
-                  <div className="text-center py-4 mt-3">
-                    <Button color="cyan" type="submit">Register</Button>
+                  <div className="form-group col-md-12 grey-text">
+                    <label htmlFor="inputEmail4">Email</label>
+                    <input value={this.state.email} onChange={this.handleChange} type="email" className="form-control" id="inputEmail4" placeholder="Email" />
                   </div>
+                  <br />
+                  <hr />
+                  <h4 className="mb-2 mt-2 grey-text">Certification dates</h4>
+                  <p className="grey-text">Please enter the dates you obtained each certificate</p>
+                  
+                    <Row>
+                      <Col>
+                      <p>Cert Name</p>
+                      </Col>
+                      <Col>
+                      <p>Cert Date</p>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
+                      <p className="grey-text">CA OSHA Fire Saftey</p>
+                      </Col>
+                      <Col>
+                      <DatePickerMod/>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
+                      <p className="grey-text">CA OSHA Ladder Saftey</p>
+                      </Col>
+                      <Col>
+                      <DatePickerMod/>
+                      </Col>
+                    </Row>
+
+                  <Button onClick={this.handleSubmit}>Submit</Button>
                 </form>
               </CardBody>
             </Card>                    
-          </Col>
-          <Col md="6">
-            <div className="card mx-xl-5">
-              <div className="card-body">
-                <form>
-                  <p className="h4 text-center py-4">Subscribe</p>
-                  <label htmlFor="defaultFormCardNameEx" className="grey-text font-weight-light">Your name</label>
-                  <input type="text" id="defaultFormCardNameEx" className="form-control" />
-                  <br />
-                  <label htmlFor="defaultFormCardEmailEx" className="grey-text font-weight-light">Your email</label>
-                  <input type="email" id="defaultFormCardEmailEx" className="form-control" />
-                  <div className="text-center py-4 mt-3">
-                    <button className="btn btn-outline-purple" type="submit">Send<i className="fa fa-paper-plane-o ml-2"></i></button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </Col>
-        </Row>
-        <hr className="my-5" />
-        <h2 className="mb-5">A form within a modal</h2>
-        <Row>
-          <Col size="12" className="text-center mb-5">
-            <Button color="info" onClick={this.toggle}>Launch modal contact form</Button>
-            <Modal isOpen={this.state.modal} toggle={this.toggle} className="cascading-modal">
-              <div className="modal-header primary-color white-text">
-                <h4 className="title">
-                  <Fa className="fa fa-pencil" /> Contact form</h4>
-                <button type="button" className="close" onClick={this.toggle}>
-                  <span aria-hidden="true">×</span>
-                </button>
-              </div>
-              <ModalBody className="grey-text">
-                <Input size="sm" label="Your name" icon="user" group type="text" validate error="wrong" success="right"/>
-                <Input size="sm" label="Your email" icon="envelope" group type="email" validate error="wrong" success="right"/>
-                <Input size="sm" label="Subject" icon="tag" group type="text" validate error="wrong" success="right"/>
-                <Input size="sm" type="textarea" rows="2" label="Your message" icon="pencil"/>
-              </ModalBody>
-              <ModalFooter>
-                <Button color="secondary" onClick={this.toggle}>Close</Button>{' '}
-                <Button color="primary">Save changes</Button>
-              </ModalFooter>
-            </Modal>
           </Col>
         </Row>
       </Container>
     );
   }
 };
-
-export default FormsPage;
+export default FormEmployeePage;
