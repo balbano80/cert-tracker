@@ -20,11 +20,13 @@ class DashbAddSiteModal extends React.Component  {
 
   render() {
     return(
+      <div>
+      <Button color="stylish-color-dark" className="stylish-color-dark addsite-btn" onClick={this.toggle}>
+      <Fa icon="plus" className="mr-1"/>Add Site</Button>
+      
       <Container className="mt-3">
         <Row>
           <Col size="12" className="mb-1">
-            <Button color="mdb-color" onClick={this.toggle}>
-              <Fa icon="plus" className="mr-1"/>Add Site</Button>
             <Modal isOpen={this.state.modal} toggle={this.toggle}>
               <form>
                 <ModalHeader color="blue-grey" toggle={this.toggle}>Add New Site</ModalHeader>
@@ -39,14 +41,15 @@ class DashbAddSiteModal extends React.Component  {
                   </Row>
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="mdb-color">Submit</Button>
+                  <Button color="stylish" className="stylish-color-dark">Submit</Button>
                 </ModalFooter>
               </form>
-        </Modal>
+            </Modal>
 
           </Col>
         </Row>
       </Container>
+      </div>
     );
   }
 };

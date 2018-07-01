@@ -23,8 +23,18 @@ a.collapsible-header.Ripple-parent.arrow-r {
     padding-left: 40px;
 }
 
-.add-site {
-    bottom: 75px;
+
+.btn.addsite-btn {
+    box-shadow: none;
     position: absolute;
+    bottom: 75px;
+    left: -15px;
+    text-transform: capitalize;
 }
 
+.btn:hover, 
+.btn:active, 
+.btn:focus {
+    box-shadow: none;
+    outline: 0;
+}
