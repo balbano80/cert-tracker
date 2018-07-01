@@ -217,20 +217,7 @@ class DashboardPage extends React.Component {
             <Col md="12">
 
             <h2 className="mt-5 text-center">Dashboard</h2>
-            <Nav tabs className="nav-justified" color="mdb-color">
-                <NavItem>
-                  <NavLink to="#" className={classnames({ active: this.state.activeItemOuterTabs === '1' })} onClick={() => { this.toggleOuterTabs('1'); }} role="tab">
-                  <Fa icon="building"/> Company
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink to="#" className={classnames({ active: this.state.activeItemOuterTabs === '2' })} onClick={() => { this.toggleOuterTabs('2'); }} role="tab">
-                  <Fa icon="user"/> Profile
-                  </NavLink>
-                </NavItem>
-              </Nav>
 
-            <h2 className="mt-5"></h2>
 
               <TabContent className="card" activeItem={this.state.activeItemOuterTabs}>
                 <TabPane tabId="1" role="tabpanel">
@@ -243,16 +230,13 @@ class DashboardPage extends React.Component {
                           <Col md="12">
                             <Card>
                               <CardBody>
-
-                                <h4 className="h4-responsive">Richmond Crews                                
-                                <Button outline color="primary" onClick={this.toggle}>Edit Crew</Button>
-                                </h4>                      
+                    
 
                               <Row>
                               <Col><p className="h4-responsive">Richmond Crews</p> 
                               </Col>
                               <Col>
-                              <DashbEditSiteModal/>
+                              <DashbAddSiteModal/>
                               </Col>
                               </Row>
                                 
@@ -298,7 +282,7 @@ class DashboardPage extends React.Component {
                             <Card>
                               <CardBody>
                                 <h4 className="h4-responsive">Benicia Crews
-                                <Button outline color="primary" onClick={this.toggle}>Edit Crew</Button>
+                                <DashbEditSiteModal/>
                                 </h4>
                                 <Table striped bordered small>
                                   <thead>
@@ -341,7 +325,7 @@ class DashboardPage extends React.Component {
                             <Card>
                               <CardBody>
                                 <h4 className="h4-responsive">Tesoro Crews
-                                <Button outline color="primary" onClick={this.toggle}>Edit Crew</Button>
+                                <DashbEditSiteModal/>
                                 </h4>
                                 <Table striped bordered small>
                                   <thead>

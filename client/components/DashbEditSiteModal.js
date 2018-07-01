@@ -27,15 +27,9 @@ class DashbEditSiteModal extends React.Component  {
       <Container>
  <Row>
           <Col size="12" className="text-center mb-5">
-            <Button color="info" onClick={this.toggle}>Launch modal contact form</Button>
+            <Button outline color="primary" onClick={this.toggle}>Edit Site</Button>
             <Modal isOpen={this.state.modal} toggle={this.toggle} className="cascading-modal">
-              <div className="modal-header primary-color white-text">
-                <h4 className="title">
-                  <Fa className="fa fa-pencil" /> Contact form</h4>
-                <button type="button" className="close" onClick={this.toggle}>
-                  <span aria-hidden="true">×</span>
-                </button>
-              </div>
+            <ModalHeader style={modStyle}  toggle={this.toggle}>Edit this Site</ModalHeader>
               <ModalBody className="grey-text">
                 <Input size="sm" label="Your name" icon="user" group type="text" validate error="wrong" success="right"/>
                 <Input size="sm" label="Your email" icon="envelope" group type="email" validate error="wrong" success="right"/>
