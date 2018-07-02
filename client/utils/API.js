@@ -20,7 +20,7 @@ export default {
 
   // creates a new Admin in the admins table of the database
   createAdmin: function(newAdmin) {
-    console.log("in utils API folder", newAdmin);
+    // console.log("in utils API folder", newAdmin);
     return axios.post("/api/signup", newAdmin);
-  }
+  },
 };

@@ -1,8 +1,8 @@
 const router = require("express").Router();
-const employeeController = require("../../controllers/signUpController.js");
+const signUpController= require("../../controllers/signUpController.js");
 
 // Matches with "/api/books"
-router.route("/signup")
+router.route("/api/signup")
   .post(signUpController.create);
 
 // Matches with "/api/books/:id"
