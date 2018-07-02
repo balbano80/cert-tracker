@@ -16,14 +16,20 @@ module.exports = function (sequelize, DataTypes) {
     });
 
     Crew.associate = function (models) {
-        // We're saying that a Asset should belong to an User
-        // An Asset can't be created without an user due to the foreign key constraint
+
         Crew.belongsTo(models.Site, {
             foreignKey: {
                 allowNull: false
             }
         });
-        // need to setup relationships to "cert-crews" and "employee" tables
+
+        Crew.belongsToMany(models.Certificate, {
+            through: {model: models.CrewCert}
+        });
+
+        Crew.hasMany(models.Employee, {
+            onDelete: "cascade"
+        });
     };
 
     return Crew;
