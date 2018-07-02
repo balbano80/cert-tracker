@@ -42,11 +42,11 @@ class DashbEditCertificationModal extends React.Component {
                     <Table>
                       <thead>
                         <tr>
-                          <th>Certification</th>
-                          <th>Valid For</th>
-                          <th>Reminders At</th>
-                          <th>Supervisor Email</th>
-                          <th>Supervisor Phone</th>
+                          <th className="text-center">Certification</th>
+                          <th className="text-center">Valid For</th>
+                          <th className="text-center">Reminders At</th>
+                          <th className="text-center">Supervisor Email</th>
+                          <th className="text-center">Supervisor Phone</th>
                         </tr>
                       </thead>
                       <tbody>
