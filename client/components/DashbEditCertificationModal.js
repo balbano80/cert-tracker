@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Input, Button, Table, Fa, Card, CardBody, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
 import DashbDropdownReminder  from '../components/DashbDropdownReminder';
+import DashbDropdownValidfor  from '../components/DashbDropdownValidfor';
 
 const modStyle = {
   'text': 'center',
@@ -51,9 +52,8 @@ class DashbEditCertificationModal extends React.Component {
                       <tbody>
                         <tr>
                          <td><Input size="sm" label="Certification" icon="list-ul" group type="text" validate error="wrong" success="right"/></td>
-                         <td><Input size="sm" label="Valid For" icon="exclamation" group type="text" validate error="wrong" success="right"/></td>
-                         <td> <DashbDropdownReminder/></td>
-                         <td><Input size="sm" label="Reminder At" icon="clock-o" group type="text" validate error="wrong" success="right"/></td>
+                         <td><DashbDropdownValidfor/></td>
+                         <td><DashbDropdownReminder/></td>
                          <td><Input size="sm" label="Supervisor Email" icon="envelope" group type="text" validate error="wrong" success="right"/></td>
                          <td><Input size="sm" label="Supervisor Phone" icon="phone" group type="text" validate error="wrong" success="right"/></td>
                         </tr>
