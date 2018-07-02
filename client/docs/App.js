@@ -67,26 +67,14 @@ class App extends Component {
                 <NavItem>
                   <NavLink onClick={this.handleNavbarClick} to="/aboutus">About Us</NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink onClick={this.handleNavbarClick} to="/css">CSS</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink onClick={this.handleNavbarClick} to="/components">Components</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink onClick={this.handleNavbarClick} to="/advanced">Advanced</NavLink>
-                </NavItem>
                 {/* PRO */}
                 <NavItem>
-                  <NavLink onClick={this.handleNavbarClick} to="/sections">Sections</NavLink>
-                </NavItem>
-                <NavItem>
                   <Dropdown isOpen={this.state.dropdownOpen} toggle={()=>"baba"} onMouseEnter={this.toggle} onMouseLeave={this.toggle}>
-                    <DropdownToggle nav caret> <div className="d-none d-md-inline">Dropdown</div></DropdownToggle>
+                    <DropdownToggle nav caret> <div className="d-none d-md-inline">Extras</div></DropdownToggle>
                     <DropdownMenu right>
-                      <DropdownItem href="#!">Action</DropdownItem>
-                      <DropdownItem href="#!">Another Action</DropdownItem>
-                      <DropdownItem href="#!">Something else here</DropdownItem>
+                      <DropdownItem href="/css">CSS</DropdownItem>
+                      <DropdownItem href="/components">Components</DropdownItem>
+                      <DropdownItem href="/advanced">Advanced</DropdownItem>
                       <DropdownItem href="/sections">Sections</DropdownItem>
                     </DropdownMenu>
                   </Dropdown>
