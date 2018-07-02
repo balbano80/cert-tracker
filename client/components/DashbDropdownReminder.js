@@ -23,7 +23,7 @@ class DropdownReminder extends React.Component {
             <div className="container">
               
                 <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                    <DropdownToggle caret color="primary">
+                    <DropdownToggle caret color="default" style={{ width: "100%"}}>
                     Days
                     </DropdownToggle>
                     <DropdownMenu>
