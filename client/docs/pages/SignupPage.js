@@ -85,7 +85,7 @@ class SignupPage extends React.Component {
                       value={this.state.password} name="password" onChange={this.handleInputChange} />
                   </div>
                   <div className="text-center py-4 mt-3">
-                  <Button color="cyan" type="submit" onClick={this.handleFormSubmit}>Register</Button>
+                  <Button color="blue" type="submit" onClick={this.handleFormSubmit}>Register</Button>
                   </div>
                 </form>
               </CardBody>

@@ -8,7 +8,6 @@ import DashbEditSiteModal from '../../components/DashbEditSiteModal';
 import DashbMainCertModal from '../../components/DashbMainCertModal';
 import DashSideNav from '../components/DashSideNav/DashSideNav.css';
 
-
 // Line chart
 // We have to link database to this object?
 const data = {
@@ -37,7 +36,6 @@ const data = {
     }
   ]
 };
-
 
 class DashboardPage extends React.Component {
 
@@ -193,14 +191,13 @@ class DashboardPage extends React.Component {
     }
   }
 
-
   render() {
     return (
       <div>
         <Router>
           <Container className="mt-4">
             <Row>
-              <Col lg="12">
+              <Col lg="1">
                 <div className="container" style={{ height: "10px" }}>
                   <SideNav fixed breakWidth={1300} className="stylish-color-dark">
                     <SideNavNav>
@@ -213,7 +210,7 @@ class DashboardPage extends React.Component {
                   </SideNav>
                 </div>
               </Col>
-              <Col>
+              <Col lg="11">
                 <Row>
                   <Col lg="12">
                     <h2 className="mt-5 text-center">Dashboard</h2>
@@ -228,11 +225,11 @@ class DashboardPage extends React.Component {
                                     <h2 className="grey-text">Company Overview</h2>
                                     <Container>
 
-                                      <Row className="text-center grey-text">
+                                      <Row className="text-center grey-text mb-5 border-bottom">
                                         <h3 className="text-center grey-text">Bar chart</h3>
                                         <canvas id="barChart"></canvas>
                                       </Row>
-                                      <Row>
+                                      <Row className="mb-5 border-bottom">
                                         <Col lg="6" className="md-0 mb-2">
                                           <h3 className="text-center">Doughnut Chart</h3>
                                           <canvas id="doughnutChart"></canvas>
@@ -242,7 +239,7 @@ class DashboardPage extends React.Component {
                                           <canvas id="pieChart"></canvas>
                                         </Col>
                                       </Row>
-                                      <Row>
+                                      <Row className="border-bottom">
                                         <h3 className="grey-text text-center">Line chart</h3>
                                         <Line data={data} />
                                       </Row>
