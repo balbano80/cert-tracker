@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, Footer, NavLink } from 'mdbreact';
+import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, NavItem, Footer, NavLink } from 'mdbreact';
 import { BrowserRouter as Router } from 'react-router-dom';
 import logo from './logo.png';
 import './index.css';
@@ -11,9 +11,11 @@ class App extends Component {
     super(props);
     this.state ={
       collapsed: false,
+      dropdownOpen: false
     };
     this.handleTogglerClick = this.handleTogglerClick.bind(this);
     this.handleNavbarClick = this.handleNavbarClick.bind(this);
+    this.toggle = this.toggle.bind(this);
   }
 
   handleTogglerClick(){
@@ -27,6 +29,12 @@ class App extends Component {
       collapsed: false
     });
   }
+
+  toggle() {
+    this.setState({
+        dropdownOpen: !this.state.dropdownOpen
+    });
+}
 
   render() {
     const collapsed = this.state.collapsed;
@@ -59,18 +67,17 @@ class App extends Component {
                 <NavItem>
                   <NavLink onClick={this.handleNavbarClick} to="/aboutus">About Us</NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink onClick={this.handleNavbarClick} to="/css">CSS</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink onClick={this.handleNavbarClick} to="/components">Components</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink onClick={this.handleNavbarClick} to="/advanced">Advanced</NavLink>
-                </NavItem>
                 {/* PRO */}
                 <NavItem>
-                  <NavLink onClick={this.handleNavbarClick} to="/sections">Sections</NavLink>
+                  <Dropdown isOpen={this.state.dropdownOpen} toggle={()=>"baba"} onMouseEnter={this.toggle} onMouseLeave={this.toggle}>
+                    <DropdownToggle nav caret> <div className="d-none d-md-inline">Extras</div></DropdownToggle>
+                    <DropdownMenu right>
+                      <DropdownItem href="/css">CSS</DropdownItem>
+                      <DropdownItem href="/components">Components</DropdownItem>
+                      <DropdownItem href="/advanced">Advanced</DropdownItem>
+                      <DropdownItem href="/sections">Sections</DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
                 </NavItem>
               </NavbarNav>
             </Collapse>
