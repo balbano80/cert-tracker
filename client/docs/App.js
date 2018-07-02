@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, NavItem, Footer, NavLink } from 'mdbreact';
+import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, NavItem, Footer, NavLink, Fa } from 'mdbreact';
 import { BrowserRouter as Router } from 'react-router-dom';
 import logo from './logo.png';
 import './index.css';
@@ -79,6 +79,16 @@ class App extends Component {
                     </DropdownMenu>
                   </Dropdown>
                 </NavItem>
+                <NavItem>
+                    <NavLink to="#!"><Fa icon="user" className="d-inline-inline"/>  <div className="d-none d-md-inline">Account</div></NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink to="#!"><Fa icon="envelope" className="d-inline-inline"/>  <div className="d-none d-md-inline">Contact</div></NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink to="#!"><Fa icon="comments-o" className="d-inline-inline"/> <div className="d-none d-md-inline">Support</div></NavLink>
+                </NavItem>
+                
               </NavbarNav>
             </Collapse>
           </Navbar>
