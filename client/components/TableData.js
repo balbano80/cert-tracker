@@ -1,5 +1,4 @@
 import React from 'react';
-import { SelectOption } from 'mdbreact';
 
 
 const TableData = props => (

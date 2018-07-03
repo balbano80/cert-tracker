@@ -3,6 +3,7 @@ import { Container, Row, Col, Input, Button, Fa, Card, CardBody, Modal, ModalBod
 // import EditCrewEmployee from "./EditCrewEmployee"
 // import EditCrewCerts from "./EditCrewCerts"
 import DropdownOption from "./DropdownOption"
+import TableData from "./TableData"
 // import CertDropdown from "./CertDropdown"
 
 // Modal CSS
@@ -11,6 +12,7 @@ import "./styles/DashEditSiteModal.css";
 // TEMPORARY JSON files for employees/certifications
 import crews from "./temp-json/crews.json";
 import certs from "./temp-json/certs.json";
+import employees from "./temp-json/employees.json"
 
 
 
@@ -28,6 +30,7 @@ class DashbEditSiteModal extends React.Component {
       certDDvalue: "Select Certification to Add",
       crews,
       certs,
+      employees,
     }
     this.toggle = this.toggle.bind(this);
 
@@ -88,6 +91,7 @@ class DashbEditSiteModal extends React.Component {
 
   render() {
     const modalStyle = { width: '100%' }
+    const outerContainerStyle = { width: '100%', height: '200px' }
     return (
       <Container>
         <Button outline color="primary" onClick={this.toggle}>Edit Crew</Button>
@@ -117,42 +121,51 @@ class DashbEditSiteModal extends React.Component {
             <Row>
               <Col size="12">
                 {/* Edit Employee List */}
-                <Card className="mt-5">
+                <Card style={outerContainerStyle} className="mt-5">
                   <CardHeader>
-                    Edit Crew Employees
-                      </CardHeader>
+                    Update Crew Members
+                  </CardHeader>
                   <PerfectScrollbar className="scrollbar-primary">
                     <CardBody>
                       <Table striped bordered small>
                         <tbody>
-                          <tr>
-                            <td>Otto, Mark</td>
-                          </tr>
-                          <tr>
-                            <td>Thornton, Jacob</td>
-                          </tr>
-                          <tr>
-                            <td>the Bird, Larry</td>
-                          </tr>
-                          <tr>
-                            <td>Shapiro, Terry</td>
-                          </tr>
-                          <tr>
-                            <td>Duck, Chicken</td>
-                          </tr>
+                          {this.state.employees.map(employee => (
+                            <TableData
+                              key={employee.id}
+                              name={employee.name}
+                            />
+                          ))}
                         </tbody>
                       </Table>
                     </CardBody>
                   </PerfectScrollbar>
                 </Card>
-                {/* <EditCrewEmployee style={modStyle}/> */}
                 <hr />
               </Col>
             </Row>
             <Row>
-              {/* <Col size="12">
-                    <EditCrewCerts />
-                  </Col> */}
+              <Col size="12">
+                {/* Edit Employee List */}
+                <Card style={outerContainerStyle} className="mt-5">
+                  <CardHeader>
+                    Delete Certification Requirements
+                  </CardHeader>
+                  <PerfectScrollbar className="scrollbar-primary">
+                    <CardBody>
+                      <Table striped bordered small>
+                        <tbody>
+                          {this.state.certs.map(cert => (
+                            <TableData
+                              key={cert.id}
+                              name={cert.name}
+                            />
+                          ))}
+                        </tbody>
+                      </Table>
+                    </CardBody>
+                  </PerfectScrollbar>
+                </Card>
+              </Col>
             </Row>
             <Row>
               <Col size="12">
@@ -182,7 +195,7 @@ class DashbEditSiteModal extends React.Component {
       </Container>
     );
   }
-};
+}
 
 export default DashbEditSiteModal;
 
