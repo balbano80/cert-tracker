@@ -10,10 +10,10 @@ module.exports = {
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     },
-    findById: function(req, res) {
+    findByEmail: function(req, res) {
       db.Admin.findOne({
         where: {
-          id: req.params.id
+          email: req.params.email
         }
       })
         .then(function(dbAdmin) {

@@ -1,20 +1,23 @@
 module.exports = function (sequelize, DataTypes) {
     var Reminder = sequelize.define("Reminder", {
 
-
-        
+        cert_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        employee_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        date_expiration: {
+            type: DataTypes.DATEONLY,
+            allowNull: false
+        }      
     });
 
-    Reminder.associate = function (models) {
+    // Reminder.associate = function (models) {
 
-        Reminder.belongsTo(models.Certificate, {
-            foreignKey: {
-                allowNull: false
-            }
-        });
-
-        //need to setup relationship or find how to populate employee_id
-    }
+    // }
 
     return Reminder;
 }

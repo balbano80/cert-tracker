@@ -32,8 +32,7 @@ module.exports = function (sequelize, DataTypes) {
 
 
     Admin.associate = function (models) {
-        // We're saying that a Asset should belong to an User
-        // An Asset can't be created without an user due to the foreign key constraint
+
         Admin.belongsTo(models.Company, {
             foreignKey: {
                 allowNull: false
