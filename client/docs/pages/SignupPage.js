@@ -37,6 +37,7 @@ class SignupPage extends React.Component {
   handleFormSubmit = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
+
     if (!this.state.first_name || !this.state.last_name || !this.state.email || !this.state.password) {
       alert("Fill out your first name, last name, email and password please");
     } 
@@ -55,7 +56,7 @@ class SignupPage extends React.Component {
         email: this.state.email,
         password: this.state.password
     })
-      //.then(direct to dashboard)
+      //.then(direct to login page or dashboard page if able to figure out auto-login)
       //.catch(error)
     }
   };

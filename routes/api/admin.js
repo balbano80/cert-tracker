@@ -7,8 +7,8 @@ router.route("/signup")
 
 // Matches with "/api/books/:id"
 router
-  .route("/:id")
-  .get(adminController.findById)
+  .route("/:email")
+  .get(adminController.findByEmail)
   .put(adminController.update)
   .delete(adminController.remove)
 

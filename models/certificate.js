@@ -23,7 +23,6 @@ module.exports = function (sequelize, DataTypes) {
 
     Certificate.associate = function (models) {
 
-    //     //to set up relationships
         Certificate.hasMany(models.Reminder, {
             onDelete: "cascade"
         })
