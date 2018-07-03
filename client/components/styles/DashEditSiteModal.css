@@ -11,6 +11,19 @@ div.card.mt-5 {
 div.select-wrapper {
     margin: 0 15px;
 }
+
+.remove {
+    float: right;
+}
+
+h5 {
+    margin-bottom: 20px;
+}
+
+h4 {
+    margin-left: 40%;
+}
+
 .card-header {
     text-align: center;
 }
