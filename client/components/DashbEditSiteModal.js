@@ -1,10 +1,14 @@
+/* DEPENDENCIES */
+
+// React
 import React, { Component } from "react";
+
+// MD React-Bootstrap
 import { Container, Row, Col, Input, Button, Fa, Card, CardBody, Modal, ModalBody, ModalHeader, ModalFooter, Select, SelectInput, SelectOptions, SelectOption, CardHeader, Table, PerfectScrollbar } from 'mdbreact';
-// import EditCrewEmployee from "./EditCrewEmployee"
-// import EditCrewCerts from "./EditCrewCerts"
+
+// Components
 import DropdownOption from "./DropdownOption"
 import TableData from "./TableData"
-// import CertDropdown from "./CertDropdown"
 
 // Modal CSS
 import "./styles/DashEditSiteModal.css";
@@ -14,7 +18,7 @@ import crews from "./temp-json/crews.json";
 import certs from "./temp-json/certs.json";
 import employees from "./temp-json/employees.json"
 
-
+// -------------------------------------------------------------------------------------------------
 
 const modStyle = {
   margin: 0
@@ -120,7 +124,7 @@ class DashbEditSiteModal extends React.Component {
             </Row>
             <Row>
               <Col size="12">
-                {/* Edit Employee List */}
+                {/* Edit Crew Member List */}
                 <Card style={outerContainerStyle} className="mt-5">
                   <CardHeader>
                     Update Crew Members
@@ -145,7 +149,7 @@ class DashbEditSiteModal extends React.Component {
             </Row>
             <Row>
               <Col size="12">
-                {/* Edit Employee List */}
+                {/* Edit Employee Table */}
                 <Card style={outerContainerStyle} className="mt-5">
                   <CardHeader>
                     Delete Certification Requirements
@@ -169,6 +173,7 @@ class DashbEditSiteModal extends React.Component {
             </Row>
             <Row>
               <Col size="12">
+              {/* Add Certification */}
                 <Select>
                   <SelectInput value={this.state.certDDvalue}></SelectInput>
                   <SelectOptions>
