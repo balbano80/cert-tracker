@@ -15,6 +15,7 @@ export default {
   },
   // Saves a employee to the database
   saveEmployee: function(employeeData) {
+    console.log("Form submission data: ", employeeData);
     return axios.post("/api/employee", employeeData);
   },
 
