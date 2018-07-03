@@ -3,7 +3,7 @@ const NavLink = require('react-router-dom').NavLink;
 
 import './HomePage.css';
 
-import { EdgeHeader, FreeBird, Container, Col, CardImage, Row, CardBody, Fa, Button } from 'mdbreact';
+import { EdgeHeader, FreeBird, Container, Col, CardImage, Row, CardBody, Fa, Button,} from 'mdbreact';
 
 class HomePage extends React.Component {
   render(){
@@ -14,10 +14,10 @@ class HomePage extends React.Component {
         <FreeBird>
           <Row>
             <Col lg="12" className="mx-auto float-none white z-depth-1 py-2 px-2">
-            <CardImage top src="http://www.industrialtracker.com/wp-content/uploads/2016/07/hp-slide_01-2.jpg" overlay="white-slight" hover waves alt="Card image cap"/>
+            <CardImage top src="http://engenhariae.com.br/wp-content/uploads/2015/12/shutterstock_111119858_mini.jpg" overlay="white-slight" hover waves alt="Card image cap"/>
                 <CardBody>
-                <h2 className="h2-responsive text-center"><strong>Adapting in the age of ever changing technology</strong></h2>
-                <p className="pb-4 text-center">Deploy solutions quickly, seamlessly and effectively</p>
+                <h2 className="h2-responsive text-center"><strong>Certification Tracking made simple</strong></h2>
+                <p className="pb-4 text-center">Deploy employees quickly, seamlessly and effectively with all certifications in place to do their jobs!</p>
               </CardBody>
 
             </Col>
@@ -25,9 +25,10 @@ class HomePage extends React.Component {
         </FreeBird>
         <Container>
         <section className="my-5">
+        
 
 <h2 className="h1-responsive font-weight-bold text-center my-5">Why is it so great?</h2>
-<p className="lead grey-text w-responsive text-center mx-auto mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+<p className="lead grey-text w-responsive text-center mx-auto mb-5">CERT Tracker certification tracking software offers a reliable solution that enables companies to assess their risk exposure and certification obligations. Manage, track and report on employee licenses and professional development required by employees in their jobs.</p>
 
 <Row>
   <Col md="6" className="md-0 mb-5">
@@ -37,11 +38,8 @@ class HomePage extends React.Component {
       </Col>
       <Col lg="10" md="9" size="10">
         <h4 className="font-weight-bold">Our Products</h4>
-        <p className="grey-text">Industrial Tracker has a team of full time experienced developers ready to build and deploy 
-        applications made to suit your specifications. With our highly skilled team of engineers we can design, build and implement 
-        scalable solutions to solve your data tracking headaches.</p>
-        <p className="grey-text">We can customize our existing products if needed or work with 
-        you one on one to design any application to suit your business needs. Talk to us today to find out more.</p>
+        <p className="grey-text">CERT Tracker facilitate compliance with regulations and contractual obligations required by core business activities and quickly and accurately provide and verify evidence of certification to vendors, suppliers and government agencies. </p>
+        <p className="grey-text">CERT Tracker communicate status of certifications to all interested parties including employees, managers, legal and human resources.Talk to us today to find out more!</p>
         <Button color="blue" size="sm">Learn more</Button>
       </Col>
     </Row>
@@ -53,8 +51,8 @@ class HomePage extends React.Component {
       </Col>
       <Col lg="10" md="9" size="10">
         <h4 className="font-weight-bold">Our Mission</h4>
-        <p className="grey-text">Industrial Tracker was born from the potential benefits of streamlining many procesies through bridging current information technology and the oil and gas industry.</p>
-        <p className="grey-text">Industrial Tracker draws from a background in information technology and data management combined with experience in the oil and gas industry. Industrial Trackers mission is to improve safety standards while streamlining and consolidating data tracking while also saving time and money for its clients.</p>
+        <p className="grey-text">CERT Tracker was born from the potential benefits of streamlining many processies through bridging current information technology and industry certifications.</p>
+        <p className="grey-text">CERT Tracker draws from a background in information technology and data management. Our mission is to improve safety standards while streamlining and consolidating data tracking of required industry certifications. </p>
         <Button color="blue" size="sm">Learn more</Button>
       </Col>
     </Row>
