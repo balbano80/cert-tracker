@@ -27,9 +27,7 @@ const config = {
     ]
   },
   devServer: {
-    proxy: {
-      "*": "http://[::1]:3001"
-    }
+    historyApiFallback: true
   },
   plugins: [
     new HtmlWebpackPlugin({
