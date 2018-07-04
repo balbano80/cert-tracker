@@ -19,14 +19,14 @@ export default {
     return axios.post("/api/employee", employeeData);
   },
 
-  // creates a new Admin in the admins table of the database
-  createAdmin: function(newAdmin) {
-    console.log("in utils API folder", newAdmin);
-    return axios.post("/api/signup", newAdmin);
+  // creates a new User in the Users table of the database
+  createUser: function(newUser) {
+    console.log("in utils API folder", newUser);
+    return axios.post("/api/signup", newUser);
   },
   //reach out to the database, verify admin(user) credentials
-  signIn: function(admin){
-    console.log("in utils API folder", admin)
-    return axios.get("/api/signin/" + admin.email, admin)
+  signIn: function(user){
+    console.log("in utils API folder", user)
+    return axios.get("/api/signin/" + user.email, user)
   }
 };
