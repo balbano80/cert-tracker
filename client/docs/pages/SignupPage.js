@@ -49,7 +49,7 @@ class SignupPage extends React.Component {
       alert("Passwords do not match")
     }
     else {
-      API.createAdmin({
+      API.createUser({
         company: this.state.company,
         first_name: this.state.first_name,
         last_name: this.state.last_name,
