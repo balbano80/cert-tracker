@@ -36,7 +36,6 @@ class DashbEditCertificationModal extends React.Component {
             <Modal isOpen={this.state.modal} toggle={this.toggle} size="fluid">
               <ModalHeader className="blue-grey-text" toggle={this.toggle}>Edit Certification</ModalHeader>
               <ModalBody className="blue-grey-text">
-
                 <Row>
                   <Col>
                     <Table>
@@ -70,8 +69,8 @@ class DashbEditCertificationModal extends React.Component {
           </Col>
         </Row>
       </Container>
-          );
-        }
-      };
+    );
+  }
+};
       
-      export default DashbEditCertificationModal;
+export default DashbEditCertificationModal;
