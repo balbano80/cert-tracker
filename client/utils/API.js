@@ -31,7 +31,7 @@ export default {
   },
 
   getCert: function (id) {
-    return axios.get("/api/employee/" + id);
+    return axios.get("/api/certification/" + id);
   },
 
   saveCert: function(certData) {
