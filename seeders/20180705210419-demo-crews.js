@@ -4,22 +4,70 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Crews', [
       {
-        name: 'Chevron Richmond CA',
+        crew_type: 'Ground Inspection',
         createdAt: new Date(),
         updatedAt: new Date(),
         SiteId: 1
       },
       {
-        name: 'Valero Benicia CA',
+        name: 'Rope Access Inspection',
         createdAt: new Date(),
         updatedAt: new Date(),
         SiteId: 1
       },
       {
-        name: 'Shell Martinez Refinery CA',
+        name: 'Radiographic Inspection',
         createdAt: new Date(),
         updatedAt: new Date(),
         SiteId: 1
+      },
+      {
+        crew_type: 'Ground Inspection',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        SiteId: 2
+      },
+      {
+        name: 'Rope Access Inspection',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        SiteId: 2
+      },
+      {
+        name: 'Radiographic Inspection',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        SiteId: 2
+      },
+      {
+        name: 'Rope Access Inspection',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        SiteId: 1
+      },
+      {
+        name: 'Radiographic Inspection',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        SiteId: 1
+      },
+      {
+        crew_type: 'Ground Inspection',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        SiteId: 3
+      },
+      {
+        name: 'Rope Access Inspection',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        SiteId: 3
+      },
+      {
+        name: 'Radiographic Inspection',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        SiteId: 3
       }
 
     ], {});

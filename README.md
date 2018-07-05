@@ -4,6 +4,7 @@
 Install sequelize-cli
 
 npm install --save sequelize-cli
+
 http://docs.sequelizejs.com/manual/tutorial/migrations.html
 
 # Load Database data
