@@ -77,3 +77,4 @@ module.exports = {
     return queryInterface.bulkDelete('Crews', null, {});
   }
 };
+
