@@ -1,4 +1,15 @@
 # Cert Tracker
+
+# Database data
+Install sequelize-cli
+
+npm install --save sequelize-cli
+http://docs.sequelizejs.com/manual/tutorial/migrations.html
+
+# Load Database data
+node_modules/.bin/sequelize db:seed:all
+
+
 CERT Tracker certification tracking software offers a reliable solution that enables companies to assess their risk exposure and certification obligations. Manage, track and report on employee licenses and professional development required by employees in their jobs. CERT Tracker facilitate compliance with regulations and contractual obligations required by core business activities and quickly and accurately provide and verify evidence of certification to vendors, suppliers and government agencies. CERT Tracker communicate status of certifications to all interested parties including employees, managers, legal and human resources.
 
 *ScreenShot*
