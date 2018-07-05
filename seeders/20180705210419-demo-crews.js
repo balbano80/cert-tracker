@@ -10,13 +10,13 @@ module.exports = {
         SiteId: 1
       },
       {
-        name: 'Rope Access Inspection',
+        crew_type: 'Rope Access Inspection',
         createdAt: new Date(),
         updatedAt: new Date(),
         SiteId: 1
       },
       {
-        name: 'Radiographic Inspection',
+        crew_type: 'Radiographic Inspection',
         createdAt: new Date(),
         updatedAt: new Date(),
         SiteId: 1
@@ -28,25 +28,25 @@ module.exports = {
         SiteId: 2
       },
       {
-        name: 'Rope Access Inspection',
+        crew_type: 'Rope Access Inspection',
         createdAt: new Date(),
         updatedAt: new Date(),
         SiteId: 2
       },
       {
-        name: 'Radiographic Inspection',
+        crew_type: 'Radiographic Inspection',
         createdAt: new Date(),
         updatedAt: new Date(),
         SiteId: 2
       },
       {
-        name: 'Rope Access Inspection',
+        crew_type: 'Rope Access Inspection',
         createdAt: new Date(),
         updatedAt: new Date(),
         SiteId: 1
       },
       {
-        name: 'Radiographic Inspection',
+        crew_type: 'Radiographic Inspection',
         createdAt: new Date(),
         updatedAt: new Date(),
         SiteId: 1
@@ -58,13 +58,13 @@ module.exports = {
         SiteId: 3
       },
       {
-        name: 'Rope Access Inspection',
+        crew_type: 'Rope Access Inspection',
         createdAt: new Date(),
         updatedAt: new Date(),
         SiteId: 3
       },
       {
-        name: 'Radiographic Inspection',
+        crew_type: 'Radiographic Inspection',
         createdAt: new Date(),
         updatedAt: new Date(),
         SiteId: 3
