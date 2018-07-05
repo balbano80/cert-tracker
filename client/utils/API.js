@@ -28,5 +28,15 @@ export default {
   signIn: function(user){
     console.log("in utils API folder", user)
     return axios.get("/api/signin/" + user.email, user)
-  }
+  },
+
+  getCert: function (id) {
+    return axios.get("/api/employee/" + id);
+  },
+
+  saveCert: function(certData) {
+    console.log("Certification data: ", certData);
+    return axios.post("/api/certification", certData);
+  },
+
 };
