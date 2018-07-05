@@ -1,9 +1,9 @@
 # Cert Tracker
-
-
-
+CERT Tracker certification tracking software offers a reliable solution that enables companies to assess their risk exposure and certification obligations. Manage, track and report on employee licenses and professional development required by employees in their jobs. CERT Tracker facilitate compliance with regulations and contractual obligations required by core business activities and quickly and accurately provide and verify evidence of certification to vendors, suppliers and government agencies. CERT Tracker communicate status of certifications to all interested parties including employees, managers, legal and human resources.
 
 *ScreenShot*
+
+![Alt text](/public/images/readme.png "CERT Tracker")
 
 * * *
 
@@ -27,7 +27,29 @@
 * * *
 
 ## Usage
+CERT Tracker facilitate compliance with regulations and contractual obligations required by core business activities and quickly and accurately provide and verify evidence of certification to vendors, suppliers and government agencies. CERT Tracker communicate status of certifications to all interested parties including employees, managers, legal and human resources.
 
+class AppPage extends React.Component {
+  constructor(props) {
+    super(props),
+    this.state = {
+      collapse : false
+    }
+    this.onClick = this.onClick.bind(this);
+    this.handleNavbarClick = this.handleNavbarClick.bind(this);
+  }
+
+  onClick(){
+    this.setState({
+        collapse: !this.state.collapse,
+    });
+  }
+
+  handleNavbarClick(){
+    this.setState({
+      collapse: false
+    });
+  }
 
 * * *
 
@@ -50,10 +72,11 @@
 * * *
 
 ## Authors
-* 
-* 
-* 
-* 
+* Mike White: Lead full stack developer
+* Sophie Obayashi: Full stack developer
+* Bryan Albano: Full Stack Developer
+* Byron Sosa: Full Stack Developer
+* Rishi Mehta: PM/Full stack developer
 
 * * *
 

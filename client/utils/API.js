@@ -13,14 +13,20 @@ export default {
   deleteEmployee: function(id) {
     return axios.delete("/api/employee/" + id);
   },
-  // Saves a employee to the database
+  // Saves an employee to the database
   saveEmployee: function(employeeData) {
+    console.log("Form submission data: ", employeeData);
     return axios.post("/api/employee", employeeData);
   },
 
   // creates a new Admin in the admins table of the database
   createAdmin: function(newAdmin) {
-    // console.log("in utils API folder", newAdmin);
+    console.log("in utils API folder", newAdmin);
     return axios.post("/api/signup", newAdmin);
   },
+  //reach out to the database, verify admin(user) credentials
+  signIn: function(admin){
+    console.log("in utils API folder", admin)
+    return axios.get("/api/signin/" + admin.email, admin)
+  }
 };

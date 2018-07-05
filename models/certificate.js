@@ -21,21 +21,20 @@ module.exports = function (sequelize, DataTypes) {
 
     });
 
-    // Certificate.associate = function (models) {
+    Certificate.associate = function (models) {
 
-    //     //to set up relationships
+        Certificate.hasMany(models.Reminder, {
+            onDelete: "cascade"
+        })
 
-        // Certificate.belongsTo(models.Cert-crew, {
-        //     foreignKey: {
-        //         allowNull: false
-        //     }
-        // });
-        // Certificate.belongsTo(models.Employee-cert, {
-        //     foreignKey: {
-        //         allowNull: false
-        //     }
-        // });
+        Certificate.belongsToMany(models.Crew, {
+            through: {model: models.CrewCert}
+        });
 
+        Certificate.belongsToMany(models.Employee, {
+            through: {model: models.EmployeeCert}
+        });
+    }
     return Certificate;
 
 };
