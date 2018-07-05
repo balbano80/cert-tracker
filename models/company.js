@@ -51,7 +51,7 @@ module.exports = function (sequelize, DataTypes) {
 
     Company.associate = function (models) {
 
-        Company.hasMany(models.Admin, {
+        Company.hasMany(models.User, {
             onDelete: "cascade"
         });
 
