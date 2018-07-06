@@ -9,7 +9,8 @@ module.exports = {
         email: 'er@er.co',
         phone_number: '123456789',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        CrewId: 1
       },
       {
         first_name: 'Mike',
@@ -17,7 +18,8 @@ module.exports = {
         email: 'mike@home.com',
         phone_number: '5107783922',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        CrewId: 1
       },
       {
         first_name: 'Justin',
@@ -25,7 +27,8 @@ module.exports = {
         email: 'justin@demo.com',
         phone_number: '5101233900',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        CrewId: 1
       },
       {
         first_name: 'Ariel',
@@ -33,7 +36,8 @@ module.exports = {
         email: 'ariel@demo.com',
         phone_number: '5107783123',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        CrewId: 2
       },
       {
         first_name: 'Dan',
@@ -41,7 +45,8 @@ module.exports = {
         email: 'dan@demo.com',
         phone_number: '5457783123',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        CrewId: 2
       },
       {
         first_name: 'Phill',
@@ -49,7 +54,8 @@ module.exports = {
         email: 'phill@demo.com',
         phone_number: '5457783123',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        CrewId: 3
       },
       {
         first_name: 'Raymond',
@@ -57,7 +63,8 @@ module.exports = {
         email: 'raymond@demo.com',
         phone_number: '5107783124',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        CrewId: 3
       },
       {
         first_name: 'Cheyenne',
@@ -65,7 +72,8 @@ module.exports = {
         email: 'raymond@demo.com',
         phone_number: '5107783125',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        CrewId: 3
       }
     ], {});
   },
