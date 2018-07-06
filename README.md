@@ -5,6 +5,8 @@ Install sequelize-cli
 
 npm install --save sequelize-cli
 
+Delete your database, re create it, run yarn start
+
 http://docs.sequelizejs.com/manual/tutorial/migrations.html
 
 # Load Database data
