@@ -6,7 +6,7 @@ module.exports = function (app) {
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
   // Otherwise the user will be sent an error
-  app.get("/", function(req,res){
+  app.get("/", function (req, res) {
     res.send("Working");
   })
 
@@ -69,6 +69,31 @@ module.exports = function (app) {
     }
   });
 
+
+
+  //  Can I do "SELECT * FROM sites WHERE id FROM companies EQUALS companyId FROM sites?"
+  //  Maybe db.Sites.findAll({where: {id: companyId})
+  app.get('/dashboard', (req, res) => {
+
+    const SITE_QUERY = "SELECT * FROM sites";
+    // const ID_CHECK = "SELECT id FROM companies";
+    let siteArray = [];
+    connection.query(SITE_QUERY, (err, results) => {
+      if (err) {
+        return res.send(err)
+      } else {
+        return res.json({ data: results })
+        console.log(data.results)
+        for (var i = 0; data.results.length; i++) {
+          if (data.results.id === 1) {
+            siteArray.push(data.results.name)
+          }
+        }
+      }
+    })
+  });
+
+
   // app.post("/api/customerconfig", function (req, res) {
   //   // console.log("You are creating a new host!");
 
@@ -124,7 +149,7 @@ module.exports = function (app) {
     });
   });
 
-  app.get('/', function(req,res){
+  app.get('/', function (req, res) {
     res.redirect('/Home')
   })
 };
