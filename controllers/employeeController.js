@@ -8,7 +8,6 @@ module.exports = {
     db.Employee.findAll({})
     .then(function(dbEmployee) {
       res.json(dbEmployee);
-      res.json('{message: "hello"}')
     });
   },
   findById: function(req, res) {
@@ -22,6 +21,7 @@ module.exports = {
       });
   },
   create: function(req, res) {
+    console.log('employee created');
     db.Employee.create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

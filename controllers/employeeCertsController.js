@@ -1,51 +1,52 @@
 const db = require("../models");
 
-// Defining methods for the EmployeeController
+// Defining methods for the EmployeeCertsController
 
 
 module.exports = {
   findAll: function(req, res) {
-    db.Employee.findAll({})
-    .then(function(dbEmployee) {
-      res.json(dbEmployee);
-      res.json('{message: "hello"}')
+    console.log("hit")
+    db.EmployeeCert.findAll({})
+    .then(function(result) {
+      console.log("Results are: " ,result)
+      res.json(result);
     });
   },
   findById: function(req, res) {
-    db.Employee.findOne({
+    db.EmployeeCerts.findOne({
       where: {
         id: req.params.id
       }
     })
-      .then(function(dbEmployee) {
-        res.json(dbEmployee);
+      .then(function(dbEmployeeCerts) {
+        res.json(dbEmployeeCerts);
       });
   },
   create: function(req, res) {
-    db.Employee.create(req.body)
+    db.Reminders.create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
-     db.Employee.update(req.body,
+     db.Reminders.update(req.body,
       {
         where: {
           id: req.body.id
         }
       })
-      .then(function(dbEmployee) {
-        res.json(dbEmployee);
+      .then(function(dbReminders) {
+        res.json(dbReminders);
       });
 
   },
   remove: function(req, res) {
-    db.Employee.destroy({
+    db.Reminders.destroy({
       where: {
         id: req.params.id
       }
     })
-      .then(function(dbEmployee) {
-        res.json(dbEmployee);
+      .then(function(dbReminders) {
+        res.json(dbReminders);
       });
   }
 };
