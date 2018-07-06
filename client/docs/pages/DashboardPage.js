@@ -7,6 +7,7 @@ import DashbAddSiteModal from '../../components/DashbAddSiteModal';
 import DashbEditSiteModal from '../../components/DashbEditSiteModal';
 import DashbMainCertModal from '../../components/DashbMainCertModal';
 import DashSideNav from '../components/DashSideNav/DashSideNav.css';
+import API from '../../utils/API';
 
 // Line chart
 // We have to link database to this object?
@@ -116,6 +117,10 @@ class DashboardPage extends React.Component {
         responsive: true
       }
     });
+    API.getEmployeeCerts()
+    .then( function(result) {
+      console.log('Employee Cert Data is: ', result.data);
+    }) 
   }
 
 
