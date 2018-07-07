@@ -119,8 +119,33 @@ class DashboardPage extends React.Component {
     });
     API.getEmployeeCerts()
     .then( function(result) {
+      var employeeCrts = [];
+      let expirey
+      result.data.forEach(function(value) {
+        var tmp = {
+          employee_id: value.EmployeeId,
+          cert_id: value.CertificateId,
+        }
+        // tmp["date_expiration"] = 
+        
+        API.getCertificates(value.CertificateId)
+        .then(res => {
+          console.log(res)
+          // expirey = data that you want to save ex. res.data.days
+          // do calc to get new date expirey
+          // tmp[date_exp] = set to tmp
+          // arr.push(tmp)
+        })
+        // this.getExpiration(value.CertificateId, value.date_obtained)
+      });
+      // api.posttotable(array)
       console.log('Employee Cert Data is: ', result.data);
     }) 
+  }
+
+  getExpiration = (id, date) => {
+
+
   }
 
 

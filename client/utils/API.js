@@ -35,6 +35,11 @@ export default {
     return axios.get("/api/employeecerts")
   },
 
+  // New route for getting Certificates
+  getCertificates: function(id) {
+    return axios.get("/api/certificates/")
+  },
+
   // Creates an reminder in the Reminders table
   createReminder: function(reminderData) {
     console.log("Created a new reminder with : ", reminderData);
