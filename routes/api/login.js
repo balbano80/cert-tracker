@@ -1,4 +1,5 @@
 const router = require("express").Router();
+var passport = require("../config/passport");
 const loginController = require("../../controllers/loginController");
 
 // Matches with "/api/login"
