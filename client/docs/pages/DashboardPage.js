@@ -120,6 +120,10 @@ class DashboardPage extends React.Component {
         responsive: true
       }
     });
+    API.getEmployeeCerts()
+    .then( function(result) {
+      console.log('Employee Cert Data is: ', result.data);
+    }) 
   }
 
 
