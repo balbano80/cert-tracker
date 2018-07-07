@@ -4,7 +4,7 @@ const loginController = require("../../controllers/loginController");
 
 // Matches with "/api/login"
 router.route("/login")
-  .get(loginController.findAll)
+  .post(loginController.signIn);
 
 // Matches with "/api/login/:id"
 router
