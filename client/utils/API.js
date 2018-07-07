@@ -34,6 +34,10 @@ export default {
     return axios.get("/api/certification/" + id);
   },
 
+  getSites: function(){
+    return axios.get("/api/site");
+  },
+
   saveCert: function(certData) {
     console.log("Certification data: ", certData);
     return axios.post("/api/certification", certData);

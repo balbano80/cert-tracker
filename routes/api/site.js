@@ -3,9 +3,8 @@ const siteController = require("../../controllers/siteController");
 
 
 
-router.route("/dashboard")
+router.route("/")
 
-  return console.log("is this working")
   .get(siteController.findAll)
   .post(siteController.create);
 
