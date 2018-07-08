@@ -1,4 +1,5 @@
 import axios from "axios";
+// var passport = require("../../config/passport");
 
 export default {
   // Gets all employee
@@ -28,7 +29,6 @@ export default {
     // console.log("in utils API createUser block", newUser);
     return axios.post("/api/user", newUser);
   },
-  //reach out to the database, verify User(user) credentials
   signIn: function(user){
     console.log("in utils API folder", user)
 
@@ -66,10 +66,10 @@ export default {
   getCrews: function() {
     console.log("getting all crew data")
     return axios.get("/api/crews");
-  } //,
+  },
 
-  //   // return axios.post("/api/user/login", user)
+  // return axios.post("/api/user/login", user)
 
-  // }
 
+  }
 };
