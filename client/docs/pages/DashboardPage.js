@@ -51,20 +51,22 @@ class DashboardPage extends React.Component {
     API.getSites().then(res => {
       console.log(res.data)
       console.log(res.data.length)
-     
-   
-     
 
-      const siteArray =
-        res.data.map(function(data){
-        return <li key={data.CompanyId}>{data.name}</li>
-      });
-
-      // this.setState({siteArray})
-      console.log("inside of function: " + JSON.stringify(siteArray));
+      // res.data.forEach(function(value) {
+      //   
+      //   var temp = {
+      //     siteName: value.name,
+      //     CompanyId: value.CompanyId,
+      //   }
+      //  console.log(temp)
+      // })  
+       
+      this.setState({"siteArray": res.data})
+        console.log(this.state.siteArray)
+     
     })
 
-    console.log("Site Array is : " + this.state.siteArray)
+    // console.log("Site Array scope test: "+ <div>{this.state.siteArray}</div>);
 
     // Bar chart
     var ctxB = document.getElementById("barChart").getContext('2d');
@@ -143,38 +145,38 @@ class DashboardPage extends React.Component {
       }
     });
     API.getEmployeeCerts()
-    .then( function(result) {
-      var employeeCrts = [];
-      let expirey
-      result.data.forEach(function(value) {
-        var tmp = {
-          employee_id: value.EmployeeId,
-          cert_id: value.CertificateId,
-        }
-        console.log('Employee No: : ', value.EmployeeId, " has Certificate: ", value.CertificateId );
-        // tmp["date_expiration"] = 
-        
-        API.getCertificates(value.CertificateId)
-        .then(res => {
-          console.log(res)
-          // expirey = data that you want to save ex. res.data.days
-          // do calc to get new date expirey
-          // tmp[date_exp] = set to tmp
-          // arr.push(tmp)
-        })
-        // this.getExpiration(value.CertificateId, value.date_obtained)
+      .then(function (result) {
+        var employeeCrts = [];
+        let expirey
+        result.data.forEach(function (value) {
+          var tmp = {
+            employee_id: value.EmployeeId,
+            cert_id: value.CertificateId,
+          }
+          console.log('Employee No: : ', value.EmployeeId, " has Certificate: ", value.CertificateId);
+          // tmp["date_expiration"] = 
+
+          API.getCertificates(value.CertificateId)
+            .then(res => {
+              console.log(res)
+              // expirey = data that you want to save ex. res.data.days
+              // do calc to get new date expirey
+              // tmp[date_exp] = set to tmp
+              // arr.push(tmp)
+            })
+          // this.getExpiration(value.CertificateId, value.date_obtained)
+        });
+        // api.posttotable(array)
+        console.log('Employee Cert Data is: ', result.data);
       });
-      // api.posttotable(array)
-      console.log('Employee Cert Data is: ', result.data);
-    });
     API.getEmployees()
-    .then( function(result) {
-      console.log('Employees: ', result.data);
-    });
+      .then(function (result) {
+        console.log('Employees: ', result.data);
+      });
     API.getCrews()
-    .then( function(result) {
-      console.log('Crews: ', result.data);
-    }) 
+      .then(function (result) {
+        console.log('Crews: ', result.data);
+      })
   }
 
   // getExpiration = (id, date) => {
@@ -185,7 +187,6 @@ class DashboardPage extends React.Component {
 
   constructor(props) {
     super(props);
-
 
     this.state = {
       activeItem: '1',
@@ -357,7 +358,7 @@ class DashboardPage extends React.Component {
                                       </CardBody>
                                     </Card>
                                     <br /><br />
-                                      <DashbMainCertModal />
+                                    <DashbMainCertModal />
 
                                   </Col>
                                 </Row>
@@ -408,7 +409,7 @@ class DashboardPage extends React.Component {
                                       </CardBody>
                                     </Card>
                                     <br /><br />
-                                      <DashbMainCertModal />
+                                    <DashbMainCertModal />
 
                                   </Col>
                                 </Row>
@@ -459,8 +460,8 @@ class DashboardPage extends React.Component {
                                       </CardBody>
                                     </Card>
 
-                                      <br /><br />
-                                      <DashbMainCertModal />
+                                    <br /><br />
+                                    <DashbMainCertModal />
 
                                   </Col>
                                 </Row>
