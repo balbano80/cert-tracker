@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default {
   // Gets all employee
-  getEmployee: function() {
+  getEmployees: function() {
     return axios.get("/api/employee");
   },
   // Gets the employee with the given id
@@ -61,6 +61,12 @@ export default {
   createReminder: function(reminderData) {
     console.log("Created a new reminder with : ", reminderData);
     return axios.post("/api/reminder", reminderData);
+  },
+    // Make route for getting data from the EmployeeCerts table
+  getCrews: function() {
+    console.log("getting all crew data")
+    return axios.get("/api/crews");
+  },
 
     // return axios.post("/api/user/login", user)
 
