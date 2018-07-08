@@ -66,10 +66,10 @@ export default {
   getCrews: function() {
     console.log("getting all crew data")
     return axios.get("/api/crews");
-  },
+  } //,
 
-    // return axios.post("/api/user/login", user)
+  //   // return axios.post("/api/user/login", user)
 
-  }
+  // }
 
 };
