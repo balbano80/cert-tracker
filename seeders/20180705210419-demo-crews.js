@@ -40,18 +40,6 @@ module.exports = {
         SiteId: 2
       },
       {
-        crew_type: 'Rope Access Inspection',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        SiteId: 1
-      },
-      {
-        crew_type: 'Radiographic Inspection',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        SiteId: 1
-      },
-      {
         crew_type: 'Ground Inspection',
         createdAt: new Date(),
         updatedAt: new Date(),

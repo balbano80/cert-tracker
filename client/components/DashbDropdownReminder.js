@@ -1,51 +1,93 @@
-import React from 'react';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
+import React, { Component } from "react";
+
+// MD React-Bootstrap
+import {Card, CardBody, Select, SelectInput, SelectOptions, SelectOption, CardHeader} from 'mdbreact';
+
+// Components
+import DropdownOption from "./DropdownOption";
+
+// TEMPORARY JSON files for employees/certifications
+import reminder from "./temp-json/reminder.json";
 
 class DropdownReminder extends React.Component {
+
     constructor(props) {
         super(props);
-
-        this.toggle = this.toggle.bind(this);
-
         this.state = {
-            dropdownOpen: false,
-            selectValue:""
-        };
+            modal: false,
+            reminder,
+        }
+
     }
 
-    
-    toggle() {
+    toggle = () => {
         this.setState({
-            dropdownOpen: !this.state.dropdownOpen,
-            
+            modal: !this.state.modal
         });
     }
 
-    handleChange = event => {
-        this.setState(
-            {selectValue: event.target.value});
-       
+    // Select Crew Dropdown Value
+    optionClick = (value) => {
+        if (value.constructor === Array) {
+            value = value.join(', ');
+        }
+        this.setState({ value: value });
+    }
+
+    onClick = (e) => {
+        // check if select is multiple
+        if (e.target.dataset.multiple === 'true') {
+            return;
+        }
+
+        if (e.target.classList.contains('select-dropdown')) {
+            this.otherDropdownsClose();
+            if (e.target.nextElementSibling) {
+                e.target.nextElementSibling.classList.add('fadeIn');
+            }
+        } else {
+            this.otherDropdownsClose();
+        }
+    }
+
+    otherDropdownsClose = () => {
+        let dropdowns = document.querySelectorAll('.dropdown-content');
+        for (let i = 0; i < dropdowns.length; i++) {
+            if (dropdowns[i].classList.contains('fadeIn')) {
+                dropdowns[i].classList.remove('fadeIn');
+            }
+        }
+    }
+
+    componentDidMount() {
+        document.addEventListener('click', this.onClick);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('click', this.onClick);
     }
 
     render() {
-    return (
-            <div className="container">   
-                <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                    <DropdownToggle caret color="default" style={{ width: "100%"}}>
-                    Days
-                    </DropdownToggle>
-
-                    <DropdownMenu value={this.state.selectValue} onClick={this.handleChange}>
-                    
-
-                        <DropdownItem name= "reminder1" value="30 days">30 days</DropdownItem>
-                        <DropdownItem name= "reminder2" value="60 days">60 days</DropdownItem>
-                        <DropdownItem name= "reminder3" value="90 days">90 days</DropdownItem>
-            
-                    
-                    </DropdownMenu>
-                </Dropdown>
-            </div>
+        return (
+            <Card>
+                <CardBody>
+                    <Select multiple>
+                        <SelectInput value="Reminder">
+                        </SelectInput>
+                        <SelectOptions>
+                            <SelectOption disabled> Select Reminder Time Range</SelectOption>
+                            {this.state.reminder.map(reminder => (
+                                <DropdownOption
+                                    key={reminder.id}
+                                    id={reminder.id}
+                                    name={reminder.name}
+                                    optionClick={this.optionClick}
+                                />
+                            ))}
+                        </SelectOptions>
+                    </Select>
+                </CardBody>
+            </Card>
         );
     }
 };

@@ -1,54 +1,93 @@
-import React from 'react';
-import { Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
+import React, { Component } from "react";
+
+// MD React-Bootstrap
+import {Card, CardBody, Select, SelectInput, SelectOptions, SelectOption, CardHeader} from 'mdbreact';
+
+// Components
+import DropdownOption from "./DropdownOption";
+
+// TEMPORARY JSON files for employees/certifications
+import validfor from "./temp-json/validfor.json";
 
 class DropdownValid extends React.Component {
+
     constructor(props) {
         super(props);
-
-        this.toggle = this.toggle.bind(this);
-
         this.state = {
-            dropdownOpen: false,
-            selectValue:"",
-        };
+            modal: false,
+            validfor,
+        }
+
     }
 
-    toggle() {
+    toggle = () => {
         this.setState({
-            dropdownOpen: !this.state.dropdownOpen,
-            
+            modal: !this.state.modal
         });
     }
-    
-    handleChange = event => {
-        this.setState(
-            {selectValue: event.target.value});   
+
+    // Select Crew Dropdown Value
+    optionClick = (value) => {
+        if (value.constructor === Array) {
+            value = value.join(', ');
+        }
+        this.setState({ value: value });
+    }
+
+    onClick = (e) => {
+        // check if select is multiple
+        if (e.target.dataset.multiple === 'true') {
+            return;
+        }
+
+        if (e.target.classList.contains('select-dropdown')) {
+            this.otherDropdownsClose();
+            if (e.target.nextElementSibling) {
+                e.target.nextElementSibling.classList.add('fadeIn');
+            }
+        } else {
+            this.otherDropdownsClose();
+        }
+    }
+
+    otherDropdownsClose = () => {
+        let dropdowns = document.querySelectorAll('.dropdown-content');
+        for (let i = 0; i < dropdowns.length; i++) {
+            if (dropdowns[i].classList.contains('fadeIn')) {
+                dropdowns[i].classList.remove('fadeIn');
+            }
+        }
+    }
+
+    componentDidMount() {
+        document.addEventListener('click', this.onClick);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('click', this.onClick);
     }
 
     render() {
-    return (
-            <div className="container" icon="exclamation">
-              
-                <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                    
-                    <DropdownToggle caret color="default" style={{ width: "100%" }} value={this.state.selectValue} onClick={this.handleChange}>
-                    Months
-                    </DropdownToggle>
-
-                    <DropdownMenu>
-                    
-
-                        <DropdownItem name= "validFor" value="3 months" >3 months</DropdownItem>
-                        <DropdownItem name= "validFor" value="6 months" >6 months</DropdownItem>
-                        <DropdownItem name= "validFor" value="12 months">12 months</DropdownItem>
-                    
-                    
-                    </DropdownMenu>
-            
-                    
-                </Dropdown>
-        
-            </div>
+        return (
+            <Card>
+                <CardBody>
+                    <Select multiple>
+                        <SelectInput value="Valid For">
+                        </SelectInput>
+                        <SelectOptions>
+                            <SelectOption disabled> Select Valid Time Range </SelectOption>
+                            {this.state.validfor.map(valid => (
+                                <DropdownOption
+                                    key={valid.id}
+                                    id={valid.id}
+                                    name={valid.name}
+                                    optionClick={this.optionClick}
+                                />
+                            ))}
+                        </SelectOptions>
+                    </Select>
+                </CardBody>
+            </Card>
         );
     }
 };

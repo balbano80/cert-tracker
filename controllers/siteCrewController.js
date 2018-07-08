@@ -1,51 +1,52 @@
 const db = require("../models");
 
-// Defining methods for the EmployeeController
+// Defining methods for the siteCrewController
 
 
 module.exports = {
   findAll: function(req, res) {
-    db.Employee.findAll({})
-    .then(function(dbEmployee) {
-      res.json(dbEmployee);
+    console.log("hit siteCrews")
+    db.Crew.findAll({})
+    .then(function(result) {
+    //   console.log("Results are: " ,result)
+      res.json(result);
     });
   },
   findById: function(req, res) {
-    db.Employee.findOne({
+    db.Crews.findOne({
       where: {
         id: req.params.id
       }
     })
-      .then(function(dbEmployee) {
-        res.json(dbEmployee);
+      .then(function(dbCrew) {
+        res.json(dbCrew);
       });
   },
   create: function(req, res) {
-    console.log('employee created');
-    db.Employee.create(req.body)
+    db.Crew.create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
-     db.Employee.update(req.body,
+     db.Crew.update(req.body,
       {
         where: {
           id: req.body.id
         }
       })
-      .then(function(dbEmployee) {
-        res.json(dbEmployee);
+      .then(function(dbCrew) {
+        res.json(dbCrew);
       });
 
   },
   remove: function(req, res) {
-    db.Employee.destroy({
+    db.Crew.destroy({
       where: {
         id: req.params.id
       }
     })
-      .then(function(dbEmployee) {
-        res.json(dbEmployee);
+      .then(function(dbCrew) {
+        res.json(dbCrew);
       });
   }
 };

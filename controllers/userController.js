@@ -1,7 +1,5 @@
 const db = require("../models");
-var passport = require("../config/passport")
 var express = require("express");
-var app = express();
 
 // Defining methods for the userController
 module.exports = {
