@@ -27,33 +27,12 @@ module.exports = {
         where: {
           email: req.body.email
         }
-      })
-      .then(function(data){
+      }).then(function(data){
         console.log(data);
       });
     },
-    update: function(req, res) {
-      db.User.update(req.body,
-       {
-         where: {
-           id: req.body.id
-         }
-       })
-       .then(function(dbUser) {
-         res.json(dbUser);
-       });
+
  
-   },
-   remove: function(req, res) {
-     db.User.destroy({
-       where: {
-         id: req.params.id
-       }
-     })
-       .then(function(dbUser) {
-         res.json(dbUser);
-       });
-   }
   };
 
   
