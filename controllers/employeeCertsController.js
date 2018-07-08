@@ -4,11 +4,21 @@ const db = require("../models");
 
 
 module.exports = {
-  findAll: function(req, res) {
+
+  findExpiryDates: function(req, res) {
     console.log("hit")
     db.EmployeeCert.findAll({})
     .then(function(result) {
-      console.log("Results are: " ,result)
+      // console.log("Results are: " ,result)
+      res.json(result);
+    });
+  },
+
+  findAll: function(req, res) {
+    // console.log("hit")
+    db.EmployeeCert.findAll({})
+    .then(function(result) {
+      // console.log("Results are: " ,result)
       res.json(result);
     });
   },

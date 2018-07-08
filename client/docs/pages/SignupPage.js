@@ -49,16 +49,32 @@ class SignupPage extends React.Component {
       alert("Passwords do not match")
     }
     else {
-      API.createUser({
-        company: this.state.company,
-        first_name: this.state.first_name,
-        last_name: this.state.last_name,
-        email: this.state.email,
-        password: this.state.password
-    })
-      //.then(direct to login page or dashboard page if able to figure out auto-login)
-      //.catch(error)
-    }
+
+      const first_name = this.state.first_name;
+      const last_name = this.state.last_name;
+      const email = this.state.email;
+      const password = this.state.password;
+
+      API.createCompany({
+        name: this.state.company,
+      }).then(function(companyData){
+        // console.log("Back on page", companyData.data.id); 
+        const companyId =  companyData.data.id;
+          API.createUser({
+            CompanyId: companyId,
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            password: password
+          })
+      .then(function(data){
+        console.log(data);
+        // window.location.href = `/login`;
+      }).catch(function(err){
+        console.log(err);
+        })
+     });
+    };
   };
 
   render() {

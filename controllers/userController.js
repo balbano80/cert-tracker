@@ -1,13 +1,13 @@
 const db = require("../models");
-// const router = require("../routes/signUp.js")
+var express = require("express");
 
-// Defining methods for the signUpController
+// Defining methods for the userController
 module.exports = {
     create: function(req, res) {
-        console.log("in signUpController block");
-      db.User
-        .create(req.body)
+        console.log("in userController block", req.body);
+      db.User.create(req.body)
         .then(dbModel => res.json(dbModel))
+        .then(res.json("/login"))
         .catch(err => res.status(422).json(err));
     },
     findByEmail: function(req, res) {
@@ -43,3 +43,5 @@ module.exports = {
        });
    }
   };
+
+  
