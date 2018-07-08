@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardBody, Table, } from 'mdbreact';
+import { Card, CardBody, Row, Col, Table, } from 'mdbreact';
 import DashbAddCertificationModal from '../components/DashbAddCertificationModal';
 import DashbEditCertificationModal from '../components/DashbEditCertificationModal';
 import CertificationTable from '../components/CertificationTable';
@@ -26,20 +26,29 @@ class DashbMainCertModal extends React.Component {
         })
     };
 
-    
     render() {
         return (
             <div>
                 <Card>
                     <CardBody>
-                        <h4 className="h4-responsive text-center">Certifications</h4>
-                        <DashbEditCertificationModal />
+                    <Row>
+                        <Col>
+                            <h4 className="h4-responsive text-center">Certifications</h4>
+                        </Col>
+                        <Col>
+                            <DashbEditCertificationModal />
+                        </Col>
+                        <Col>
                         <DashbAddCertificationModal populate={this.populate} />
-                        <Table striped bordered small>
+                        </Col>
+                    </Row>
+                    <Row>
+                    <Table striped bordered small>
                             
                             <CertificationTable cert={this.state.certNameArray}/>
-                            
+ 
                         </Table>
+                    </Row>
                     </CardBody>
                 </Card>
             </div>
