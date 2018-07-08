@@ -35,6 +35,18 @@ export default {
     return axios.get("/api/signin/" + user.email, user)
   },
 
+  getCert: function (id) {
+    return axios.get("/api/certification/" + id);
+  },
+
+  getSites: function(){
+    return axios.get("/api/site");
+  },
+
+  saveCert: function(certData) {
+    console.log("Certification data: ", certData);
+    return axios.post("/api/certification", certData);
+  },
   // Make route for getting data from the EmployeeCerts table
   getEmployeeCerts: function() {
     return axios.get("/api/employeecerts")

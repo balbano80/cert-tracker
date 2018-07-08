@@ -41,6 +41,9 @@ const data = {
 class DashboardPage extends React.Component {
 
   componentDidMount() {
+    API.getSites().then(res => {
+      console.log(res.data[0].name)
+    })
     // Bar chart
     var ctxB = document.getElementById("barChart").getContext('2d');
     new Chart(ctxB, {

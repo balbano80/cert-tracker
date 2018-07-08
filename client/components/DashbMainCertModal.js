@@ -8,21 +8,17 @@ class DashbMainCertModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            certNameArray:[],
-            reminderArray:[],
-            validForArray:[]
+            certNameArray:[]
         }
     }
 
     populate = (cert) => {
-        let newArray= this.state.certNameArray;
-        // let newRemindArray=this.state.reminderArray;
-        // let newValidForArray=this.state.validForArray;
+        let newArray= this.state.certNameArray
+   
         newArray.push(cert)
         this.setState({
-            certNameArray: newArray,
-            // reminderArray: newRemindArray,
-            // validForArray: newValidForArray
+            certNameArray: newArray
+    
         })
     };
 
