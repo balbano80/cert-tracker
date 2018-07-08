@@ -59,9 +59,9 @@ class FormEmployeePage extends React.Component {
   render() {
     return(
       <Container className="mt-5">
-        <h2 className="mb-5">Certificate Tracking</h2>
+        <h2 className="mb-5 text-center">Certificate Tracking</h2>
         <Row>
-          <Col md="6">
+          <Col md="6"className="mx-auto float-none white z-depth-1 py-2 px-2">
             <Card>
               <CardBody>
                 <form>

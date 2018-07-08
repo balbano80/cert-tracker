@@ -52,7 +52,7 @@ class LoginPage extends React.Component {
         <h2 className="mb-5 text-center">Login page</h2>
         <Row>
         <Col md="6" className="mx-auto float-none white z-depth-1 py-2 px-2">
-            <CardImage src="https://media.istockphoto.com/photos/industrial-zone-steel-pipelines-valves-and-gauges-picture-id616899444?k=6&m=616899444&s=612x612&w=0&h=sSytzfpe4t4Gt7VX8T0sRPIZ9edUKYimpA0UK4KQS28=" 
+            <CardImage src="https://www.glensfallshospital.org/application/files/2914/7550/5313/Glens_Falls_Hospital_Employee_Login.jpg" 
                        alt="Card image cap"/>
           </Col>
           <Col md="6">
