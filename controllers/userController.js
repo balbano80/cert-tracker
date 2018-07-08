@@ -27,7 +27,8 @@ module.exports = {
         where: {
           email: req.body.email
         }
-      }).then(function(data){
+      })
+      .then(function(data){
         console.log(data);
       });
     },

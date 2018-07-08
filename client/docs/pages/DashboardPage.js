@@ -144,10 +144,10 @@ class DashboardPage extends React.Component {
     }) 
   }
 
-  getExpiration = (id, date) => {
+  // getExpiration = (id, date) => {
 
 
-  }
+  // }
 
 
   constructor(props) {

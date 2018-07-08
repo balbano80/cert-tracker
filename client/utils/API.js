@@ -50,7 +50,7 @@ export default {
     console.log("Created a new reminder with : ", reminderData);
     return axios.post("/api/reminder", reminderData);
 
-    return axios.post("/api/user/login", user)
+    // return axios.post("/api/user/login", user)
 
   }
 
