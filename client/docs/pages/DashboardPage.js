@@ -144,6 +144,14 @@ class DashboardPage extends React.Component {
       });
       // api.posttotable(array)
       console.log('Employee Cert Data is: ', result.data);
+    });
+    API.getEmployees()
+    .then( function(result) {
+      console.log('Employees: ', result.data);
+    });
+    API.getCrews()
+    .then( function(result) {
+      console.log('Crews: ', result.data);
     }) 
   }
 

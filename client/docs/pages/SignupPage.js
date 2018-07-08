@@ -67,14 +67,12 @@ class SignupPage extends React.Component {
             email: email,
             password: password
           })
-      .then(function(data, res){
+      .then(function(data){
         console.log(data);
-        window.location.href = `/login`;
-    }).catch(function(err){
-      console.log(err);
-    })
-      //.then(direct to login page or dashboard page if able to figure out auto-login)
-      //.catch(error)
+        // window.location.href = `/login`;
+      }).catch(function(err){
+        console.log(err);
+        })
      });
     };
   };
