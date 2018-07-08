@@ -40,10 +40,32 @@ const data = {
 
 class DashboardPage extends React.Component {
 
+  // for(let i = 0; i < this.state.data; i++) {
+  //   // loop through your data
+  //  }
+  // this.state.data.map(function(d) {
+  //   // "d"
+  //  });
+
   componentDidMount() {
     API.getSites().then(res => {
-      console.log(res.data[0].name)
+      console.log(res.data)
+      console.log(res.data.length)
+     
+   
+     
+
+      const siteArray =
+        res.data.map(function(data){
+        return <li key={data.CompanyId}>{data.name}</li>
+      });
+
+      // this.setState({siteArray})
+      console.log("inside of function: " + JSON.stringify(siteArray));
     })
+
+    console.log("Site Array is : " + this.state.siteArray)
+
     // Bar chart
     var ctxB = document.getElementById("barChart").getContext('2d');
     new Chart(ctxB, {
