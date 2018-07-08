@@ -38,7 +38,8 @@ module.exports = function (sequelize, DataTypes) {
         
         Employee.belongsTo(models.Crew, {
             foreignKey: {
-                allowNull: false
+                allowNull: false,
+                unique: false
             }
         });
 

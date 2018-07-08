@@ -1,15 +1,16 @@
 const router = require("express").Router();
-const employeeCertsController = require("../../controllers/employeeCertsController");
+const certificatesController = require("../../controllers/employeeCertsController");
 
-// Matches with "/api/employeecerts"
+// Matches with "/api/certificates"
 router.route("/")
-  .get(employeeCertsController.findAll)
-  .post(employeeCertsController.create);
+  .get(certificatesController.findAll)
+  // .get(certificatesController.findExpiryDates)
+  .post(certificatesController.create);
 
-// Matches with "/api/employeecerts/:id"
+// Matches with "/api/certificates/:id"
 router
   .route("/:id")
-  .get(employeeCertsController.findById)
-  .put(employeeCertsController.update)
+  .get(certificatesController.findById)
+  .put(certificatesController.update)
 
 module.exports = router;
