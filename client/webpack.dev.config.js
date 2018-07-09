@@ -27,9 +27,17 @@ const config = {
     ]
   },
   devServer: {
+    // historyApiFallback: true,
+    // proxy: { 
+    //   "*": "http://[::1]:3001"
+    // }
     proxy: {
-      "*": "http://[::1]:3001"
-    }
+      '/api': {
+          target: 'http://[::1]:3001',
+          pathRewrite: { '^/api': '' },
+      }
+  }
+
   },
   plugins: [
     new HtmlWebpackPlugin({
