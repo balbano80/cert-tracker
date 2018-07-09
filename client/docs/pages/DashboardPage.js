@@ -12,6 +12,7 @@ import axios from "axios";
 
 // Line chart
 // We have to link database to this object?
+
 const data = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
@@ -49,7 +50,7 @@ class DashboardPage extends React.Component {
       console.log("UserInfo ", this.state.user);
     });
     API.getSites().then(res => {
-      console.log(res.data[0].name)
+      this.setState({siteArray: res.data })
     })
     // Bar chart
     var ctxB = document.getElementById("barChart").getContext('2d');
@@ -128,39 +129,40 @@ class DashboardPage extends React.Component {
       }
     });
     API.getEmployeeCerts()
-    .then( function(result) {
-      var employeeCrts = [];
-      let expirey
-      result.data.forEach(function(value) {
-        var tmp = {
-          employee_id: value.EmployeeId,
-          cert_id: value.CertificateId,
-        }
-        console.log('Employee No: : ', value.EmployeeId, " has Certificate: ", value.CertificateId );
-        // tmp["date_expiration"] = 
-        
-        API.getCertificates(value.CertificateId)
-        .then(res => {
-          console.log(res)
-          // expirey = data that you want to save ex. res.data.days
-          // do calc to get new date expirey
-          // tmp[date_exp] = set to tmp
-          // arr.push(tmp)
-        })
-        // this.getExpiration(value.CertificateId, value.date_obtained)
+      .then(function (result) {
+        var employeeCrts = [];
+        let expirey
+        result.data.forEach(function (value) {
+          var tmp = {
+            employee_id: value.EmployeeId,
+            cert_id: value.CertificateId,
+          }
+          console.log('Employee No: : ', value.EmployeeId, " has Certificate: ", value.CertificateId);
+          // tmp["date_expiration"] = 
+
+          API.getCertificates(value.CertificateId)
+            .then(res => {
+              console.log(res)
+              // expirey = data that you want to save ex. res.data.days
+              // do calc to get new date expirey
+              // tmp[date_exp] = set to tmp
+              // arr.push(tmp)
+            })
+          // this.getExpiration(value.CertificateId, value.date_obtained)
+        });
+        // api.posttotable(array)
+        console.log('Employee Cert Data is: ', result.data);
       });
-      // api.posttotable(array)
-      console.log('Employee Cert Data is: ', result.data);
-    });
     API.getEmployees()
-    .then( function(result) {
-      console.log('Employees: ', result.data);
-    });
+      .then(function (result) {
+        console.log('Employees: ', result.data);
+      });
     // for (let i = 0; i < this.state.user.sites.length; i++){
-    API.getCrews()
-    .then( function(result) {
-      console.log('Crews: ', result.data);
-    }) 
+    API.getCrews().then((result) => {
+      console.log("Crews working ", result.data)
+      this.setState({crewArray: result.data })
+      // console.log('Crews: ', result.data);
+    })
   }
 
   // getExpiration = (id, date) => {
@@ -174,11 +176,13 @@ class DashboardPage extends React.Component {
 
 
     this.state = {
+      siteArray: [],
+      crewArray: [],
       activeItem: '1',
       activeItemPills: '1',
       activeItemVerticalPills: '1',
       activeItemOuterTabs: '1',
-      activeItemInnerPills: '1',
+      activeItemInnerPills: '0',
       activeItemClassicTabs1: '1',
       activeItemClassicTabs2: '1',
       modal: false,
@@ -250,12 +254,18 @@ class DashboardPage extends React.Component {
             <Row>
               <Col lg="1">
                 <div className="container" style={{ height: "10px" }}>
+                  {/* <h1>Test {this.state.crewArray}</h1> */}
                   <SideNav fixed breakWidth={1300} className="stylish-color-dark">
                     <SideNavNav>
-                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '1' })} onClick={() => { this.toggleInnerPills('1'); }} name="Main" icon="bar-chart"></SideNavCat>
-                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '2' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('2'); }} name="Site 1" icon="building-o"></SideNavCat>
-                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '3' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('3'); }} name="Site 2" icon="building-o"></SideNavCat>
-                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '4' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('4'); }} name="Site 3" icon="building-o"></SideNavCat>
+                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '0' })} onClick={() => { this.toggleInnerPills('0'); }} name="Main" icon="bar-chart"></SideNavCat>
+                      {this.state.siteArray.length > 0 &&
+                        this.state.siteArray.map((siteObj) => {
+                            if (siteObj.CompanyId === 1) {
+                              return (<SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === `${siteObj.id}` })} id="sidenav-site" onClick={() => { this.toggleInnerPills(`${siteObj.id}`); }} name={siteObj.name} companyId={siteObj.CompanyId} icon="building-o"></SideNavCat>)
+                            }
+                          }
+                        )
+                      }
                       <DashbAddSiteModal />
                     </SideNavNav>
                   </SideNav>
@@ -270,7 +280,7 @@ class DashboardPage extends React.Component {
                         <Row>
                           <Col lg="12">
                             <TabContent activeItem={this.state.activeItemInnerPills}>
-                              <TabPane tabId="1">
+                              <TabPane tabId="0">
                                 <Row className="pb-3">
                                   <div style={{ marginTop: '10px' }}>
                                     <h2 className="grey-text">{this.state.user.companyName} Overview</h2>
@@ -298,7 +308,72 @@ class DashboardPage extends React.Component {
                                   </div>
                                 </Row>
                               </TabPane>
-                              <TabPane tabId="2">
+
+                              {this.state.siteArray.length > 0 &&
+                                this.state.siteArray.map((siteObj) => {
+                                    return (
+                                      <TabPane tabId="1" >
+                                      <Row className="pb-3">
+                                        <Col md="12">
+                                          <Card>
+                                            <CardBody>
+                                              <Row>
+                                                <Col>
+                                                  <h4 className="h4-responsive">{siteObj.name}</h4>
+                                                </Col>
+                                                <Col>
+                                                  <DashbEditSiteModal />
+                                                </Col>
+                                              </Row>
+                                              <Table striped bordered small>
+                                                <thead>
+                                                  <tr>
+                                                    <th>#</th>
+                                                    <th>Crew Names</th>
+
+                                                    <th>Number of members</th>
+                                                  </tr>
+                                                </thead>
+                                              <tbody>
+                                              {this.state.crewArray.length > 0 &&
+                                                this.state.crewArray.map((crewObj) => {
+                                              if (crewObj.SiteId === siteObj.CompanyId) {
+                                                  return (
+                                                      <tr>
+                                                        <th scope="row"></th>
+                                                        <td>{crewObj.crew_type}</td>
+                                                        <td>24</td>
+                                                      </tr>
+                                                    )
+                                                  }
+                                                }
+                                                )}
+                                                  {/* <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>{crewObj.crew_type}</td>
+
+                                                    <td>12</td>
+                                                  </tr>
+                                      
+                                                  <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>{crewObj.crew_type}</td>
+
+                                                    <td>56</td>
+                                                  </tr> */}
+                                                </tbody>
+                                              </Table>
+                                            </CardBody>
+                                          </Card>
+                                          <br /><br />
+                                          <DashbMainCertModal />
+                                        </Col>
+                                      </Row>
+                                      </TabPane>
+                                    )
+                                  }
+                                )}
+                              {/* <TabPane tabId="1">
                                 <Row className="pb-3">
                                   <Col md="12">
                                     <Card>
@@ -316,7 +391,7 @@ class DashboardPage extends React.Component {
                                             <tr>
                                               <th>#</th>
                                               <th>Crew Names</th>
-                                              <th>Crew Type</th>
+                                              
                                               <th>Number of members</th>
                                             </tr>
                                           </thead>
@@ -324,19 +399,19 @@ class DashboardPage extends React.Component {
                                             <tr>
                                               <th scope="row">1</th>
                                               <td>RT</td>
-                                              <td>Radiography</td>
+                                             
                                               <td>24</td>
                                             </tr>
                                             <tr>
                                               <th scope="row">2</th>
                                               <td>Ropes</td>
-                                              <td>Rope Access</td>
+                                              
                                               <td>12</td>
                                             </tr>
                                             <tr>
                                               <th scope="row">3</th>
                                               <td>Ground</td>
-                                              <td>Ground Inspection</td>
+                                              
                                               <td>56</td>
                                             </tr>
                                           </tbody>
@@ -344,12 +419,11 @@ class DashboardPage extends React.Component {
                                       </CardBody>
                                     </Card>
                                     <br /><br />
-                                      <DashbMainCertModal />
-
+                                    <DashbMainCertModal />
                                   </Col>
                                 </Row>
-                              </TabPane>
-                              <TabPane tabId="3">
+                              </TabPane> */}
+                              {/* <TabPane tabId="2">
                                 <Row className="pb-3">
                                   <Col md="12">
                                     <Card>
@@ -399,8 +473,8 @@ class DashboardPage extends React.Component {
 
                                   </Col>
                                 </Row>
-                              </TabPane>
-                              <TabPane tabId="4">
+                              </TabPane> */}
+                              {/* <TabPane tabId="3">
                                 <Row className="pb-3">
                                   <Col md="12">
                                     <Card>
@@ -451,7 +525,7 @@ class DashboardPage extends React.Component {
 
                                   </Col>
                                 </Row>
-                              </TabPane>
+                              </TabPane> */}
                             </TabContent>
                           </Col>
                         </Row>
