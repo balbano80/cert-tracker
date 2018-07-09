@@ -8,6 +8,7 @@ import DashbEditSiteModal from '../../components/DashbEditSiteModal';
 import DashbMainCertModal from '../../components/DashbMainCertModal';
 import DashSideNav from '../components/DashSideNav/DashSideNav.css';
 import API from '../../utils/API';
+import axios from "axios";
 
 // Line chart
 // We have to link database to this object?
@@ -41,6 +42,12 @@ const data = {
 class DashboardPage extends React.Component {
 
   componentDidMount() {
+    axios.get("/api/user_data").then(res => {
+      this.setState({
+        user: res.data
+      })
+      console.log("UserInfo ", this.state.user);
+    });
     API.getSites().then(res => {
       console.log(res.data[0].name)
     })
@@ -145,6 +152,11 @@ class DashboardPage extends React.Component {
       api.posttotable(array)
       console.log('Employee Cert Data is: ', result.data);
     });
+    API.getEmployees()
+    .then( function(result) {
+      console.log('Employees: ', result.data);
+    });
+    // for (let i = 0; i < this.state.user.sites.length; i++){
     API.getCrews()
     .then( function(result) {
       console.log('Crews: ', result.data);
@@ -169,7 +181,8 @@ class DashboardPage extends React.Component {
       activeItemInnerPills: '1',
       activeItemClassicTabs1: '1',
       activeItemClassicTabs2: '1',
-      modal: false
+      modal: false,
+      user: {}
     };
     this.toggle = this.toggle.bind(this);
   }
@@ -260,7 +273,7 @@ class DashboardPage extends React.Component {
                               <TabPane tabId="1">
                                 <Row className="pb-3">
                                   <div style={{ marginTop: '10px' }}>
-                                    <h2 className="grey-text">Company Overview</h2>
+                                    <h2 className="grey-text">{this.state.user.companyName} Overview</h2>
                                     <Container>
 
                                       <Row className="text-center grey-text mb-5 border-bottom">
