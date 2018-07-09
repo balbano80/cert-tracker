@@ -1,0 +1,20 @@
+const router = require("express").Router();
+const userController= require("../../controllers/userController");
+// var passport = require("../../config/passport");
+
+// Matches with "/api/books"
+router.route("/")
+  .post(userController.create);
+
+// Matches with "/api/books/:id"
+router
+  .route("/:email")
+  .get(userController.findByEmail)
+  .put(userController.update)
+  .delete(userController.remove)
+
+router
+  .route("/userData")
+  .get(userController.findByEmail);
+
+module.exports = router;

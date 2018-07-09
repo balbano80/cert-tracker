@@ -1,0 +1,40 @@
+.side-nav {
+    margin-top: 75px;
+    z-index: 3;
+    padding-top: 10px;
+    position: relative;
+    width: 200px;
+}
+
+a.collapsible-header.Ripple-parent.arrow-r {
+    height: 50px;
+    font-size: 14px;
+}
+
+.collapsible {
+    margin-right: 0;
+}
+
+.fa-angle-down:before {
+    content: none;
+}
+
+#sidenav-site {
+    padding-left: 40px;
+}
+
+
+.btn.addsite-btn {
+    box-shadow: none;
+    position: absolute;
+    bottom: 75px;
+    left: -15px;
+    text-transform: capitalize;
+}
+
+.btn:hover, 
+.btn:active, 
+.btn:focus {
+    box-shadow: none;
+    outline: 0;
+}
