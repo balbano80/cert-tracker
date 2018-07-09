@@ -47,10 +47,17 @@ class DashboardPage extends React.Component {
       this.setState({
         user: res.data
       })
-      console.log("UserInfo ", this.state.user);
+      // console.log("UserInfo ", this.state.user);
     });
     API.getSites().then(res => {
-      this.setState({siteArray: res.data })
+      const sitesArr = []
+        for (let i = 0; i <res.data.length; i++){
+          if (this.state.user.CompanyId === res.data[i].CompanyId){
+            sitesArr.push(res.data[i]);
+          } 
+      }
+      this.setState({ siteArray: sitesArr });
+      // console.log("User Sites", this.state.siteArray);
     })
     // Bar chart
     var ctxB = document.getElementById("barChart").getContext('2d');
@@ -128,47 +135,64 @@ class DashboardPage extends React.Component {
         responsive: true
       }
     });
-    API.getEmployeeCerts()
-      .then(function (result) {
-        var employeeCrts = [];
-        let expirey
-        result.data.forEach(function (value) {
-          var tmp = {
-            employee_id: value.EmployeeId,
-            cert_id: value.CertificateId,
+
+    API.getCrews()
+    .then( result => {
+      const crewArr = [];
+      for (let i = 0; i < this.state.siteArray.length; i++){
+        for (let j = 0; j< result.data.length; j++){
+          if (this.state.siteArray[i].id === result.data[j].SiteId){
+            crewArr.push(result.data[j])
           }
-          console.log('Employee No: : ', value.EmployeeId, " has Certificate: ", value.CertificateId);
-          // tmp["date_expiration"] = 
+        }
+      }
+      this.setState({crewsArr: crewArr})
+      // console.log("CrewsArr", this.state.crewsArr);
+    });
 
-          API.getCertificates(value.CertificateId)
-            .then(res => {
-              console.log(res)
-              // expirey = data that you want to save ex. res.data.days
-              // do calc to get new date expirey
-              // tmp[date_exp] = set to tmp
-              // arr.push(tmp)
-            })
-          // this.getExpiration(value.CertificateId, value.date_obtained)
-        });
-        // api.posttotable(array)
-        console.log('Employee Cert Data is: ', result.data);
-      });
     API.getEmployees()
-      .then(function (result) {
-        console.log('Employees: ', result.data);
-      });
-    // for (let i = 0; i < this.state.user.sites.length; i++){
-    API.getCrews().then((result) => {
-      console.log("Crews working ", result.data)
-      this.setState({crewArray: result.data })
-      // console.log('Crews: ', result.data);
-    })
+    .then( empResult => {
+      const employeeArr = [];
+      for (let i = 0; i < this.state.crewsArr.length; i++){
+        for (let j = 0; j< empResult.data.length; j++){
+          if (this.state.crewsArr[i].id === empResult.data[j].CrewId){
+            employeeArr.push(empResult.data[j])
+          }
+        }
+      }
+      this.setState({employeesArr: employeeArr})
+      // console.log("EmployeesArr", this.state.employeesArr);
+      console.log("State info", this.state);
+    });
 
-    API.getCertificates().then((result) =>{
-      console.log("Certificate:::::::::", result.data)
-      this.setState({certArray: result.data})
-    })
-  } 
+    API.getEmployeeCerts()
+    .then( function(result) {
+      var employeeCrts = [];
+      let expirey
+      result.data.forEach(function(value) {
+        var tmp = {
+          employee_id: value.EmployeeId,
+          cert_id: value.CertificateId,
+        }
+        console.log('Employee No: : ', value.EmployeeId, " has Certificate: ", value.CertificateId );
+        // tmp["date_expiration"] = 
+        
+        API.getCertificates(value.CertificateId)
+        .then(res => {
+          // console.log(res)
+          // expirey = data that you want to save ex. res.data.days
+          // do calc to get new date expirey
+          // tmp[date_exp] = set to tmp
+          // arr.push(tmp)
+        })
+        // this.getExpiration(value.CertificateId, value.date_obtained)
+      });
+      // api.posttotable(array)
+      // console.log('Employee Cert Data is: ', result.data);
+    });
+
+
+  }
 
   // getExpiration = (id, date) => {
 
@@ -264,10 +288,17 @@ class DashboardPage extends React.Component {
                     <SideNavNav>
                       <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '0' })} onClick={() => { this.toggleInnerPills('0'); }} name="Main" icon="bar-chart"></SideNavCat>
                       {this.state.siteArray.length > 0 &&
-                        this.state.siteArray.map((siteObj) => {
-                            if (siteObj.CompanyId === 1) {
-                              return (<SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === `${siteObj.id}` })} id="sidenav-site" onClick={() => { this.toggleInnerPills(`${siteObj.id}`); }} name={siteObj.name} companyId={siteObj.CompanyId} icon="building-o"></SideNavCat>)
-                            }
+                        this.state.siteArray.map(
+
+                          (siteObj) => {
+    
+                            {/* if (siteObj.CompanyId === 1) { */}
+                              return (
+
+                                <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === `${siteObj.id}` })} id="sidenav-site" onClick={() => { this.toggleInnerPills(`${siteObj.id}`); }} name={siteObj.name} companyId={siteObj.CompanyId} icon="building-o"></SideNavCat>
+
+                              )
+                            {/* } */}
                           }
                         )
                       }
