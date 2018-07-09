@@ -2,8 +2,33 @@ import React from 'react';
 import { Container, Row, Col, Table, Input, Button, Fa, Card, CardBody, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
 import DatePickerMod from '../../components/DatePickerMod';
 import API from '../../utils/API';
+import axios from "axios";
 
 class FormEmployeePage extends React.Component {
+
+    componentDidMount() {
+        axios.get("/api/user_data").then(res => {
+          this.setState({
+            user: res.data
+          })
+          console.log("UserInfo ", this.state.user);
+        });
+        API.getSites().then(res => {
+          console.log(res.data[0].name)
+        });
+
+        // getCrews
+        API.getCrews().then(res => {
+            console.log("The Site name is: ", res.data[0].crew_type)
+            res.data.forEach(function(crewObj) {
+                console.log("Crew Names: ", crewObj.crew_type)
+                })
+                console.log("The array is: ", res.data)
+            });
+            
+        
+    }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -58,6 +83,11 @@ class FormEmployeePage extends React.Component {
 
   render() {
     return(
+    //   <Container>
+    //     <Row>
+
+    //     </Row>
+    //   </Container>  
       <Container className="mt-5">
         <h2 className="mb-5">Certificate Tracking</h2>
         <Row>
