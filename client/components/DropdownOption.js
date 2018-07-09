@@ -3,8 +3,8 @@ import { SelectOption } from 'mdbreact';
 
 
 const DropdownOption = props => (
-    <SelectOption triggerOptionClick={() => props.optionClick(props.name)}> 
-       {props.id}: {props.name}
+    <SelectOption triggerOptionClick={() => props.optionClick(props.crew_type)}> 
+       {props.id}: {props.crew_type}
     </SelectOption>
 );
 

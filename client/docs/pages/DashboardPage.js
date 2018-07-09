@@ -12,6 +12,7 @@ import axios from "axios";
 
 // Line chart
 // We have to link database to this object?
+
 const data = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
@@ -204,7 +205,9 @@ class DashboardPage extends React.Component {
 
 
     this.state = {
-      siteArray:[],
+      siteArray: [],
+      crewArray: [],
+      certArray:[],
       activeItem: '1',
       activeItemPills: '1',
       activeItemVerticalPills: '1',
@@ -297,7 +300,8 @@ class DashboardPage extends React.Component {
                               )
                             {/* } */}
                           }
-                        )}
+                        )
+                      }
                       <DashbAddSiteModal />
                     </SideNavNav>
                   </SideNav>
@@ -340,160 +344,55 @@ class DashboardPage extends React.Component {
                                   </div>
                                 </Row>
                               </TabPane>
-                              <TabPane tabId="1">
-                                <Row className="pb-3">
-                                  <Col md="12">
-                                    <Card>
-                                      <CardBody>
-                                        <Row>
-                                          <Col>
-                                            <h4 className="h4-responsive">Benicia Crews</h4>
-                                          </Col>
-                                          <Col>
-                                            <DashbEditSiteModal />
-                                          </Col>
-                                        </Row>
-                                        <Table striped bordered small>
-                                          <thead>
-                                            <tr>
-                                              <th>#</th>
-                                              <th>Crew Names</th>
-                                              <th>Crew Type</th>
-                                              <th>Number of members</th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr>
-                                              <th scope="row">1</th>
-                                              <td>RT</td>
-                                              <td>Radiography</td>
-                                              <td>24</td>
-                                            </tr>
-                                            <tr>
-                                              <th scope="row">2</th>
-                                              <td>Ropes</td>
-                                              <td>Rope Access</td>
-                                              <td>12</td>
-                                            </tr>
-                                            <tr>
-                                              <th scope="row">3</th>
-                                              <td>Ground</td>
-                                              <td>Ground Inspection</td>
-                                              <td>56</td>
-                                            </tr>
-                                          </tbody>
-                                        </Table>
-                                      </CardBody>
-                                    </Card>
-                                    <br /><br />
-                                      <DashbMainCertModal />
 
-                                  </Col>
-                                </Row>
-                              </TabPane>
-                              <TabPane tabId="2">
-                                <Row className="pb-3">
-                                  <Col md="12">
-                                    <Card>
-                                      <CardBody>
-                                        <Row>
-                                          <Col>
-                                            <h4 className="h4-responsive">Tesoro Crews</h4>
-                                          </Col>
-                                          <Col>
-                                            <DashbEditSiteModal />
-                                          </Col>
-                                        </Row>
-                                        <Table striped bordered small>
-                                          <thead>
-                                            <tr>
-                                              <th>#</th>
-                                              <th>Crew Names</th>
-                                              <th>Crew Type</th>
-                                              <th>Number of members</th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr>
-                                              <th scope="row">1</th>
-                                              <td>RT</td>
-                                              <td>Radiography</td>
-                                              <td>24</td>
-                                            </tr>
-                                            <tr>
-                                              <th scope="row">2</th>
-                                              <td>Ropes</td>
-                                              <td>Rope Access</td>
-                                              <td>12</td>
-                                            </tr>
-                                            <tr>
-                                              <th scope="row">3</th>
-                                              <td>Ground</td>
-                                              <td>Ground Inspection</td>
-                                              <td>56</td>
-                                            </tr>
-                                          </tbody>
-                                        </Table>
-                                      </CardBody>
-                                    </Card>
-                                    <br /><br />
-                                      <DashbMainCertModal />
-
-                                  </Col>
-                                </Row>
-                              </TabPane>
-                              <TabPane tabId="3">
-                                <Row className="pb-3">
-                                  <Col md="12">
-                                    <Card>
-                                      <CardBody>
-                                        <Row>
-                                          <Col>
-                                            <h4 className="h4-responsive">Richmond Crews</h4>
-                                          </Col>
-                                          <Col>
-                                            <DashbEditSiteModal />
-                                          </Col>
-                                        </Row>
-                                        <Table striped bordered small>
-                                          <thead>
-                                            <tr>
-                                              <th>#</th>
-                                              <th>Crew Names</th>
-                                              <th>Crew Type</th>
-                                              <th>Number of members</th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr>
-                                              <th scope="row">1</th>
-                                              <td>RT</td>
-                                              <td>Radiography</td>
-                                              <td>24</td>
-                                            </tr>
-                                            <tr>
-                                              <th scope="row">2</th>
-                                              <td>Ropes</td>
-                                              <td>Rope Access</td>
-                                              <td>12</td>
-                                            </tr>
-                                            <tr>
-                                              <th scope="row">3</th>
-                                              <td>Ground</td>
-                                              <td>Ground Inspection</td>
-                                              <td>56</td>
-                                            </tr>
-                                          </tbody>
-                                        </Table>
-                                      </CardBody>
-                                    </Card>
-
-                                      <br /><br />
-                                      <DashbMainCertModal />
-
-                                  </Col>
-                                </Row>
-                              </TabPane>
+                              {this.state.siteArray.length > 0 &&
+                                this.state.siteArray.map((siteObj) => {
+                                    return (
+                                      <TabPane tabId= {siteObj.id.toString()} >
+                                      <Row className="pb-3">
+                                        <Col md="12">
+                                          <Card>
+                                            <CardBody>
+                                              <Row>
+                                                <Col>
+                                                  <h4 className="h4-responsive">{siteObj.name}</h4>
+                                                </Col>
+                                                <Col>
+                                                  <DashbEditSiteModal />
+                                                </Col>
+                                              </Row>
+                                              <Table striped bordered small>
+                                                <thead>
+                                                  <tr>
+                                                    <th>Crew Names</th>
+                                                    <th>Number of members</th>
+                                                  </tr>
+                                                </thead>
+                                              <tbody>
+                                              {this.state.crewArray.length > 0 &&
+                                                this.state.crewArray.map((crewObj) => {
+                                              if (crewObj.SiteId === siteObj.id) {
+                                                  return (
+                                                      <tr>
+                                                        <td>{crewObj.crew_type}</td>
+                                                        <td>{crewObj.SiteId}</td>
+                                                      </tr>
+                                                    )
+                                                  }
+                                                }
+                                                )}
+                                                </tbody>
+                                              </Table>
+                                            </CardBody>
+                                          </Card>
+                                          <br /><br />
+                                          <DashbMainCertModal />
+                                        </Col>
+                                      </Row>
+                                      </TabPane>
+                                    )
+                                  }
+                                )}
                             </TabContent>
                           </Col>
                         </Row>

@@ -2,6 +2,7 @@
 
 // React
 import React, { Component } from "react";
+import API from '../utils/API';
 
 // MD React-Bootstrap
 import { Container, Row, Col, Button, Card, CardBody, Modal, ModalBody, ModalHeader, ModalFooter, Select, SelectInput, SelectOptions, SelectOption, CardHeader, Table, PerfectScrollbar } from 'mdbreact';
@@ -15,9 +16,9 @@ import MultipleSelectOption from "./MultipleSelectOption";
 import "./styles/DashEditSiteModal.css";
 
 // TEMPORARY JSON files for employees/certifications
-import crews from "./temp-json/crews.json";
-import certs from "./temp-json/certs.json";
-import employees from "./temp-json/employees.json";
+// import crews from "./temp-json/crews.json";
+// import certs from "./temp-json/certs.json";
+// import employees from "./temp-json/employees.json";
 import { conditionallyUpdateScrollbar } from '../src/components/utils';
 
 // -------------------------------------------------------------------------------------------------
@@ -29,37 +30,18 @@ const modStyle = {
 
 
 
-
-
 class DashbEditSiteModal extends React.Component {
-
-  // componentDidMount() {
-
-  //   console.log("hello")
-    
-  //   // API.getEmployee()
-  //   // .then( function(result) {
-  //   //   console.log('Employees: ', result.data);
-  //   // }) 
-  // }
-
-
-
-
-
 
   constructor(props) {
     super(props);
     this.state = {
       modal: false,
-      crews,
-      certs,
-      employees,
+      crews: [],
+      certs: [],
+      employees: [],
+      value: ''
     }
-    // // Commented these out because used rocket function in actual method
-    // this.toggle = this.toggle.bind(this);
-    // this.onClick = this.onClick.bind(this);
-    // this.otherDropdownsClose = this.otherDropdownsClose.bind(this);
+
   }
 
   toggle = () => {
@@ -70,10 +52,13 @@ class DashbEditSiteModal extends React.Component {
 
   // Select Crew Dropdown Value
   optionClick = (value) => {
-    if (value.constructor === Array) {
-      value = value.join(', ');
-    }
+    // if (value.constructor === Array) {
+    //   value = value.join(', ');
+    // }
+    console.log("value: " + value)
     this.setState({ value: value });
+    this.handleSelectCrew();
+
   }
 
   // Select Certifications to Add Values
@@ -115,49 +100,92 @@ class DashbEditSiteModal extends React.Component {
   // };
 
 
+  handleSaveChanges = () => {
+    console.log("Yay, handleSaveChanges ran")
+  }
+
   handleSelectCrew = () => {
-    console.log("Yay, handleSelectCrew ran")
+    this.handleGetEmployees();
+    this.handleGetCerts();
   }
 
   /* API CALLS */
 
-  // // GET Crew Members
-  // componentDidMount()
-  // loadCrewMembers = () => {
-  //   API.getCrewMembers()
-  //     .then(res =>
-  //       this.setState({
-  //         employees: res.data.message
-  //       })
-  //     )
-  //     .catch(err => console.log(err));
-  // };
 
-  // // GET Crews
-  // loadCrews = () => {
-  //   API.getCrews()
-  //     .then(res =>
-  //       this.setState({
-  //         employees: res.data.message
-  //       })
-  //     )
-  //     .catch(err => console.log(err));
-  // };
+  handleGetEmployees = () => {
+    let self = this;
+    fetch('/api/employee', {
+        method: 'GET'
+    }).then(function(response) {
+        if (response.status >= 400) {
+            throw new Error("Bad response from server");
+        }
+        return response.json();
+    }).then(function(data) {
+        self.setState({employees: data});
+        console.log("this.state.employees: " + self.state.employees)
+    }).catch(err => {
+    console.log('caught it!',err);
+    })
+  }
 
-  // // GET Crew Certifications
-  // loadCrewCerts = () => {
-  //   API.getCrewCerts()
-  //     .then(res =>
-  //       this.setState({
-  //         employees: res.data.message
-  //       })
-  //     )
-  //     .catch(err => console.log(err));
-  // };
+  handleGetCrews = () => {
+    let self = this;
+    fetch('/api/crews', {
+        method: 'GET'
+    })
+    .then(function(response) {
+        if (response.status >= 400) {
+            throw new Error("Bad response from server");
+        }
+        return response.json();
+    }).then(function(data) {
+        self.setState({crews: data});
+        console.log("this.state.crews: " + self.state.crews)
+    }).catch(err => {
+    console.log('caught it!',err);
+    })
+  }
+
+
+  handleGetCerts = () => {
+    let self = this;
+    fetch('/api/certification', {
+        method: 'GET'
+    }).then(function(response) {
+        if (response.status >= 400) {
+            throw new Error("Bad response from server");
+        }
+        return response.json();
+    }).then(function(data) {
+        self.setState({certs: data});
+        console.log("this.state.certs: " + self.state.certs)
+    }).catch(err => {
+    console.log('caught it!',err);
+    })
+  }
+  // handleGetCerts = () => {
+  //   let self = this;
+  //   fetch('/api/certificates', {
+  //       method: 'GET'
+  //   }).then(function(response) {
+  //       if (response.status >= 400) {
+  //           throw new Error("Bad response from server");
+  //       }
+  //       return response.json();
+  //   }).then(function(data) {
+  //       self.setState({certs: data});
+  //       console.log("this.state.certs: " + self.state.certs)
+  //   }).catch(err => {
+  //   console.log('caught it!',err);
+  //   })
+  // }
 
 
   componentDidMount() {
     document.addEventListener('click', this.onClick);
+    this.handleGetCrews();
+
   }
 
   componentWillUnmount() {
@@ -181,14 +209,14 @@ class DashbEditSiteModal extends React.Component {
                 {/* Select Crew Dropdown */}
                 <h5>Select a Crew to Edit</h5>
                 <Select>
-                  <SelectInput value="Select Crew"></SelectInput>
+                  <SelectInput value={this.state.value}></SelectInput>
                   <SelectOptions>
                     <SelectOption disabled>Select Crew</SelectOption>
                     {this.state.crews.map(crew => (
                       <DropdownOption
                         key={crew.id}
                         id={crew.id}
-                        name={crew.name}
+                        crew_type={crew.crew_type}
                         optionClick={this.optionClick}
                       />
                     ))}
@@ -197,10 +225,11 @@ class DashbEditSiteModal extends React.Component {
                 {/* Select Crew Dropdown */}
 
               </Col>
+
             </Row>
             <Row>
               <Col size="12">
-              <h5>Edit Crew Members</h5>
+                <h5>Edit Crew Members</h5>
                 {/* Edit Crew Member Table */}
                 <Card style={outerContainerStyle} className="mt-5">
                   <CardHeader>
@@ -223,12 +252,11 @@ class DashbEditSiteModal extends React.Component {
                 </Card>
                 <hr />
                 {/* End Edit Crew Member Table */}
-
               </Col>
             </Row>
             <Row>
               <Col size="12">
-              <h5>Update Certifications For This Crew</h5>
+                <h5>Update Certifications For This Crew</h5>
 
                 {/* Edit Employee Table */}
                 <Card style={outerContainerStyle} className="mt-5">
@@ -283,18 +311,18 @@ class DashbEditSiteModal extends React.Component {
                 </Card>
                 <hr />
                 {/* End Add Certification */}
-                    
+
               </Col>
             </Row>
             <Row>
               <Col size="12">
 
-              {/* Delete Crew Button */}
-              <h5>Delete This Crew</h5>
+                {/* Delete Crew Button */}
+                <h5>Delete This Crew</h5>
                 <Button color="danger" > Delete Crew
                 </Button>
-              {/* End Delete Crew Button */}
-                    
+                {/* End Delete Crew Button */}
+
               </Col>
             </Row>
 
@@ -304,9 +332,9 @@ class DashbEditSiteModal extends React.Component {
           <ModalFooter>
             <Button color="secondary" onClick={this.toggle}>Close</Button>{' '}
             <Button color="primary" onClick={() => {
-           this.handleSelectCrew();
+              this.handleSaveChanges();
             }}>
-          Save changes</Button>
+              Save changes</Button>
           </ModalFooter>
         </Modal>
       </Container>
