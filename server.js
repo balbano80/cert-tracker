@@ -32,54 +32,109 @@ app.post("/login", passport.authenticate("local"), function (req, res) {
   //   // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
   //   // So we're sending the user back the route to the members page because the redirect will happen on the front end
   //   // They won't get this or even be able to access this page if they aren't authed
-    // console.log("in app.post /login block req", req.user.dataValues);
-    console.log("in app.post /login block res", res.domain);
-    if (!res){
-      console.log("in !res block");
-      res.json({status: "could not be found"});
-    }
-    else{
-      db.User.findOne({
-        where: {
-          email: req.body.email
+  // console.log("in app.post /login block req", req.user.dataValues);
+  // console.log("in app.post /login block res", res.domain);
+  if (!res) {
+    console.log("in !res block");
+    res.json({ status: "could not be found" });
+  }
+  else {
+    db.User.findOne({
+      where: {
+        email: req.body.email
+      }
+    }).then(function (result) {
+      console.log("result", result.dataValues);
+      res.json(result);
+    }).catch(function (err) {
+      console.log("Error: ", err);
+    })
+  }
+});
+
+app.get("/api/user_data", function (req, res) {
+  if (!req.user) {
+    // The user is not logged in, send back an empty object
+    res.json({});
+  }
+  else {
+    // Otherwise send back the user's email and id
+    // Sending back a password, even a hashed password, isn't a good idea
+    var companyName;
+    var sites = [];
+    var crews = [];
+    var employees = [];
+    var certificates = [];
+    db.Company.findOne({
+      where: {
+        id: req.user.CompanyId
+      }
+    }).then(function (companyResults) {
+      companyName = companyResults.dataValues.name;
+    })
+
+    db.Site.findAll({
+      where: {
+        CompanyId: 1
+        //hard coding now for testing purposes
+        // req.user.CompanyId
+      }
+    })
+    .then(function (siteResults) {
+      // console.log("siteResults:", siteResults[0].dataValues);
+      sites = siteResults;
+      })
+      // .then(function () {
+      //   console.log("sites length ", sites.length);
+      //   for (let i = 0; i < sites.length; i++) {
+      //   // sites.forEach(element =>{
+      //   // console.log("id", element.dataValues.id);
+      //     db.Crew.findAll({
+      //       where: {
+      //         SiteId: sites[i].dataValues.id,
+      //       }
+      //     }).then(function (crewResult) {
+      //       // console.log(crewResult);
+      //       crews.push(crewResult.dataValues);
+      //     })
+      //   }
+      //   console.log("crews", crews);
+      // })
+      .then( function(){
+        // console.log("crews", crews);
+        var userData = {
+          email: req.user.email,
+          id: req.user.id,
+          CompanyId: req.user.CompanyId,
+          companyName: companyName,
+          sites: sites,
         }
-      }).then(function(result){
-        console.log("result", result.dataValues);
-        res.json(result);
-      })  
-    }
-  });
+        res.json(userData);
+      })
+  };
+});
+
 // Route config -------------------------------------------/
 app.use(routes);
 
-app.get('/api', function(req, res) {
+<<<<<<< HEAD
+app.get('/api', function (req, res) {
   res.set('Content-Type', 'application/json');
   res.send('{"message":"Hello World"}')
 });
+=======
+
+// app.get('/api', function(req, res) {
+//   res.set('Content-Type', 'application/json');
+//   res.send('{"message":"Hello World"}')
+// });
+
+>>>>>>> 3a08dc9675d7969a5235a82e7b3a0c2c51b716ef
 
 // If no API routes are hit, send the React app
-app.get('*', function(req, res) {
+app.get('*', function (req, res) {
   res.sendFile(path.resolve(__dirname, "../client/build/index.html"));
 });
-
-// app.post("/login", passport.authenticate("local"), function (req, res) {
-//   // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
-//   // So we're sending the user back the route to the members page because the redirect will happen on the front end
-//   // They won't get this or even be able to access this page if they aren't authed
-//   console.log("req", req)
-//   console.log("res", res)
-//   db.User.findOne({
-//     where: {
-//       email: req.body.email
-//     }
-//   }).then(function(result){
-//     console.log("result", result);
-//   })
-//   // console.log("res", res);
-//   // res.json(res);
-//   // res.json("/dashboard");
-//   // res.render('members')
-// });
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync().then(function () {

@@ -66,12 +66,15 @@ export default {
   getCrews: function() {
     console.log("getting all crew data")
     return axios.get("/api/crews");
+  },
+  getUserData: function(req, res){
+    if(!req.user){
+      res.json({});
+    }
+    else{
+      console.log("getting user data");
+      return axios.get("/api/user_data");
+    }
+  }
 
-  }// ,
-
-
-  // return axios.post("/api/user/login", user)
-
-
-  // }
 };

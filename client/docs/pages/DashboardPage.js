@@ -8,6 +8,7 @@ import DashbEditSiteModal from '../../components/DashbEditSiteModal';
 import DashbMainCertModal from '../../components/DashbMainCertModal';
 import DashSideNav from '../components/DashSideNav/DashSideNav.css';
 import API from '../../utils/API';
+import axios from "axios";
 
 // Line chart
 // We have to link database to this object?
@@ -113,6 +114,12 @@ class DashboardPage extends React.Component {
 
 
   componentDidMount() {
+    axios.get("/api/user_data").then(res => {
+      this.setState({
+        user: res.data
+      })
+      console.log("UserInfo ", this.state.user);
+    });
     API.getSites().then(res => {
       console.log(res.data)
       console.log(res.data.length)
@@ -212,6 +219,7 @@ class DashboardPage extends React.Component {
       }
     });
     API.getEmployeeCerts()
+
       .then(function (result) {
         var employeeCrts = [];
         let expirey
@@ -240,6 +248,37 @@ class DashboardPage extends React.Component {
       .then(function (result) {
         console.log('Employees: ', result.data);
       });
+
+    .then( function(result) {
+      var employeeCrts = [];
+      let expirey
+      result.data.forEach(function(value) {
+        var tmp = {
+          employee_id: value.EmployeeId,
+          cert_id: value.CertificateId,
+        }
+        console.log('Employee No: : ', value.EmployeeId, " has Certificate: ", value.CertificateId );
+        tmp["date_expiration"] = 
+        
+        API.getCertificates(value.CertificateId)
+        .then(res => {
+          console.log(res)
+          // expirey = data that you want to save ex. res.data.days
+          // do calc to get new date expirey
+          // tmp[date_exp] = set to tmp
+          arr.push(tmp)
+        })
+        this.getExpiration(value.CertificateId, value.date_obtained)
+      });
+      api.posttotable(array)
+      console.log('Employee Cert Data is: ', result.data);
+    });
+    API.getEmployees()
+    .then( function(result) {
+      console.log('Employees: ', result.data);
+    });
+    // for (let i = 0; i < this.state.user.sites.length; i++){
+
     API.getCrews()
       .then(function (result) {
         console.log('Crews: ', result.data);
@@ -249,79 +288,6 @@ class DashboardPage extends React.Component {
   // getExpiration = (id, date) => {
 
 
-  // }
-
-
-  // constructor(props) {
-  //   super(props);
-
-  //   this.state = {
-  //     activeItem: '1',
-  //     activeItemPills: '1',
-  //     activeItemVerticalPills: '1',
-  //     activeItemOuterTabs: '1',
-  //     activeItemInnerPills: '1',
-  //     activeItemClassicTabs1: '1',
-  //     activeItemClassicTabs2: '1',
-  //     modal: false
-  //   };
-  //   this.toggle = this.toggle.bind(this);
-  // }
-
-  // toggle() {
-  //   this.setState({
-  //     modal: !this.state.modal
-  //   });
-  // }
-  // toggle(tab) {
-  //   if (this.state.activeItem !== tab) {
-  //     this.setState({
-  //       activeItem: tab
-  //     });
-  //   }
-  // }
-  // togglePills(tab) {
-  //   if (this.state.activePills !== tab) {
-  //     this.setState({
-  //       activeItemPills: tab
-  //     });
-  //   }
-  // }
-  // toggleVerticalPills(tab) {
-  //   if (this.state.activeItem3 !== tab) {
-  //     this.setState({
-  //       activeItemVerticalPills: tab
-  //     });
-  //   }
-  // }
-  // toggleClassicTabs1(tab) {
-  //   if (this.state.activeItemClassicTabs1 !== tab) {
-  //     this.setState({
-  //       activeItemClassicTabs1: tab
-  //     });
-  //   }
-  // }
-  // toggleClassicTabs2(tab) {
-  //   if (this.state.activeItemClassicTabs2 !== tab) {
-  //     this.setState({
-  //       activeItemClassicTabs2: tab
-  //     });
-  //   }
-  // }
-  // toggleOuterTabs(tab) {
-  //   if (this.state.activeItemOuterTabs2 !== tab) {
-  //     this.setState({
-  //       activeItemOuterTabs: tab
-  //     });
-  //   }
-  // }
-  // toggleInnerPills(tab) {
-  //   if (this.state.activeItemInnerPills !== tab) {
-  //     this.setState({
-  //       activeItemInnerPills: tab
-  //     });
-  //   }
-  // }
   // }
 
   render() {
@@ -355,7 +321,7 @@ class DashboardPage extends React.Component {
                               <TabPane tabId="1">
                                 <Row className="pb-3">
                                   <div style={{ marginTop: '10px' }}>
-                                    <h2 className="grey-text">Company Overview</h2>
+                                    <h2 className="grey-text">{this.state.user.companyName} Overview</h2>
                                     <Container>
 
                                       <Row className="text-center grey-text mb-5 border-bottom">
@@ -380,6 +346,7 @@ class DashboardPage extends React.Component {
                                   </div>
                                 </Row>
                               </TabPane>
+
                               <TabPane tabId="2">
                                 <Row className="pb-3">
                                   <Col md="12">
@@ -396,28 +363,24 @@ class DashboardPage extends React.Component {
                                         <Table striped bordered small>
                                           <thead>
                                             <tr>
-                                              <th>#</th>
+                                              <th>Id#</th>
                                               <th>Crew Names</th>
-                                              <th>Crew Type</th>
                                               <th>Number of members</th>
                                             </tr>
                                           </thead>
                                           <tbody>
                                             <tr>
                                               <th scope="row">1</th>
-                                              <td>RT</td>
                                               <td>Radiography</td>
                                               <td>24</td>
                                             </tr>
                                             <tr>
                                               <th scope="row">2</th>
-                                              <td>Ropes</td>
                                               <td>Rope Access</td>
                                               <td>12</td>
                                             </tr>
                                             <tr>
                                               <th scope="row">3</th>
-                                              <td>Ground</td>
                                               <td>Ground Inspection</td>
                                               <td>56</td>
                                             </tr>
@@ -427,6 +390,7 @@ class DashboardPage extends React.Component {
                                     </Card>
                                     <br /><br />
                                     <DashbMainCertModal />
+
 
                                   </Col>
                                 </Row>
@@ -447,28 +411,24 @@ class DashboardPage extends React.Component {
                                         <Table striped bordered small>
                                           <thead>
                                             <tr>
-                                              <th>#</th>
+                                              <th>Id#</th>
                                               <th>Crew Names</th>
-                                              <th>Crew Type</th>
                                               <th>Number of members</th>
                                             </tr>
                                           </thead>
                                           <tbody>
                                             <tr>
                                               <th scope="row">1</th>
-                                              <td>RT</td>
                                               <td>Radiography</td>
                                               <td>24</td>
                                             </tr>
                                             <tr>
                                               <th scope="row">2</th>
-                                              <td>Ropes</td>
                                               <td>Rope Access</td>
                                               <td>12</td>
                                             </tr>
                                             <tr>
                                               <th scope="row">3</th>
-                                              <td>Ground</td>
                                               <td>Ground Inspection</td>
                                               <td>56</td>
                                             </tr>
@@ -498,28 +458,24 @@ class DashboardPage extends React.Component {
                                         <Table striped bordered small>
                                           <thead>
                                             <tr>
-                                              <th>#</th>
+                                              <th>Id#</th>
                                               <th>Crew Names</th>
-                                              <th>Crew Type</th>
                                               <th>Number of members</th>
                                             </tr>
                                           </thead>
                                           <tbody>
                                             <tr>
                                               <th scope="row">1</th>
-                                              <td>RT</td>
                                               <td>Radiography</td>
                                               <td>24</td>
                                             </tr>
                                             <tr>
                                               <th scope="row">2</th>
-                                              <td>Ropes</td>
                                               <td>Rope Access</td>
                                               <td>12</td>
                                             </tr>
                                             <tr>
                                               <th scope="row">3</th>
-                                              <td>Ground</td>
                                               <td>Ground Inspection</td>
                                               <td>56</td>
                                             </tr>

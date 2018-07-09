@@ -11,7 +11,7 @@ passport.use(new LocalStrategy(
   },
   function(email, password, done) {
     // When a user tries to sign in this code runs
-    console.log("in local strategy block, hitting db", email);
+    // console.log("in local strategy block, hitting db", email);
     db.User.findOne({
       where: {
         email: email
@@ -19,7 +19,6 @@ passport.use(new LocalStrategy(
     }).then(function(dbUser) {
       // If there's no user with the given email
       if (!dbUser) {
-        console.log("no user");
         return done(null, false, {
           message: "Incorrect email."
         });
