@@ -20,6 +20,16 @@ module.exports = {
         res.json(dbEmployee);
       });
   },
+  findByCrew: function(req, res) {      // in progress
+    db.Employee.findOne({
+      where: {
+        CrewId: req.params.id
+      }
+    })
+      .then(function(dbEmployee) {
+        res.json(dbEmployee);
+      });
+  },
   create: function(req, res) {
     console.log('employee created');
     db.Employee.create(req.body)
