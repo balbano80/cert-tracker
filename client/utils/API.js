@@ -54,7 +54,7 @@ export default {
 
   // New route for getting Certificates
   getCertificates: function(id) {
-    return axios.get("/api/certificates/")
+    return axios.get("/api/certificates")
   },
 
   // Creates an reminder in the Reminders table
