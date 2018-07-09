@@ -1,0 +1,29 @@
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 70%;
+    }
+}
+
+div.card.mt-5 {
+    margin: 0 !important;
+}
+
+div.select-wrapper {
+    margin: 0 15px;
+}
+
+.remove {
+    float: right;
+}
+
+h5 {
+    margin-bottom: 20px;
+}
+
+h4 {
+    margin-left: 40%;
+}
+
+.card-header {
+    text-align: center;
+}
