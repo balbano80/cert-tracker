@@ -117,19 +117,12 @@ app.get("/api/user_data", function (req, res) {
 // Route config -------------------------------------------/
 app.use(routes);
 
-<<<<<<< HEAD
-app.get('/api', function (req, res) {
-  res.set('Content-Type', 'application/json');
-  res.send('{"message":"Hello World"}')
-});
-=======
 
 // app.get('/api', function(req, res) {
 //   res.set('Content-Type', 'application/json');
 //   res.send('{"message":"Hello World"}')
 // });
 
->>>>>>> 3a08dc9675d7969a5235a82e7b3a0c2c51b716ef
 
 // If no API routes are hit, send the React app
 app.get('*', function (req, res) {
