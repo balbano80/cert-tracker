@@ -124,7 +124,6 @@ app.get('/api', function (req, res) {
 });
 
 
-
 // If no API routes are hit, send the React app
 app.get('*', function (req, res) {
   res.sendFile(path.resolve(__dirname, "../client/build/index.html"));
