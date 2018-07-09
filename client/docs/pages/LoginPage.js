@@ -10,7 +10,6 @@ class LoginPage extends React.Component {
       modal: false,
       email: "",
       password: "",
-      user:{}
     }
     this.toggle = this.toggle.bind(this);
   }
@@ -46,21 +45,17 @@ class LoginPage extends React.Component {
 
       axios.post("/login", user)
         .then(function(userData){
-          // console.log(userData);
-          if (typeof userData === "object"){
-            this.setState.user(userData);
+          console.log("userData", userData);
+          if (userData){
             console.log("user found, in redirect block login page", userData);
             window.location.href = "/";
             //just redirecting to home page now(refresh issue)
             //will send to dashboard once resolved
           }
-          else{
-            //this is currently not being hit. Need to look at backend(server.js) and look at sending 
-            //something back if user is not found.
-            console.log("on login page could not find user")
-            alert("Unable to locate profile.  If you have not created one, please do so on the Sgn Up page");
-          }
-        })
+        }).catch(function(err){
+          console.log("error: ", err);
+          alert("Unable to locate your profile.  Please try typing in your email and password again.  If you have not created a profile, please do so on the Sign Up page");
+        });
     }
   };
 
