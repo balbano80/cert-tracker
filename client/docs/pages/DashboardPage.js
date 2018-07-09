@@ -130,19 +130,19 @@ class DashboardPage extends React.Component {
           cert_id: value.CertificateId,
         }
         console.log('Employee No: : ', value.EmployeeId, " has Certificate: ", value.CertificateId );
-        // tmp["date_expiration"] = 
+        tmp["date_expiration"] = 
         
         API.getCertificates(value.CertificateId)
         .then(res => {
-          // console.log(res)
+          console.log(res)
           // expirey = data that you want to save ex. res.data.days
           // do calc to get new date expirey
           // tmp[date_exp] = set to tmp
-          // arr.push(tmp)
+          arr.push(tmp)
         })
-        // this.getExpiration(value.CertificateId, value.date_obtained)
+        this.getExpiration(value.CertificateId, value.date_obtained)
       });
-      // api.posttotable(array)
+      api.posttotable(array)
       console.log('Employee Cert Data is: ', result.data);
     });
     API.getCrews()

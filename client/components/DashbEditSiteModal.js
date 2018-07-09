@@ -33,7 +33,7 @@ let certsArr = []
 
 
 
-class DashbEditSiteModal extends React.Component {
+class DashbEditSiteModal extends Component {
 
 
   constructor(props) {
@@ -105,8 +105,8 @@ class DashbEditSiteModal extends React.Component {
 // Opening Modal will toggle modal & get employees
   onClickModal = (event) => {
     this.toggle();
-    this.handleGetCrewCerts()
-    this.handleGetEmployees()
+    // this.handleGetEmployees()
+    // this.handleGetCrewCerts()
     this.updateModal();
 
  }
@@ -120,40 +120,39 @@ class DashbEditSiteModal extends React.Component {
   }
 
   updateEmployees() {
-    this.setState({employees: employeesArr})
+    this.setState({ employees: employeesArr })
     console.log("employee state updated")
   }
 
-  handleGetEmployees = () => {
-    API.getEmployees()
-    .then( function(result) {
-      // console.log('Employeessss: ', result.data);
-      result.data.forEach(function(value) {
-         employeesArr.push({
-           last_name: value.last_name,
-           first_name: value.first_name,
-           id: value.id
-          });
-      });
-      console.log("handleGetEmployees successful")
-    })
-  }
+  // handleGetEmployees = () => {
+  //   API.getEmployees()
+  //   .then(function(result) {
+  //     result.data.forEach(function(value) {
+  //        employeesArr.push({
+  //          last_name: value.last_name,
+  //          first_name: value.first_name,
+  //          id: value.id
+  //         });
+  //     });
+  //     console.log("handleGetEmployees successful")
+  //   })
+  // }
 
   /* WORKING ON POPULATING CERTS */
 
-  handleGetCrewCerts = () => {
-    API.getCertificates()
-    .then( function(result) {
-      // console.log('Employeessss: ', result.data);
-      result.data.forEach(function(value) {
-         certsArr.push({
-           id: value.id,
-           name: value.name
-          });
-      });
-      console.log("handleGetCrewCerts successful")
-    })
-  }
+  // handleGetCrewCerts = () => {
+  //   API.getCertificates()
+  //   .then( function(res) {
+  //     // console.log('Employeessss: ', result.data);
+  //     res.data.forEach(function(value) {
+  //        certsArr.push({
+  //          id: value.id,
+  //          name: value.name
+  //         });
+  //     });
+  //     console.log("handleGetCrewCerts successful")
+  //   })
+  // }
 
 
 
