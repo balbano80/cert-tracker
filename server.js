@@ -52,17 +52,12 @@ app.post("/login", passport.authenticate("local"), function (req, res) {
 // Route config -------------------------------------------/
 app.use(routes);
 
-<<<<<<< HEAD
 // app.get('/api', function(req, res) {
 //   res.set('Content-Type', 'application/json');
 //   res.send('{"message":"Hello World"}')
 // });
-=======
-app.get('/api', function(req, res) {
-  res.set('Content-Type', 'application/json');
-  res.send('{"message":"Hello World"}')
-});
->>>>>>> f47a88bd88645be45a729c5bed6cc71bd5f4788c
+
+
 
 // If no API routes are hit, send the React app
 app.get('*', function(req, res) {
