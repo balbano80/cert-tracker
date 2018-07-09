@@ -39,13 +39,78 @@ const data = {
 };
 
 class DashboardPage extends React.Component {
+  constructor(props) {
+    super(props);
 
-  // for(let i = 0; i < this.state.data; i++) {
-  //   // loop through your data
-  //  }
-  // this.state.data.map(function(d) {
-  //   // "d"
-  //  });
+    this.state = {
+      siteArray:[],
+      activeItem: '1',
+      activeItemPills: '1',
+      activeItemVerticalPills: '1',
+      activeItemOuterTabs: '1',
+      activeItemInnerPills: '1',
+      activeItemClassicTabs1: '1',
+      activeItemClassicTabs2: '1',
+      modal: false
+    };
+    this.toggle = this.toggle.bind(this);
+  }
+
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
+    });
+  }
+  toggle(tab) {
+    if (this.state.activeItem !== tab) {
+      this.setState({
+        activeItem: tab
+      });
+    }
+  }
+  togglePills(tab) {
+    if (this.state.activePills !== tab) {
+      this.setState({
+        activeItemPills: tab
+      });
+    }
+  }
+  toggleVerticalPills(tab) {
+    if (this.state.activeItem3 !== tab) {
+      this.setState({
+        activeItemVerticalPills: tab
+      });
+    }
+  }
+  toggleClassicTabs1(tab) {
+    if (this.state.activeItemClassicTabs1 !== tab) {
+      this.setState({
+        activeItemClassicTabs1: tab
+      });
+    }
+  }
+  toggleClassicTabs2(tab) {
+    if (this.state.activeItemClassicTabs2 !== tab) {
+      this.setState({
+        activeItemClassicTabs2: tab
+      });
+    }
+  }
+  toggleOuterTabs(tab) {
+    if (this.state.activeItemOuterTabs2 !== tab) {
+      this.setState({
+        activeItemOuterTabs: tab
+      });
+    }
+  }
+  toggleInnerPills(tab) {
+    if (this.state.activeItemInnerPills !== tab) {
+      this.setState({
+        activeItemInnerPills: tab
+      });
+    }
+  }
+
 
   componentDidMount() {
     API.getSites().then(res => {
@@ -53,17 +118,19 @@ class DashboardPage extends React.Component {
       console.log(res.data.length)
 
       // res.data.forEach(function(value) {
-      //   
+      //   let sites=[];
       //   var temp = {
       //     siteName: value.name,
       //     CompanyId: value.CompanyId,
       //   }
-      //  console.log(temp)
+      //   sites.push(temp)
+      //   // this.setState({siteArray: sites})
+      //   console.log("site array:" + sites)
       // })  
-       
-      this.setState({"siteArray": res.data})
-        console.log(this.state.siteArray)
-     
+      // console.log("sites array:" + sites)
+      this.setState({siteArray: JSON.stringify(res.data)})
+
+      console.log("Testing: " + JSON.parse(this.state.siteArray));
     })
 
     // console.log("Site Array scope test: "+ <div>{this.state.siteArray}</div>);
@@ -185,76 +252,77 @@ class DashboardPage extends React.Component {
   // }
 
 
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    this.state = {
-      activeItem: '1',
-      activeItemPills: '1',
-      activeItemVerticalPills: '1',
-      activeItemOuterTabs: '1',
-      activeItemInnerPills: '1',
-      activeItemClassicTabs1: '1',
-      activeItemClassicTabs2: '1',
-      modal: false
-    };
-    this.toggle = this.toggle.bind(this);
-  }
+  //   this.state = {
+  //     activeItem: '1',
+  //     activeItemPills: '1',
+  //     activeItemVerticalPills: '1',
+  //     activeItemOuterTabs: '1',
+  //     activeItemInnerPills: '1',
+  //     activeItemClassicTabs1: '1',
+  //     activeItemClassicTabs2: '1',
+  //     modal: false
+  //   };
+  //   this.toggle = this.toggle.bind(this);
+  // }
 
-  toggle() {
-    this.setState({
-      modal: !this.state.modal
-    });
-  }
-  toggle(tab) {
-    if (this.state.activeItem !== tab) {
-      this.setState({
-        activeItem: tab
-      });
-    }
-  }
-  togglePills(tab) {
-    if (this.state.activePills !== tab) {
-      this.setState({
-        activeItemPills: tab
-      });
-    }
-  }
-  toggleVerticalPills(tab) {
-    if (this.state.activeItem3 !== tab) {
-      this.setState({
-        activeItemVerticalPills: tab
-      });
-    }
-  }
-  toggleClassicTabs1(tab) {
-    if (this.state.activeItemClassicTabs1 !== tab) {
-      this.setState({
-        activeItemClassicTabs1: tab
-      });
-    }
-  }
-  toggleClassicTabs2(tab) {
-    if (this.state.activeItemClassicTabs2 !== tab) {
-      this.setState({
-        activeItemClassicTabs2: tab
-      });
-    }
-  }
-  toggleOuterTabs(tab) {
-    if (this.state.activeItemOuterTabs2 !== tab) {
-      this.setState({
-        activeItemOuterTabs: tab
-      });
-    }
-  }
-  toggleInnerPills(tab) {
-    if (this.state.activeItemInnerPills !== tab) {
-      this.setState({
-        activeItemInnerPills: tab
-      });
-    }
-  }
+  // toggle() {
+  //   this.setState({
+  //     modal: !this.state.modal
+  //   });
+  // }
+  // toggle(tab) {
+  //   if (this.state.activeItem !== tab) {
+  //     this.setState({
+  //       activeItem: tab
+  //     });
+  //   }
+  // }
+  // togglePills(tab) {
+  //   if (this.state.activePills !== tab) {
+  //     this.setState({
+  //       activeItemPills: tab
+  //     });
+  //   }
+  // }
+  // toggleVerticalPills(tab) {
+  //   if (this.state.activeItem3 !== tab) {
+  //     this.setState({
+  //       activeItemVerticalPills: tab
+  //     });
+  //   }
+  // }
+  // toggleClassicTabs1(tab) {
+  //   if (this.state.activeItemClassicTabs1 !== tab) {
+  //     this.setState({
+  //       activeItemClassicTabs1: tab
+  //     });
+  //   }
+  // }
+  // toggleClassicTabs2(tab) {
+  //   if (this.state.activeItemClassicTabs2 !== tab) {
+  //     this.setState({
+  //       activeItemClassicTabs2: tab
+  //     });
+  //   }
+  // }
+  // toggleOuterTabs(tab) {
+  //   if (this.state.activeItemOuterTabs2 !== tab) {
+  //     this.setState({
+  //       activeItemOuterTabs: tab
+  //     });
+  //   }
+  // }
+  // toggleInnerPills(tab) {
+  //   if (this.state.activeItemInnerPills !== tab) {
+  //     this.setState({
+  //       activeItemInnerPills: tab
+  //     });
+  //   }
+  // }
+  // }
 
   render() {
     return (
@@ -267,7 +335,7 @@ class DashboardPage extends React.Component {
                   <SideNav fixed breakWidth={1300} className="stylish-color-dark">
                     <SideNavNav>
                       <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '1' })} onClick={() => { this.toggleInnerPills('1'); }} name="Main" icon="bar-chart"></SideNavCat>
-                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '2' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('2'); }} name="Site 1" icon="building-o"></SideNavCat>
+                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '2' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('2'); }} name={(this.state.siteArray)} icon="building-o"></SideNavCat>
                       <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '3' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('3'); }} name="Site 2" icon="building-o"></SideNavCat>
                       <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '4' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('4'); }} name="Site 3" icon="building-o"></SideNavCat>
                       <DashbAddSiteModal />
