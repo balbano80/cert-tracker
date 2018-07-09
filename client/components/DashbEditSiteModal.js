@@ -2,6 +2,8 @@
 
 // React
 import React, { Component } from "react";
+import API from '../utils/API';
+// import { BrowserRouter as Router } from 'react-router-dom';
 
 // MD React-Bootstrap
 import { Container, Row, Col, Button, Card, CardBody, Modal, ModalBody, ModalHeader, ModalFooter, Select, SelectInput, SelectOptions, SelectOption, CardHeader, Table, PerfectScrollbar } from 'mdbreact';
@@ -17,7 +19,7 @@ import "./styles/DashEditSiteModal.css";
 // TEMPORARY JSON files for employees/certifications
 import crews from "./temp-json/crews.json";
 import certs from "./temp-json/certs.json";
-import employees from "./temp-json/employees.json";
+// import employees from "./temp-json/employees.json";
 import { conditionallyUpdateScrollbar } from '../src/components/utils';
 
 // -------------------------------------------------------------------------------------------------
@@ -26,41 +28,24 @@ const modStyle = {
   margin: 0
 }
 
-
-
+let employeeArr = []
 
 
 
 class DashbEditSiteModal extends React.Component {
-
-  // componentDidMount() {
-
-  //   console.log("hello")
-    
-  //   // API.getEmployee()
-  //   // .then( function(result) {
-  //   //   console.log('Employees: ', result.data);
-  //   // }) 
-  // }
-
-
-
-
 
 
   constructor(props) {
     super(props);
     this.state = {
       modal: false,
+      employees: [],
       crews,
       certs,
-      employees,
     }
-    // // Commented these out because used rocket function in actual method
-    // this.toggle = this.toggle.bind(this);
-    // this.onClick = this.onClick.bind(this);
-    // this.otherDropdownsClose = this.otherDropdownsClose.bind(this);
+
   }
+
 
   toggle = () => {
     this.setState({
@@ -113,51 +98,42 @@ class DashbEditSiteModal extends React.Component {
   //   const friends = this.state.friends.filter(friend => friend.id !== id);
   //   this.setState({ friends });
   // };
+  
 
+  
+// Opening Modal will toggle modal & get employees
+  onClickModal = (event) => {
+    this.toggle();
+    this.updateEmployees();
+ }
 
   handleSelectCrew = () => {
     console.log("Yay, handleSelectCrew ran")
   }
 
-  /* API CALLS */
+  updateEmployees() {
+    this.setState({employees: employeeArr})
+    console.log("employee state updated")
+  }
 
-  // // GET Crew Members
-  // componentDidMount()
-  // loadCrewMembers = () => {
-  //   API.getCrewMembers()
-  //     .then(res =>
-  //       this.setState({
-  //         employees: res.data.message
-  //       })
-  //     )
-  //     .catch(err => console.log(err));
-  // };
-
-  // // GET Crews
-  // loadCrews = () => {
-  //   API.getCrews()
-  //     .then(res =>
-  //       this.setState({
-  //         employees: res.data.message
-  //       })
-  //     )
-  //     .catch(err => console.log(err));
-  // };
-
-  // // GET Crew Certifications
-  // loadCrewCerts = () => {
-  //   API.getCrewCerts()
-  //     .then(res =>
-  //       this.setState({
-  //         employees: res.data.message
-  //       })
-  //     )
-  //     .catch(err => console.log(err));
-  // };
-
+  handleGetEmployees = () => {
+    API.getEmployees()
+    .then( function(result) {
+      // console.log('Employeessss: ', result.data);
+      result.data.forEach(function(value) {
+         employeeArr.push({
+           last_name: value.last_name,
+           first_name: value.first_name,
+           id: value.id
+          });
+      });
+      console.log("employeeArray: " + employeeArr)
+    })
+  }
 
   componentDidMount() {
     document.addEventListener('click', this.onClick);
+    this.handleGetEmployees();
   }
 
   componentWillUnmount() {
@@ -171,7 +147,7 @@ class DashbEditSiteModal extends React.Component {
     const outerContainerStyle = { width: '100%', height: '200px' }
     return (
       <Container>
-        <Button outline color="primary" onClick={this.toggle}>Edit Crew</Button>
+        <Button outline color="primary" onClick={this.onClickModal}>Edit Crew</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader className="blue-grey-text text-center" toggle={this.toggle}>Edit this Site</ModalHeader>
           <ModalBody className="blue-grey-text">
@@ -209,11 +185,12 @@ class DashbEditSiteModal extends React.Component {
                   <PerfectScrollbar className="scrollbar-primary">
                     <CardBody>
                       <Table striped bordered small>
-                        <tbody>
+                        <tbody>    
                           {this.state.employees.map(employee => (
                             <TableData
                               key={employee.id}
-                              name={employee.name}
+                              first={employee.first_name}
+                              last={employee.last_name}
                             />
                           ))}
                         </tbody>
@@ -222,6 +199,7 @@ class DashbEditSiteModal extends React.Component {
                   </PerfectScrollbar>
                 </Card>
                 <hr />
+    
                 {/* End Edit Crew Member Table */}
 
               </Col>
