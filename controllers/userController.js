@@ -5,9 +5,12 @@ var express = require("express");
 module.exports = {
     create: function(req, res) {
         console.log("in userController block", req.body);
-      db.User.create(req.body)
-        .then(dbModel => res.json(dbModel))
-        .then(res.json("/login"))
+
+      db.User
+        .create(req.body)
+        // .then(dbModel => res.json(dbModel))
+        .then(res.redirect("/login"))
+
         .catch(err => res.status(422).json(err));
     },
     findByEmail: function(req, res) {
