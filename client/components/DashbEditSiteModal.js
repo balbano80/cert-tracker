@@ -48,6 +48,7 @@ class DashbEditSiteModal extends React.Component {
     this.setState({
       modal: !this.state.modal
     });
+    this.handleGetCrews();
   }
 
   // Select Crew Dropdown Value
@@ -113,78 +114,33 @@ class DashbEditSiteModal extends React.Component {
 
 
   handleGetEmployees = () => {
-    let self = this;
-    fetch('/api/employee', {
-        method: 'GET'
-    }).then(function(response) {
-        if (response.status >= 400) {
-            throw new Error("Bad response from server");
-        }
-        return response.json();
-    }).then(function(data) {
-        self.setState({employees: data});
-        console.log("this.state.employees: " + self.state.employees)
-    }).catch(err => {
-    console.log('caught it!',err);
+    API.getEmployees().then((result) => {
+      console.log("Employees working ", result.data)
+      this.setState({employees: result.data })
     })
   }
 
   handleGetCrews = () => {
-    let self = this;
-    fetch('/api/crews', {
-        method: 'GET'
-    })
-    .then(function(response) {
-        if (response.status >= 400) {
-            throw new Error("Bad response from server");
-        }
-        return response.json();
-    }).then(function(data) {
-        self.setState({crews: data});
-        console.log("this.state.crews: " + self.state.crews)
-    }).catch(err => {
-    console.log('caught it!',err);
+    API.getCrews().then((result) => {
+      console.log("Crews working ", result.data)
+      this.setState({crews: result.data })
     })
   }
+
+
 
 
   handleGetCerts = () => {
-    let self = this;
-    fetch('/api/certification', {
-        method: 'GET'
-    }).then(function(response) {
-        if (response.status >= 400) {
-            throw new Error("Bad response from server");
-        }
-        return response.json();
-    }).then(function(data) {
-        self.setState({certs: data});
-        console.log("this.state.certs: " + self.state.certs)
-    }).catch(err => {
-    console.log('caught it!',err);
+    API.getCertificates().then((result) => {
+      console.log("getCerts success" + result.data)
+      this.setState({certs: result.data })
     })
   }
-  // handleGetCerts = () => {
-  //   let self = this;
-  //   fetch('/api/certificates', {
-  //       method: 'GET'
-  //   }).then(function(response) {
-  //       if (response.status >= 400) {
-  //           throw new Error("Bad response from server");
-  //       }
-  //       return response.json();
-  //   }).then(function(data) {
-  //       self.setState({certs: data});
-  //       console.log("this.state.certs: " + self.state.certs)
-  //   }).catch(err => {
-  //   console.log('caught it!',err);
-  //   })
-  // }
 
 
   componentDidMount() {
     document.addEventListener('click', this.onClick);
-    this.handleGetCrews();
+
 
   }
 
@@ -242,7 +198,8 @@ class DashbEditSiteModal extends React.Component {
                           {this.state.employees.map(employee => (
                             <TableData
                               key={employee.id}
-                              name={employee.name}
+                              name={employee.first_name}
+                              last_name={employee.last_name}
                             />
                           ))}
                         </tbody>
