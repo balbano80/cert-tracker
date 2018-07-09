@@ -60,6 +60,7 @@ module.exports = function (env) {
     module: {
       rules: [
         { test: /\.(js)$/, use: 'babel-loader' },
+        { test: /\.(jsx)$/, use: 'babel-loader' },
         { test: /\.css$/, use: ['style-loader', 'css-loader']},
         { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader'},
         { test: /\.(woff|woff2)$/, loader: 'url-loader?prefix=font/&limit=5000' },
@@ -74,7 +75,7 @@ module.exports = function (env) {
       },
       extensions: ['.js', '.json']
     },
-    plugins: plugins
+    plugins: plugins,
   };
 
   return config;

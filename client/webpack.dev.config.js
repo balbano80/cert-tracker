@@ -27,15 +27,30 @@ const config = {
     ]
   },
   devServer: {
-    proxy: {
-      "*": "http://[::1]:3001"
+    historyApiFallback: true,
+    // proxy: {
+    //   "*": "http://[::1]:3001",
+    // },
+    proxy: { 
+      "*": "http://[::1]:3001",
+      '/api/**': { 
+        target: 'http://[::1]/api/', 
+        secure: false, 
+        logLevel: 'debug' 
+      } 
     }
+
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: 'public/index.html'
     })
   ]
+  // plugins: [
+  //   new webpack.HotModuleReplacementPlugin({
+  //     template: 'public/index.html'
+  //   })
+  //   ]
 };
 
 module.exports = config;
