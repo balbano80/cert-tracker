@@ -72,10 +72,10 @@ class App extends Component {
                   <Dropdown isOpen={this.state.dropdownOpen} toggle={()=>"baba"} onMouseEnter={this.toggle} onMouseLeave={this.toggle}>
                     <DropdownToggle nav caret> <div className="d-none d-md-inline">Extras</div></DropdownToggle>
                     <DropdownMenu right>
-                      <DropdownItem href="/css">CSS</DropdownItem>
-                      <DropdownItem href="/components">Components</DropdownItem>
-                      <DropdownItem href="/advanced">Advanced</DropdownItem>
-                      <DropdownItem href="/sections">Sections</DropdownItem>
+                      <DropdownItem href="/#">CSS</DropdownItem>
+                      <DropdownItem href="/#">Components</DropdownItem>
+                      <DropdownItem href="/#">Advanced</DropdownItem>
+                      <DropdownItem href="/#">Sections</DropdownItem>
                     </DropdownMenu>
                   </Dropdown>
                 </NavItem>
