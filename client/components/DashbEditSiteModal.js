@@ -28,7 +28,8 @@ const modStyle = {
   margin: 0
 }
 
-let employeeArr = []
+let employeesArr = []
+let certsArr = []
 
 
 
@@ -40,8 +41,8 @@ class DashbEditSiteModal extends React.Component {
     this.state = {
       modal: false,
       employees: [],
+      certs: [],
       crews,
-      certs,
     }
 
   }
@@ -100,19 +101,26 @@ class DashbEditSiteModal extends React.Component {
   // };
   
 
-  
+
 // Opening Modal will toggle modal & get employees
   onClickModal = (event) => {
     this.toggle();
-    this.updateEmployees();
+    this.handleGetCrewCerts()
+    this.handleGetEmployees()
+    this.updateModal();
+
+ }
+ updateModal = () => {
+  this.updateCerts()    
+  this.updateEmployees()
  }
 
-  handleSelectCrew = () => {
-    console.log("Yay, handleSelectCrew ran")
+  handleSubmit = () => {
+    console.log("Yay, handleSubmit ran")
   }
 
   updateEmployees() {
-    this.setState({employees: employeeArr})
+    this.setState({employees: employeesArr})
     console.log("employee state updated")
   }
 
@@ -121,19 +129,45 @@ class DashbEditSiteModal extends React.Component {
     .then( function(result) {
       // console.log('Employeessss: ', result.data);
       result.data.forEach(function(value) {
-         employeeArr.push({
+         employeesArr.push({
            last_name: value.last_name,
            first_name: value.first_name,
            id: value.id
           });
       });
-      console.log("employeeArray: " + employeeArr)
+      console.log("handleGetEmployees successful")
     })
   }
 
+  /* WORKING ON POPULATING CERTS */
+
+  handleGetCrewCerts = () => {
+    API.getCertificates()
+    .then( function(result) {
+      // console.log('Employeessss: ', result.data);
+      result.data.forEach(function(value) {
+         certsArr.push({
+           id: value.id,
+           name: value.name
+          });
+      });
+      console.log("handleGetCrewCerts successful")
+    })
+  }
+
+
+
+  updateCerts() {
+    this.setState({certs: certsArr})
+    console.log("crew certs updated")
+  }
+
+
+
+
+
   componentDidMount() {
-    document.addEventListener('click', this.onClick);
-    this.handleGetEmployees();
+    document.addEventListener('click', this.onClick,);
   }
 
   componentWillUnmount() {
@@ -141,6 +175,7 @@ class DashbEditSiteModal extends React.Component {
   }
 
 
+// ================================================================================================================
 
   render() {
     const modalStyle = { width: '100%' }
@@ -282,7 +317,7 @@ class DashbEditSiteModal extends React.Component {
           <ModalFooter>
             <Button color="secondary" onClick={this.toggle}>Close</Button>{' '}
             <Button color="primary" onClick={() => {
-           this.handleSelectCrew();
+           this.handleSubmit();
             }}>
           Save changes</Button>
           </ModalFooter>
