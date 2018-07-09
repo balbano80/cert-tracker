@@ -1,5 +1,6 @@
 import React from 'react';
 import API from "../../utils/API";
+import axios from "axios";
 import { Container, Row, Col, Input, Button, Fa, Card, CardBody, Modal, ModalBody, ModalHeader, ModalFooter, CardImage } from 'mdbreact';
 
 class LoginPage extends React.Component {
@@ -8,7 +9,8 @@ class LoginPage extends React.Component {
     this.state = {
       modal: false,
       email: "",
-      password: ""
+      password: "",
+      user:{}
     }
     this.toggle = this.toggle.bind(this);
   }
@@ -37,12 +39,28 @@ class LoginPage extends React.Component {
       alert("Please input your email and password");
     }
     else {
-      API.signIn({
+      const user = {
         email: this.state.email,
         password: this.state.password
-      })
-      //.then(direct to dashboard)
-      //.catch(error)
+      };
+
+      axios.post("/login", user)
+        .then(function(userData){
+          // console.log(userData);
+          if (typeof userData === "object"){
+            this.setState.user(userData);
+            console.log("user found, in redirect block login page", userData);
+            window.location.href = "/";
+            //just redirecting to home page now(refresh issue)
+            //will send to dashboard once resolved
+          }
+          else{
+            //this is currently not being hit. Need to look at backend(server.js) and look at sending 
+            //something back if user is not found.
+            console.log("on login page could not find user")
+            alert("Unable to locate profile.  If you have not created one, please do so on the Sgn Up page");
+          }
+        })
     }
   };
 
@@ -52,7 +70,7 @@ class LoginPage extends React.Component {
         <h2 className="mb-5 text-center">Login page</h2>
         <Row>
         <Col md="6" className="mx-auto float-none white z-depth-1 py-2 px-2">
-            <CardImage src="https://media.istockphoto.com/photos/industrial-zone-steel-pipelines-valves-and-gauges-picture-id616899444?k=6&m=616899444&s=612x612&w=0&h=sSytzfpe4t4Gt7VX8T0sRPIZ9edUKYimpA0UK4KQS28=" 
+            <CardImage src="https://www.glensfallshospital.org/application/files/2914/7550/5313/Glens_Falls_Hospital_Employee_Login.jpg" 
                        alt="Card image cap"/>
           </Col>
           <Col md="6">

@@ -1,14 +1,20 @@
 const db = require("../models");
-var passport = require("../config/passport");
+var express = require("express");
 
 // Defining methods for the userController
 module.exports = {
     create: function(req, res) {
         console.log("in userController block", req.body);
+<<<<<<< HEAD
       db.User
         .create(req.body)
         // .then(dbModel => res.json(dbModel))
         .then(res.redirect("/login"))
+=======
+      db.User.create(req.body)
+        .then(dbModel => res.json(dbModel))
+        .then(res.json("/login"))
+>>>>>>> f47a88bd88645be45a729c5bed6cc71bd5f4788c
         .catch(err => res.status(422).json(err));
     },
     findByEmail: function(req, res) {
@@ -20,17 +26,6 @@ module.exports = {
         .then(function(dbUser) {
           res.json(dbUser);
         });
-    },
-    signIn: function(req, res) {
-      console.log("in userController block", req.body);
-      db.User.findOne({
-        where: {
-          email: req.body.email
-        }
-      })
-      .then(function(data){
-        console.log(data);
-      });
     },
     update: function(req, res) {
       db.User.update(req.body,

@@ -1,8 +1,9 @@
 import axios from "axios";
+// var passport = require("../../config/passport");
 
 export default {
   // Gets all employee
-  getEmployee: function() {
+  getEmployees: function() {
     return axios.get("/api/employee");
   },
   // Gets the employee with the given id
@@ -28,7 +29,6 @@ export default {
     // console.log("in utils API createUser block", newUser);
     return axios.post("/api/user", newUser);
   },
-  //reach out to the database, verify User(user) credentials
   signIn: function(user){
     console.log("in utils API folder", user)
 
@@ -61,9 +61,17 @@ export default {
   createReminder: function(reminderData) {
     console.log("Created a new reminder with : ", reminderData);
     return axios.post("/api/reminder", reminderData);
+  },
+    // Make route for getting data from the EmployeeCerts table
+  getCrews: function() {
+    console.log("getting all crew data")
+    return axios.get("/api/crews");
 
-    // return axios.post("/api/user/login", user)
+  }// ,
 
-  }
 
+  // return axios.post("/api/user/login", user)
+
+
+  // }
 };
