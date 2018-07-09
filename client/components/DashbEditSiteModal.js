@@ -2,6 +2,8 @@
 
 // React
 import React, { Component } from "react";
+import API from '../utils/API';
+// import { BrowserRouter as Router } from 'react-router-dom';
 
 // MD React-Bootstrap
 import { Container, Row, Col, Button, Card, CardBody, Modal, ModalBody, ModalHeader, ModalFooter, Select, SelectInput, SelectOptions, SelectOption, CardHeader, Table, PerfectScrollbar } from 'mdbreact';
@@ -17,7 +19,7 @@ import "./styles/DashEditSiteModal.css";
 // TEMPORARY JSON files for employees/certifications
 import crews from "./temp-json/crews.json";
 import certs from "./temp-json/certs.json";
-import employees from "./temp-json/employees.json";
+// import employees from "./temp-json/employees.json";
 import { conditionallyUpdateScrollbar } from '../src/components/utils';
 
 // -------------------------------------------------------------------------------------------------
@@ -26,41 +28,25 @@ const modStyle = {
   margin: 0
 }
 
+let employeesArr = []
+let certsArr = []
 
 
 
-
-
-class DashbEditSiteModal extends React.Component {
-
-  // componentDidMount() {
-
-  //   console.log("hello")
-    
-  //   // API.getEmployee()
-  //   // .then( function(result) {
-  //   //   console.log('Employees: ', result.data);
-  //   // }) 
-  // }
-
-
-
-
+class DashbEditSiteModal extends Component {
 
 
   constructor(props) {
     super(props);
     this.state = {
       modal: false,
+      employees: [],
+      certs: [],
       crews,
-      certs,
-      employees,
     }
-    // // Commented these out because used rocket function in actual method
-    // this.toggle = this.toggle.bind(this);
-    // this.onClick = this.onClick.bind(this);
-    // this.otherDropdownsClose = this.otherDropdownsClose.bind(this);
+
   }
+
 
   toggle = () => {
     this.setState({
@@ -113,51 +99,74 @@ class DashbEditSiteModal extends React.Component {
   //   const friends = this.state.friends.filter(friend => friend.id !== id);
   //   this.setState({ friends });
   // };
+  
 
 
-  handleSelectCrew = () => {
-    console.log("Yay, handleSelectCrew ran")
+// Opening Modal will toggle modal & get employees
+  onClickModal = (event) => {
+    this.toggle();
+    // this.handleGetEmployees()
+    // this.handleGetCrewCerts()
+    this.updateModal();
+
+ }
+ updateModal = () => {
+  this.updateCerts()    
+  this.updateEmployees()
+ }
+
+  handleSubmit = () => {
+    console.log("Yay, handleSubmit ran")
   }
 
-  /* API CALLS */
+  updateEmployees() {
+    this.setState({ employees: employeesArr })
+    console.log("employee state updated")
+  }
 
-  // // GET Crew Members
-  // componentDidMount()
-  // loadCrewMembers = () => {
-  //   API.getCrewMembers()
-  //     .then(res =>
-  //       this.setState({
-  //         employees: res.data.message
-  //       })
-  //     )
-  //     .catch(err => console.log(err));
-  // };
+  // handleGetEmployees = () => {
+  //   API.getEmployees()
+  //   .then(function(result) {
+  //     result.data.forEach(function(value) {
+  //        employeesArr.push({
+  //          last_name: value.last_name,
+  //          first_name: value.first_name,
+  //          id: value.id
+  //         });
+  //     });
+  //     console.log("handleGetEmployees successful")
+  //   })
+  // }
 
-  // // GET Crews
-  // loadCrews = () => {
-  //   API.getCrews()
-  //     .then(res =>
-  //       this.setState({
-  //         employees: res.data.message
-  //       })
-  //     )
-  //     .catch(err => console.log(err));
-  // };
+  /* WORKING ON POPULATING CERTS */
 
-  // // GET Crew Certifications
-  // loadCrewCerts = () => {
-  //   API.getCrewCerts()
-  //     .then(res =>
-  //       this.setState({
-  //         employees: res.data.message
-  //       })
-  //     )
-  //     .catch(err => console.log(err));
-  // };
+  // handleGetCrewCerts = () => {
+  //   API.getCertificates()
+  //   .then( function(res) {
+  //     // console.log('Employeessss: ', result.data);
+  //     res.data.forEach(function(value) {
+  //        certsArr.push({
+  //          id: value.id,
+  //          name: value.name
+  //         });
+  //     });
+  //     console.log("handleGetCrewCerts successful")
+  //   })
+  // }
+
+
+
+  updateCerts() {
+    this.setState({certs: certsArr})
+    console.log("crew certs updated")
+  }
+
+
+
 
 
   componentDidMount() {
-    document.addEventListener('click', this.onClick);
+    document.addEventListener('click', this.onClick,);
   }
 
   componentWillUnmount() {
@@ -165,13 +174,14 @@ class DashbEditSiteModal extends React.Component {
   }
 
 
+// ================================================================================================================
 
   render() {
     const modalStyle = { width: '100%' }
     const outerContainerStyle = { width: '100%', height: '200px' }
     return (
       <Container>
-        <Button outline color="primary" onClick={this.toggle}>Edit Crew</Button>
+        <Button outline color="primary" onClick={this.onClickModal}>Edit Crew</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader className="blue-grey-text text-center" toggle={this.toggle}>Edit this Site</ModalHeader>
           <ModalBody className="blue-grey-text">
@@ -209,11 +219,12 @@ class DashbEditSiteModal extends React.Component {
                   <PerfectScrollbar className="scrollbar-primary">
                     <CardBody>
                       <Table striped bordered small>
-                        <tbody>
+                        <tbody>    
                           {this.state.employees.map(employee => (
                             <TableData
                               key={employee.id}
-                              name={employee.name}
+                              first={employee.first_name}
+                              last={employee.last_name}
                             />
                           ))}
                         </tbody>
@@ -222,6 +233,7 @@ class DashbEditSiteModal extends React.Component {
                   </PerfectScrollbar>
                 </Card>
                 <hr />
+    
                 {/* End Edit Crew Member Table */}
 
               </Col>
@@ -304,7 +316,7 @@ class DashbEditSiteModal extends React.Component {
           <ModalFooter>
             <Button color="secondary" onClick={this.toggle}>Close</Button>{' '}
             <Button color="primary" onClick={() => {
-           this.handleSelectCrew();
+           this.handleSubmit();
             }}>
           Save changes</Button>
           </ModalFooter>

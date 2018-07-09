@@ -137,7 +137,7 @@ class DashboardPage extends React.Component {
           cert_id: value.CertificateId,
         }
         console.log('Employee No: : ', value.EmployeeId, " has Certificate: ", value.CertificateId );
-        // tmp["date_expiration"] = 
+        tmp["date_expiration"] = 
         
         API.getCertificates(value.CertificateId)
         .then(res => {
@@ -145,11 +145,11 @@ class DashboardPage extends React.Component {
           // expirey = data that you want to save ex. res.data.days
           // do calc to get new date expirey
           // tmp[date_exp] = set to tmp
-          // arr.push(tmp)
+          arr.push(tmp)
         })
-        // this.getExpiration(value.CertificateId, value.date_obtained)
+        this.getExpiration(value.CertificateId, value.date_obtained)
       });
-      // api.posttotable(array)
+      api.posttotable(array)
       console.log('Employee Cert Data is: ', result.data);
     });
     API.getEmployees()
@@ -298,6 +298,7 @@ class DashboardPage extends React.Component {
                                   </div>
                                 </Row>
                               </TabPane>
+
                               <TabPane tabId="2">
                                 <Row className="pb-3">
                                   <Col md="12">
@@ -314,28 +315,24 @@ class DashboardPage extends React.Component {
                                         <Table striped bordered small>
                                           <thead>
                                             <tr>
-                                              <th>#</th>
+                                              <th>Id#</th>
                                               <th>Crew Names</th>
-                                              <th>Crew Type</th>
                                               <th>Number of members</th>
                                             </tr>
                                           </thead>
                                           <tbody>
                                             <tr>
                                               <th scope="row">1</th>
-                                              <td>RT</td>
                                               <td>Radiography</td>
                                               <td>24</td>
                                             </tr>
                                             <tr>
                                               <th scope="row">2</th>
-                                              <td>Ropes</td>
                                               <td>Rope Access</td>
                                               <td>12</td>
                                             </tr>
                                             <tr>
                                               <th scope="row">3</th>
-                                              <td>Ground</td>
                                               <td>Ground Inspection</td>
                                               <td>56</td>
                                             </tr>
@@ -345,6 +342,7 @@ class DashboardPage extends React.Component {
                                     </Card>
                                     <br /><br />
                                       <DashbMainCertModal />
+
 
                                   </Col>
                                 </Row>
@@ -365,28 +363,24 @@ class DashboardPage extends React.Component {
                                         <Table striped bordered small>
                                           <thead>
                                             <tr>
-                                              <th>#</th>
+                                              <th>Id#</th>
                                               <th>Crew Names</th>
-                                              <th>Crew Type</th>
                                               <th>Number of members</th>
                                             </tr>
                                           </thead>
                                           <tbody>
                                             <tr>
                                               <th scope="row">1</th>
-                                              <td>RT</td>
                                               <td>Radiography</td>
                                               <td>24</td>
                                             </tr>
                                             <tr>
                                               <th scope="row">2</th>
-                                              <td>Ropes</td>
                                               <td>Rope Access</td>
                                               <td>12</td>
                                             </tr>
                                             <tr>
                                               <th scope="row">3</th>
-                                              <td>Ground</td>
                                               <td>Ground Inspection</td>
                                               <td>56</td>
                                             </tr>
@@ -416,28 +410,24 @@ class DashboardPage extends React.Component {
                                         <Table striped bordered small>
                                           <thead>
                                             <tr>
-                                              <th>#</th>
+                                              <th>Id#</th>
                                               <th>Crew Names</th>
-                                              <th>Crew Type</th>
                                               <th>Number of members</th>
                                             </tr>
                                           </thead>
                                           <tbody>
                                             <tr>
                                               <th scope="row">1</th>
-                                              <td>RT</td>
                                               <td>Radiography</td>
                                               <td>24</td>
                                             </tr>
                                             <tr>
                                               <th scope="row">2</th>
-                                              <td>Ropes</td>
                                               <td>Rope Access</td>
                                               <td>12</td>
                                             </tr>
                                             <tr>
                                               <th scope="row">3</th>
-                                              <td>Ground</td>
                                               <td>Ground Inspection</td>
                                               <td>56</td>
                                             </tr>
