@@ -49,7 +49,7 @@ class DashboardPage extends React.Component {
       console.log("UserInfo ", this.state.user);
     });
     API.getSites().then(res => {
-      console.log(res.data[0].name)
+      this.setState({ siteArray: res.data })
     })
     // Bar chart
     var ctxB = document.getElementById("barChart").getContext('2d');
@@ -174,11 +174,12 @@ class DashboardPage extends React.Component {
 
 
     this.state = {
+      siteArray:[],
       activeItem: '1',
       activeItemPills: '1',
       activeItemVerticalPills: '1',
       activeItemOuterTabs: '1',
-      activeItemInnerPills: '1',
+      activeItemInnerPills: '0',
       activeItemClassicTabs1: '1',
       activeItemClassicTabs2: '1',
       modal: false,
@@ -252,10 +253,21 @@ class DashboardPage extends React.Component {
                 <div className="container" style={{ height: "10px" }}>
                   <SideNav fixed breakWidth={1300} className="stylish-color-dark">
                     <SideNavNav>
-                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '1' })} onClick={() => { this.toggleInnerPills('1'); }} name="Main" icon="bar-chart"></SideNavCat>
-                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '2' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('2'); }} name="Site 1" icon="building-o"></SideNavCat>
-                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '3' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('3'); }} name="Site 2" icon="building-o"></SideNavCat>
-                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '4' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('4'); }} name="Site 3" icon="building-o"></SideNavCat>
+                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '0' })} onClick={() => { this.toggleInnerPills('0'); }} name="Main" icon="bar-chart"></SideNavCat>
+                      {this.state.siteArray.length > 0 &&
+                        this.state.siteArray.map(
+
+                          (siteObj) => {
+    
+                            if (siteObj.CompanyId === 1) {
+                              return (
+
+                                <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === `${siteObj.id}` })} id="sidenav-site" onClick={() => { this.toggleInnerPills(`${siteObj.id}`); }} name={siteObj.name} companyId={siteObj.CompanyId} icon="building-o"></SideNavCat>
+
+                              )
+                            }
+                          }
+                        )}
                       <DashbAddSiteModal />
                     </SideNavNav>
                   </SideNav>
@@ -270,7 +282,7 @@ class DashboardPage extends React.Component {
                         <Row>
                           <Col lg="12">
                             <TabContent activeItem={this.state.activeItemInnerPills}>
-                              <TabPane tabId="1">
+                              <TabPane tabId="0">
                                 <Row className="pb-3">
                                   <div style={{ marginTop: '10px' }}>
                                     <h2 className="grey-text">{this.state.user.companyName} Overview</h2>
@@ -298,7 +310,7 @@ class DashboardPage extends React.Component {
                                   </div>
                                 </Row>
                               </TabPane>
-                              <TabPane tabId="2">
+                              <TabPane tabId="1">
                                 <Row className="pb-3">
                                   <Col md="12">
                                     <Card>
@@ -349,7 +361,7 @@ class DashboardPage extends React.Component {
                                   </Col>
                                 </Row>
                               </TabPane>
-                              <TabPane tabId="3">
+                              <TabPane tabId="2">
                                 <Row className="pb-3">
                                   <Col md="12">
                                     <Card>
@@ -400,7 +412,7 @@ class DashboardPage extends React.Component {
                                   </Col>
                                 </Row>
                               </TabPane>
-                              <TabPane tabId="4">
+                              <TabPane tabId="3">
                                 <Row className="pb-3">
                                   <Col md="12">
                                     <Card>
