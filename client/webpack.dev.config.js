@@ -32,12 +32,12 @@ const config = {
     //   "*": "http://[::1]:3001",
     // },
     proxy: { 
-      "*": "http://[::1]:3001",
-      '/api/**': { 
-        target: 'http://[::1]/api/', 
-        secure: false, 
-        logLevel: 'debug' 
-      } 
+      "*": "http://[::1]:3001"
+      // '/api/**': { 
+      //   target: 'http://[::1]/api/', 
+      //   secure: false, 
+      //   logLevel: 'debug' 
+      // } 
     }
 
   },
