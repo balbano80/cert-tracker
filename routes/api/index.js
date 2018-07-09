@@ -5,7 +5,6 @@ const employeeCertRoutes = require("./employeeCerts");
 const siteCrews = require("./siteCrews");
 const certificatesRoutes = require("./certificates");
 const userRoutes = require("./user");
-// const loginRoutes = require("./login");
 const companyRoutes = require("./company");
 
 
@@ -16,7 +15,6 @@ router.use("/site", siteRoutes);
 router.use("/employeecerts", employeeCertRoutes);
 router.use("/certificates", certificatesRoutes);
 router.use("/user", userRoutes);
-// router.use("/login", loginRoutes);
 router.use("/company", companyRoutes);
 
 

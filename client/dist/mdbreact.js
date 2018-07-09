@@ -7,7 +7,7 @@
 		exports["mdbreact"] = factory(require("react"), require("react-dom"));
 	else
 		root["mdbreact"] = factory(root["React"], root["ReactDOM"]);
-})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_4__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_4__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -166,9 +166,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		module.exports = classNames;
 	} else if ("function" === 'function' && _typeof(__webpack_require__(15)) === 'object' && __webpack_require__(15)) {
 		// register as 'classnames', consistent with npm package name
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
 			return classNames;
-		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	} else {
 		window.classNames = classNames;
@@ -31479,7 +31479,7 @@ if("function"=='function'&&_typeof(__webpack_require__(15))=='object'&&__webpack
 // Use `_.noConflict` to remove Lodash from the global object.
 root._=_;// Define as an anonymous module so, through path mapping, it can be
 // referenced as the "underscore" module.
-!(__WEBPACK_AMD_DEFINE_RESULT__ = (function(){return _;}).call(exports, __webpack_require__, exports, module),
+!(__WEBPACK_AMD_DEFINE_RESULT__ = function(){return _;}.call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));}// Check for `exports` after `define` in case a build optimizer adds it.
 else if(freeModule){// Export for Node.js.
 (freeModule.exports=_)._=_;// Export for CommonJS support.

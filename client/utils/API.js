@@ -66,6 +66,7 @@ export default {
   getCrews: function() {
     console.log("getting all crew data")
     return axios.get("/api/crews");
+<<<<<<< HEAD
   },
   getUserData: function(req, res){
     if(!req.user){
@@ -77,4 +78,14 @@ export default {
     }
   }
 
+=======
+
+  }// ,
+
+
+  // return axios.post("/api/user/login", user)
+
+
+  // }
+>>>>>>> 3a08dc9675d7969a5235a82e7b3a0c2c51b716ef
 };
