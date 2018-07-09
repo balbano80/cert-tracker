@@ -27,17 +27,9 @@ const config = {
     ]
   },
   devServer: {
-    historyApiFallback: true,
-    // proxy: {
-    //   "*": "http://[::1]:3001",
-    // },
+    // historyApiFallback: true,
     proxy: { 
       "*": "http://[::1]:3001"
-      // '/api/**': { 
-      //   target: 'http://[::1]/api/', 
-      //   secure: false, 
-      //   logLevel: 'debug' 
-      // } 
     }
 
   },
@@ -46,11 +38,6 @@ const config = {
       template: 'public/index.html'
     })
   ]
-  // plugins: [
-  //   new webpack.HotModuleReplacementPlugin({
-  //     template: 'public/index.html'
-  //   })
-  //   ]
 };
 
 module.exports = config;
