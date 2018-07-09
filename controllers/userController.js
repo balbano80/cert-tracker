@@ -8,7 +8,7 @@ module.exports = {
       db.User
         .create(req.body)
         // .then(dbModel => res.json(dbModel))
-        .then(res.json("/api/login"))
+        .then(res.redirect("/login"))
         .catch(err => res.status(422).json(err));
     },
     findByEmail: function(req, res) {

@@ -29,12 +29,10 @@ app.use(passport.session());
 // Route config -------------------------------------------/
 app.use(routes);
 
-
-
-app.get('/api', function(req, res) {
-  res.set('Content-Type', 'application/json');
-  res.send('{"message":"Hello World"}')
-});
+// app.get('/api', function(req, res) {
+//   res.set('Content-Type', 'application/json');
+//   res.send('{"message":"Hello World"}')
+// });
 
 // If no API routes are hit, send the React app
 app.get('*', function(req, res) {
