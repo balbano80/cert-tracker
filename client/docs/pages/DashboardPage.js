@@ -46,10 +46,17 @@ class DashboardPage extends React.Component {
       this.setState({
         user: res.data
       })
-      console.log("UserInfo ", this.state.user);
+      // console.log("UserInfo ", this.state.user);
     });
     API.getSites().then(res => {
-      this.setState({ siteArray: res.data })
+      const sitesArr = []
+        for (let i = 0; i <res.data.length; i++){
+          if (this.state.user.CompanyId === res.data[i].CompanyId){
+            sitesArr.push(res.data[i]);
+          } 
+      }
+      this.setState({ siteArray: sitesArr });
+      // console.log("User Sites", this.state.siteArray);
     })
     // Bar chart
     var ctxB = document.getElementById("barChart").getContext('2d');
@@ -127,6 +134,36 @@ class DashboardPage extends React.Component {
         responsive: true
       }
     });
+
+    API.getCrews()
+    .then( result => {
+      const crewArr = [];
+      for (let i = 0; i < this.state.siteArray.length; i++){
+        for (let j = 0; j< result.data.length; j++){
+          if (this.state.siteArray[i].id === result.data[j].SiteId){
+            crewArr.push(result.data[j])
+          }
+        }
+      }
+      this.setState({crewsArr: crewArr})
+      // console.log("CrewsArr", this.state.crewsArr);
+    });
+
+    API.getEmployees()
+    .then( empResult => {
+      const employeeArr = [];
+      for (let i = 0; i < this.state.crewsArr.length; i++){
+        for (let j = 0; j< empResult.data.length; j++){
+          if (this.state.crewsArr[i].id === empResult.data[j].CrewId){
+            employeeArr.push(empResult.data[j])
+          }
+        }
+      }
+      this.setState({employeesArr: employeeArr})
+      // console.log("EmployeesArr", this.state.employeesArr);
+      console.log("State info", this.state);
+    });
+
     API.getEmployeeCerts()
     .then( function(result) {
       var employeeCrts = [];
@@ -141,7 +178,7 @@ class DashboardPage extends React.Component {
         
         API.getCertificates(value.CertificateId)
         .then(res => {
-          console.log(res)
+          // console.log(res)
           // expirey = data that you want to save ex. res.data.days
           // do calc to get new date expirey
           // tmp[date_exp] = set to tmp
@@ -150,17 +187,10 @@ class DashboardPage extends React.Component {
         // this.getExpiration(value.CertificateId, value.date_obtained)
       });
       // api.posttotable(array)
-      console.log('Employee Cert Data is: ', result.data);
+      // console.log('Employee Cert Data is: ', result.data);
     });
-    API.getEmployees()
-    .then( function(result) {
-      console.log('Employees: ', result.data);
-    });
-    // for (let i = 0; i < this.state.user.sites.length; i++){
-    API.getCrews()
-    .then( function(result) {
-      console.log('Crews: ', result.data);
-    }) 
+
+
   }
 
   // getExpiration = (id, date) => {
@@ -259,13 +289,13 @@ class DashboardPage extends React.Component {
 
                           (siteObj) => {
     
-                            if (siteObj.CompanyId === 1) {
+                            {/* if (siteObj.CompanyId === 1) { */}
                               return (
 
                                 <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === `${siteObj.id}` })} id="sidenav-site" onClick={() => { this.toggleInnerPills(`${siteObj.id}`); }} name={siteObj.name} companyId={siteObj.CompanyId} icon="building-o"></SideNavCat>
 
                               )
-                            }
+                            {/* } */}
                           }
                         )}
                       <DashbAddSiteModal />
