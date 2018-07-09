@@ -27,7 +27,27 @@ const modStyle = {
 }
 
 
+
+
+
+
 class DashbEditSiteModal extends React.Component {
+
+  // componentDidMount() {
+
+  //   console.log("hello")
+    
+  //   // API.getEmployee()
+  //   // .then( function(result) {
+  //   //   console.log('Employees: ', result.data);
+  //   // }) 
+  // }
+
+
+
+
+
+
   constructor(props) {
     super(props);
     this.state = {
@@ -95,9 +115,14 @@ class DashbEditSiteModal extends React.Component {
   // };
 
 
+  handleSelectCrew = () => {
+    console.log("Yay, handleSelectCrew ran")
+  }
+
   /* API CALLS */
 
   // // GET Crew Members
+  // componentDidMount()
   // loadCrewMembers = () => {
   //   API.getCrewMembers()
   //     .then(res =>
@@ -278,7 +303,10 @@ class DashbEditSiteModal extends React.Component {
           </ModalBody>
           <ModalFooter>
             <Button color="secondary" onClick={this.toggle}>Close</Button>{' '}
-            <Button color="primary">Save changes</Button>
+            <Button color="primary" onClick={() => {
+           this.handleSelectCrew();
+            }}>
+          Save changes</Button>
           </ModalFooter>
         </Modal>
       </Container>
