@@ -40,6 +40,78 @@ const data = {
 };
 
 class DashboardPage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      siteArray:[],
+      activeItem: '1',
+      activeItemPills: '1',
+      activeItemVerticalPills: '1',
+      activeItemOuterTabs: '1',
+      activeItemInnerPills: '1',
+      activeItemClassicTabs1: '1',
+      activeItemClassicTabs2: '1',
+      modal: false
+    };
+    this.toggle = this.toggle.bind(this);
+  }
+
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
+    });
+  }
+  toggle(tab) {
+    if (this.state.activeItem !== tab) {
+      this.setState({
+        activeItem: tab
+      });
+    }
+  }
+  togglePills(tab) {
+    if (this.state.activePills !== tab) {
+      this.setState({
+        activeItemPills: tab
+      });
+    }
+  }
+  toggleVerticalPills(tab) {
+    if (this.state.activeItem3 !== tab) {
+      this.setState({
+        activeItemVerticalPills: tab
+      });
+    }
+  }
+  toggleClassicTabs1(tab) {
+    if (this.state.activeItemClassicTabs1 !== tab) {
+      this.setState({
+        activeItemClassicTabs1: tab
+      });
+    }
+  }
+  toggleClassicTabs2(tab) {
+    if (this.state.activeItemClassicTabs2 !== tab) {
+      this.setState({
+        activeItemClassicTabs2: tab
+      });
+    }
+  }
+  toggleOuterTabs(tab) {
+    if (this.state.activeItemOuterTabs2 !== tab) {
+      this.setState({
+        activeItemOuterTabs: tab
+      });
+    }
+  }
+  toggleInnerPills(tab) {
+    if (this.state.activeItemInnerPills !== tab) {
+      this.setState({
+        activeItemInnerPills: tab
+      });
+    }
+  }
+
 
   componentDidMount() {
     axios.get("/api/user_data").then(res => {
@@ -49,8 +121,27 @@ class DashboardPage extends React.Component {
       console.log("UserInfo ", this.state.user);
     });
     API.getSites().then(res => {
-      console.log(res.data[0].name)
+      console.log(res.data)
+      console.log(res.data.length)
+
+      // res.data.forEach(function(value) {
+      //   let sites=[];
+      //   var temp = {
+      //     siteName: value.name,
+      //     CompanyId: value.CompanyId,
+      //   }
+      //   sites.push(temp)
+      //   // this.setState({siteArray: sites})
+      //   console.log("site array:" + sites)
+      // })  
+      // console.log("sites array:" + sites)
+      this.setState({siteArray: JSON.stringify(res.data)})
+
+      console.log("Testing: " + JSON.parse(this.state.siteArray));
     })
+
+    // console.log("Site Array scope test: "+ <div>{this.state.siteArray}</div>);
+
     // Bar chart
     var ctxB = document.getElementById("barChart").getContext('2d');
     new Chart(ctxB, {
@@ -128,6 +219,36 @@ class DashboardPage extends React.Component {
       }
     });
     API.getEmployeeCerts()
+
+      .then(function (result) {
+        var employeeCrts = [];
+        let expirey
+        result.data.forEach(function (value) {
+          var tmp = {
+            employee_id: value.EmployeeId,
+            cert_id: value.CertificateId,
+          }
+          console.log('Employee No: : ', value.EmployeeId, " has Certificate: ", value.CertificateId);
+          // tmp["date_expiration"] = 
+
+          API.getCertificates(value.CertificateId)
+            .then(res => {
+              console.log(res)
+              // expirey = data that you want to save ex. res.data.days
+              // do calc to get new date expirey
+              // tmp[date_exp] = set to tmp
+              // arr.push(tmp)
+            })
+          // this.getExpiration(value.CertificateId, value.date_obtained)
+        });
+        // api.posttotable(array)
+        console.log('Employee Cert Data is: ', result.data);
+      });
+    API.getEmployees()
+      .then(function (result) {
+        console.log('Employees: ', result.data);
+      });
+
     .then( function(result) {
       var employeeCrts = [];
       let expirey
@@ -157,90 +278,17 @@ class DashboardPage extends React.Component {
       console.log('Employees: ', result.data);
     });
     // for (let i = 0; i < this.state.user.sites.length; i++){
+
     API.getCrews()
-    .then( function(result) {
-      console.log('Crews: ', result.data);
-    }) 
+      .then(function (result) {
+        console.log('Crews: ', result.data);
+      })
   }
 
   // getExpiration = (id, date) => {
 
 
   // }
-
-
-  constructor(props) {
-    super(props);
-
-
-    this.state = {
-      activeItem: '1',
-      activeItemPills: '1',
-      activeItemVerticalPills: '1',
-      activeItemOuterTabs: '1',
-      activeItemInnerPills: '1',
-      activeItemClassicTabs1: '1',
-      activeItemClassicTabs2: '1',
-      modal: false,
-      user: {}
-    };
-    this.toggle = this.toggle.bind(this);
-  }
-
-  toggle() {
-    this.setState({
-      modal: !this.state.modal
-    });
-  }
-  toggle(tab) {
-    if (this.state.activeItem !== tab) {
-      this.setState({
-        activeItem: tab
-      });
-    }
-  }
-  togglePills(tab) {
-    if (this.state.activePills !== tab) {
-      this.setState({
-        activeItemPills: tab
-      });
-    }
-  }
-  toggleVerticalPills(tab) {
-    if (this.state.activeItem3 !== tab) {
-      this.setState({
-        activeItemVerticalPills: tab
-      });
-    }
-  }
-  toggleClassicTabs1(tab) {
-    if (this.state.activeItemClassicTabs1 !== tab) {
-      this.setState({
-        activeItemClassicTabs1: tab
-      });
-    }
-  }
-  toggleClassicTabs2(tab) {
-    if (this.state.activeItemClassicTabs2 !== tab) {
-      this.setState({
-        activeItemClassicTabs2: tab
-      });
-    }
-  }
-  toggleOuterTabs(tab) {
-    if (this.state.activeItemOuterTabs2 !== tab) {
-      this.setState({
-        activeItemOuterTabs: tab
-      });
-    }
-  }
-  toggleInnerPills(tab) {
-    if (this.state.activeItemInnerPills !== tab) {
-      this.setState({
-        activeItemInnerPills: tab
-      });
-    }
-  }
 
   render() {
     return (
@@ -253,7 +301,7 @@ class DashboardPage extends React.Component {
                   <SideNav fixed breakWidth={1300} className="stylish-color-dark">
                     <SideNavNav>
                       <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '1' })} onClick={() => { this.toggleInnerPills('1'); }} name="Main" icon="bar-chart"></SideNavCat>
-                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '2' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('2'); }} name="Site 1" icon="building-o"></SideNavCat>
+                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '2' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('2'); }} name={(this.state.siteArray)} icon="building-o"></SideNavCat>
                       <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '3' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('3'); }} name="Site 2" icon="building-o"></SideNavCat>
                       <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '4' })} id="sidenav-site" onClick={() => { this.toggleInnerPills('4'); }} name="Site 3" icon="building-o"></SideNavCat>
                       <DashbAddSiteModal />
@@ -341,7 +389,7 @@ class DashboardPage extends React.Component {
                                       </CardBody>
                                     </Card>
                                     <br /><br />
-                                      <DashbMainCertModal />
+                                    <DashbMainCertModal />
 
 
                                   </Col>
@@ -389,7 +437,7 @@ class DashboardPage extends React.Component {
                                       </CardBody>
                                     </Card>
                                     <br /><br />
-                                      <DashbMainCertModal />
+                                    <DashbMainCertModal />
 
                                   </Col>
                                 </Row>
@@ -436,8 +484,8 @@ class DashboardPage extends React.Component {
                                       </CardBody>
                                     </Card>
 
-                                      <br /><br />
-                                      <DashbMainCertModal />
+                                    <br /><br />
+                                    <DashbMainCertModal />
 
                                   </Col>
                                 </Row>
