@@ -10,6 +10,7 @@ class DashbMainCertModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            crewArray:[],
             certArray: [],
             certNameArray: []
         }
@@ -34,6 +35,7 @@ class DashbMainCertModal extends React.Component {
             this.setState({ certArray: certArr });
             // console.log("Certificates", this.state.certArray);
         })
+        
     }
 
     render() {

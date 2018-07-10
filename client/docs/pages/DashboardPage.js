@@ -51,10 +51,10 @@ class DashboardPage extends React.Component {
     });
     API.getSites().then(res => {
       const sitesArr = []
-        for (let i = 0; i <res.data.length; i++){
-          if (this.state.user.CompanyId === res.data[i].CompanyId){
-            sitesArr.push(res.data[i]);
-          } 
+      for (let i = 0; i < res.data.length; i++) {
+        if (this.state.user.CompanyId === res.data[i].CompanyId) {
+          sitesArr.push(res.data[i]);
+        }
       }
       this.setState({ siteArray: sitesArr });
       // console.log("User Sites", this.state.siteArray);
@@ -137,15 +137,15 @@ class DashboardPage extends React.Component {
     });
 
     API.getCrews()
-    .then( result => {
-      const crewArr = [];
-      for (let i = 0; i < this.state.siteArray.length; i++){
-        for (let j = 0; j< result.data.length; j++){
-          if (this.state.siteArray[i].id === result.data[j].SiteId){
-            crewArr.push(result.data[j])
+      .then(result => {
+        const crewArr = [];
+        for (let i = 0; i < this.state.siteArray.length; i++) {
+          for (let j = 0; j < result.data.length; j++) {
+            if (this.state.siteArray[i].id === result.data[j].SiteId) {
+              crewArr.push(result.data[j])
+            }
           }
         }
-      }
       this.setState({crewArray: crewArr})
       // console.log("CrewsArr", this.state.crewArray);
 
@@ -163,19 +163,19 @@ class DashboardPage extends React.Component {
     })
 
     API.getEmployees()
-    .then( empResult => {
-      const employeeArr = [];
-      for (let i = 0; i < this.state.crewArray.length; i++){
-        for (let j = 0; j< empResult.data.length; j++){
-          if (this.state.crewArray[i].id === empResult.data[j].CrewId){
-            employeeArr.push(empResult.data[j])
+      .then(empResult => {
+        const employeeArr = [];
+        for (let i = 0; i < this.state.crewArray.length; i++) {
+          for (let j = 0; j < empResult.data.length; j++) {
+            if (this.state.crewArray[i].id === empResult.data[j].CrewId) {
+              employeeArr.push(empResult.data[j])
+            }
           }
         }
-      }
-      this.setState({employeesArr: employeeArr})
-      // console.log("EmployeesArr", this.state.employeesArr);
-      // console.log("State info", this.state);
-    });
+        this.setState({ employeesArr: employeeArr })
+        // console.log("EmployeesArr", this.state.employeesArr);
+        // console.log("State info", this.state);
+      });
 
     API.getEmployeeCerts()
     .then( result => {
@@ -191,25 +191,22 @@ class DashboardPage extends React.Component {
       this.setState({employeeCerts: employeeCrts})
 
 
-      });
-      API.getCertificates()
-      .then(res => {
-        // console.log(res)
-        this.setState({certArray: res.data})
-      //   // expirey = data that you want to save ex. res.data.days
-      //   // do calc to get new date expirey
-      //   // tmp[date_exp] = set to tmp
-      //   // arr.push(tmp)
-      // })
-      // this.getExpiration(value.CertificateId, value.date_obtained)
+    });
+    API.getCertificates()
+    .then(res => {
+      // console.log(res)
+      this.setState({certArray: res.data})
+    //   // expirey = data that you want to save ex. res.data.days
+    //   // do calc to get new date expirey
+    //   // tmp[date_exp] = set to tmp
+    //   // arr.push(tmp)
+    // })
+    // this.getExpiration(value.CertificateId, value.date_obtained)
 
-    // api.posttotable(array)
-    // console.log('Employee Cert Data is: ', result.data);
-        console.log("State info", this.state);
-  });
-
-
-
+  // api.posttotable(array)
+  // console.log('Employee Cert Data is: ', result.data);
+      console.log("State info", this.state);
+    });
   }
 
   // getExpiration = (id, date) => {
@@ -225,7 +222,7 @@ class DashboardPage extends React.Component {
     this.state = {
       siteArray: [],
       crewArray: [],
-      certArray:[],
+      certArray: [],
       activeItem: '1',
       activeItemPills: '1',
       activeItemVerticalPills: '1',
@@ -307,14 +304,10 @@ class DashboardPage extends React.Component {
                       <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '0' })} onClick={() => { this.toggleInnerPills('0'); }} name="Main" icon="bar-chart"></SideNavCat>
                       {this.state.siteArray.length > 0 &&
                         this.state.siteArray.map(
-
                           (siteObj) => {
-    
-                              return (
-
-                                <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === `${siteObj.id}` })} id="sidenav-site" onClick={() => { this.toggleInnerPills(`${siteObj.id}`); }} name={siteObj.name} companyId={siteObj.CompanyId} icon="building-o"></SideNavCat>
-                              )
-
+                            return (
+                              <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === `${siteObj.id}` })} id="sidenav-site" onClick={() => { this.toggleInnerPills(`${siteObj.id}`); }} name={siteObj.name} companyId={siteObj.CompanyId} icon="building-o"></SideNavCat>
+                            )
                           }
                         )
                       }
@@ -363,8 +356,18 @@ class DashboardPage extends React.Component {
 
                               {this.state.siteArray.length > 0 &&
                                 this.state.siteArray.map((siteObj) => {
-                                    return (
-                                      <TabPane tabId= {siteObj.id.toString()} >
+                                  var id = siteObj.id;
+                                  var siteCrews = [];
+                                  var crewArr = this.state.crewArray;
+
+                                  for (let i = 0; i < crewArr.length; i++) {
+                                    if (id === crewArr[i].SiteId) {
+                                      siteCrews.push(crewArr[i])
+                                    }
+                                  }
+
+                                  return (
+                                    <TabPane tabId={siteObj.id.toString()} >
                                       <Row className="pb-3">
                                         <Col md="12">
                                           <Card>
@@ -374,7 +377,10 @@ class DashboardPage extends React.Component {
                                                   <h4 className="h4-responsive">{siteObj.name}</h4>
                                                 </Col>
                                                 <Col>
-                                                  <DashbEditSiteModal />
+                                                  <DashbEditSiteModal
+                                                    site={siteObj}
+                                                    crews={siteCrews}
+                                                  />
                                                 </Col>
                                               </Row>
                                               <Table striped bordered small>
@@ -384,19 +390,19 @@ class DashboardPage extends React.Component {
                                                     <th>Number of members</th>
                                                   </tr>
                                                 </thead>
-                                              <tbody>
-                                              {this.state.crewArray.length > 0 &&
-                                                this.state.crewArray.map((crewObj) => {
-                                              if (crewObj.SiteId === siteObj.id) {
-                                                  return (
-                                                      <tr>
-                                                        <td>{crewObj.crew_type}</td>
-                                                        <td>{crewObj.SiteId}</td>
-                                                      </tr>
-                                                    )
-                                                  }
-                                                }
-                                                )}
+                                                <tbody>
+                                                  {this.state.crewArray.length > 0 &&
+                                                    this.state.crewArray.map((crewObj) => {
+                                                      if (crewObj.SiteId === siteObj.id) {
+                                                        return (
+                                                          <tr>
+                                                            <td>{crewObj.crew_type}</td>
+                                                            <td>{crewObj.SiteId}</td>
+                                                          </tr>
+                                                        )
+                                                      }
+                                                    }
+                                                    )}
                                                 </tbody>
                                               </Table>
                                             </CardBody>
@@ -405,9 +411,9 @@ class DashboardPage extends React.Component {
                                           <DashbMainCertModal />
                                         </Col>
                                       </Row>
-                                      </TabPane>
-                                    )
-                                  }
+                                    </TabPane>
+                                  )
+                                }
                                 )}
                             </TabContent>
                           </Col>

@@ -14,10 +14,20 @@ module.exports = {
       res.json(result);
     });
   },
-  create: function(req, res) {
+  create: function (req, res) {
     db.Certificate.create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
+  },
+  remove: function (req, res) {
+    db.Certificate.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+      .then(function (dbCerts) {
+        res.json(dbCerts);
+      })
   },
 
   // findAll: function(req, res) {
