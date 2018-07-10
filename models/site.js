@@ -19,7 +19,8 @@ module.exports = function (sequelize, DataTypes) {
         // An Asset can't be created without an user due to the foreign key constraint
         Site.belongsTo(models.Company, {
             foreignKey: {
-                allowNull: false
+                allowNull: false,
+                unique: false
             }
         });
 

@@ -163,7 +163,12 @@ class DashboardPage extends React.Component {
       this.setState({crewArray: result.data })
       // console.log('Crews: ', result.data);
     })
-  }
+
+    API.getCertificates().then((result) =>{
+      console.log("Certificate:::::::::", result.data)
+      this.setState({certArray: result.data})
+    })
+  } 
 
   // getExpiration = (id, date) => {
 
@@ -178,6 +183,7 @@ class DashboardPage extends React.Component {
     this.state = {
       siteArray: [],
       crewArray: [],
+      certArray:[],
       activeItem: '1',
       activeItemPills: '1',
       activeItemVerticalPills: '1',
@@ -327,9 +333,7 @@ class DashboardPage extends React.Component {
                                               <Table striped bordered small>
                                                 <thead>
                                                   <tr>
-                                                    <th>#</th>
                                                     <th>Crew Names</th>
-
                                                     <th>Number of members</th>
                                                   </tr>
                                                 </thead>
@@ -339,9 +343,8 @@ class DashboardPage extends React.Component {
                                               if (crewObj.SiteId === siteObj.id) {
                                                   return (
                                                       <tr>
-                                                        <th scope="row">{crewObj.id}</th>
                                                         <td>{crewObj.crew_type}</td>
-                                                        <td>24</td>
+                                                        <td>{crewObj.SiteId}</td>
                                                       </tr>
                                                     )
                                                   }
