@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Table, Input, Button, Fa, Card, CardBody, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
 import DatePickerMod from '../../components/DatePickerMod';
-import EmployeePageFormGen from '../../components/EmployeePageFormGen';
 import API from '../../utils/API';
 import axios from "axios";
 
@@ -102,20 +101,6 @@ class FormEmployeePage extends React.Component {
       //   </Container>  
       <Container className="mt-5">
         <h2 className="mb-5 text-center">Certificate Tracking</h2>
-        <Row>
-          <Col md="6" className="mx-auto float-none white z-depth-1 py-2 px-2">
-            <Card>
-            <Row>
-              <EmployeePageFormGen />
-            </Row>
-            <Row>
-              <p>Test Content</p>
-            </Row>
-              
-            </Card>
-          </Col>  
-        </Row>
-
         <Row>
           <Col md="6" className="mx-auto float-none white z-depth-1 py-2 px-2">
             <Card>
