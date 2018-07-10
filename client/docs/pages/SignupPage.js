@@ -69,7 +69,7 @@ class SignupPage extends React.Component {
           })
       .then(function(data){
         console.log(data);
-        // window.location.href = `/login`;
+        window.location.href = `/`;
       }).catch(function(err){
         console.log(err);
         })

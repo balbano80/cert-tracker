@@ -147,7 +147,7 @@ class DashboardPage extends React.Component {
         }
       }
       this.setState({crewArray: crewArr})
-      // console.log("CrewsArr", this.state.crewsArr);
+      // console.log("CrewsArr", this.state.crewArray);
     });
 
     API.getEmployees()
@@ -155,41 +155,66 @@ class DashboardPage extends React.Component {
       const employeeArr = [];
       for (let i = 0; i < this.state.crewArray.length; i++){
         for (let j = 0; j< empResult.data.length; j++){
-          if (this.state.crewsArr[i].id === empResult.data[j].CrewId){
+          if (this.state.crewArray[i].id === empResult.data[j].CrewId){
             employeeArr.push(empResult.data[j])
           }
         }
       }
       this.setState({employeesArr: employeeArr})
       // console.log("EmployeesArr", this.state.employeesArr);
-      console.log("State info", this.state);
+      // console.log("State info", this.state);
     });
 
     API.getEmployeeCerts()
-    .then( function(result) {
-      var employeeCrts = [];
+    .then( result => {
+      const employeeCrts = [];
       let expirey
-      result.data.forEach(function(value) {
-        var tmp = {
-          employee_id: value.EmployeeId,
-          cert_id: value.CertificateId,
+      // result.data.forEach(value => {
+      //   const tmp = {
+      //     employee_id: value.EmployeeId,
+      //     cert_id: value.CertificateId,
+      //   }
+      //   // console.log('Employee No: : ', value.EmployeeId, " has Certificate: ", value.CertificateId );
+      //   // tmp["date_expiration"] =
+      //   this.state.employeesArr.forEach(employee => {
+      //     if (employee.id === tmp.employee_id){
+      //       employeeCrts.push(tmp);
+      //     }
+      //   }) 
+
+      // })
+
+      console.log("employeeCerts", result.data);
+        for (let i = 0; i < this.state.employeesArr.length; i++){
+          for (let j = 0; j< result.data.length; j++){
+              // console.log("state employee id", this.state.employeesArr[i].id);
+              // console.log("results ids", result.data[j].id);
+            if (this.state.employeesArr[i].id === result.data[j].id){
+              employeeCrts.push(result.data[j])
+            }
+          }
         }
-        console.log('Employee No: : ', value.EmployeeId, " has Certificate: ", value.CertificateId );
-        // tmp["date_expiration"] = 
-        
-        API.getCertificates(value.CertificateId)
-        .then(res => {
-          // console.log(res)
-          // expirey = data that you want to save ex. res.data.days
-          // do calc to get new date expirey
-          // tmp[date_exp] = set to tmp
-          // arr.push(tmp)
-        })
+      this.setState({employeeCerts: employeeCrts})
+      // console.log("EmployeesArr", this.state.employeesArr);
+      console.log("State info", this.state);
+
+      })
+        // API.getCertificates(value.CertificateId)
+        // .then(res => {
+        //   console.log(res)
+        //   // expirey = data that you want to save ex. res.data.days
+        //   // do calc to get new date expirey
+        //   // tmp[date_exp] = set to tmp
+        //   // arr.push(tmp)
+        // })
         // this.getExpiration(value.CertificateId, value.date_obtained)
-      });
+
+      console.log("Users employees certs only". employeeCrts);
+      // this.setState({employeeCerts: employeeCrts});
       // api.posttotable(array)
       // console.log('Employee Cert Data is: ', result.data);
-    });
+    // })
+
 
 
   }
