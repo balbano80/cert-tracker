@@ -76,6 +76,11 @@ export default {
     console.log("getting all crew data")
     return axios.get("/api/crews");
   },
+  // Get crew by company_id
+  getCrewBySite: function(id) {
+    console.log("getting crew data for this site")
+    return axios.get("/api/employee/" + id);
+  },
   getUserData: function(req, res){
     if(!req.user){
       res.json({});

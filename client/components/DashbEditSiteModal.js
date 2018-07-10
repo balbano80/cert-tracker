@@ -20,6 +20,7 @@ import "./styles/DashEditSiteModal.css";
 // import certs from "./temp-json/certs.json";
 // import employees from "./temp-json/employees.json";
 import { conditionallyUpdateScrollbar } from '../src/components/utils';
+import { updateLocale } from "../../node_modules/moment";
 
 // -------------------------------------------------------------------------------------------------
 
@@ -122,11 +123,21 @@ class DashbEditSiteModal extends React.Component {
     })
   }
 
-  handleGetCrews = () => {
-    API.getCrews().then((result) => {
+  handleGetCrews = (id) => {
+    API.getCrewBySite(id).then((result) => {
       console.log("Crews working ", result.data)
       this.setState({crews: result.data })
     })
+    // axios.get("/api/user_data").then(res => {                  /* WIP 7/9 Displaying crews by site by company  */
+    //   this.setState({  
+    //     user: res.data
+    //   })
+    //   // console.log("UserInfo ", this.state.user);
+    // });
+    // API.getCrewBySite(res.data.CompanyId).then((result) => {
+    //   console.log("Crews working ", result.data)
+    //   this.setState({crews: result.data })
+    // })
   }
 
 
