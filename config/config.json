@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "",
+    "password": null,
     "database": "certtracker_db",
     "host": "localhost",
     "dialect": "mysql"
