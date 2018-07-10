@@ -43,10 +43,10 @@ export default {
     return axios.get("/api/site");
   },
 
-  saveCert: function(certData) {
-    console.log("Certification data: ", certData);
-    return axios.post("/api/certification", certData);
-  },
+  // saveCert: function(certData) {
+  //   console.log("Certification data: ", certData);
+  //   return axios.post("/api/certification", certData);
+  // },
   // Make route for getting data from the EmployeeCerts table
   getEmployeeCerts: function() {
     return axios.get("/api/employeecerts")
@@ -55,6 +55,11 @@ export default {
   // New route for getting Certificates
   getCertificates: function(id) {
     return axios.get("/api/certificates")
+  },
+
+  createCertificates: function(certData) {
+    console.log("Created Certification data: ", certData);
+    return axios.post("/api/certificates", certData);
   },
 
   // Creates an reminder in the Reminders table

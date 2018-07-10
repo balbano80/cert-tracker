@@ -9,16 +9,29 @@ module.exports = {
     console.log("Find All Certs")
     db.Certificate.findAll({})
     .then(function(result) {
-      console.log("Results are: " ,result)
-      console.log("SHIT WORKS");
+      // console.log("Results are: " ,result)
       res.json(result);
     });
   },
   create: function(req, res) {
     db.Certificate.create(req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
+      .then(dbModel => {
+        // console.log(dbModel)
+        res.json(dbModel)
+      });
+  }
+//   update: function(req, res) {
+//     db.Certificate.update(req.body,
+//      {
+//        where: {
+//          id: req.body.name
+//        }
+//      })
+//      .then(function(dbCertificate) {
+//        res.json(dbCertificate);
+//      });
+
+//  },
 
   // findAll: function(req, res) {
   //   console.log("hit")

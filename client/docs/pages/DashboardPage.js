@@ -168,7 +168,7 @@ class DashboardPage extends React.Component {
     API.getEmployeeCerts()
     .then( result => {
       const employeeCrts = [];
-      let expirey
+      let expirey;
       // result.data.forEach(value => {
       //   const tmp = {
       //     employee_id: value.EmployeeId,
@@ -184,7 +184,7 @@ class DashboardPage extends React.Component {
 
       // })
 
-      console.log("employeeCerts", result.data);
+      // console.log("employeeCerts", result.data);
         for (let i = 0; i < this.state.employeesArr.length; i++){
           for (let j = 0; j< result.data.length; j++){
               // console.log("state employee id", this.state.employeesArr[i].id);
@@ -196,7 +196,7 @@ class DashboardPage extends React.Component {
         }
       this.setState({employeeCerts: employeeCrts})
       // console.log("EmployeesArr", this.state.employeesArr);
-      console.log("State info", this.state);
+      // console.log("State info", this.state);
 
       })
         // API.getCertificates(value.CertificateId)
