@@ -95,10 +95,12 @@ class DashbEditSiteModal extends React.Component {
     }
   }
 
-  // removeElement = id => {
-  //   const friends = this.state.friends.filter(friend => friend.id !== id);
-  //   this.setState({ friends });
-  // };
+  removeElement = id => {
+    API.deleteCert(id).then((result) => {
+      console.log("Calling to API to remove element ", result.data)
+      // this.setState({employees: result.data })
+    })
+  };
 
 
   handleSaveChanges = () => {
