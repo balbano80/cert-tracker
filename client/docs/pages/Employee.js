@@ -1,10 +1,12 @@
 import React from 'react';
 import { Container, Row, Col, Input, Email, FormBtn, Button, Fa, Card, CardBody } from 'mdbreact';
 import DatePickerMod from '../../components/DatePickerMod';
+import API from '../../utils/API';
 
 class Employee extends React.Component {
     // Set state
     state = {
+        certArray: [],
         employees: [],
         first_name: "",
         last_name: "",
@@ -12,6 +14,16 @@ class Employee extends React.Component {
         email: ""
     };
 
+    componentDidMount() {
+        API.getCertificates().then(res => {
+            const certArr = []
+            for (let i = 0; i < res.data.length; i++) {
+                certArr.push(res.data[i]);
+            }
+            this.setState({ certArray: certArr });
+            console.log("Certificates", this.state.certArray);
+        })
+    }
 
     // Handles updating component state when the user types into the input field
     handleInputChange = event => {
@@ -83,22 +95,36 @@ class Employee extends React.Component {
                                             <p>Cert Date</p>
                                         </Col>
                                     </Row>
-                                    <Row>
+                                    {this.state.certArray.length > 0 &&
+                                        this.state.certArray.map((certObj) => {
+                                            return (
+                                                <Row>
+                                                    <Col>
+                                                        <p className="grey-text">{certObj.name}</p>
+                                                    </Col>
+                                                    <Col>
+                                                        <DatePickerMod />
+                                                    </Col>
+                                                </Row>
+                                            )
+                                        }
+                                        )}
+                                    {/* <Row>
                                         <Col>
                                             <p className="grey-text">CA OSHA Fire Saftey</p>
                                         </Col>
                                         <Col>
                                             <DatePickerMod />
                                         </Col>
-                                    </Row>
-                                    <Row>
+                                    </Row> */}
+                                    {/* <Row>
                                         <Col>
                                             <p className="grey-text">CA OSHA Ladder Saftey</p>
                                         </Col>
                                         <Col>
                                             <DatePickerMod />
                                         </Col>
-                                    </Row>
+                                    </Row> */}
 
                                     <FormBtn
                                         disabled={!(this.state.first_name && this.state.last_name && this.state.phone_number && this.state.email)}
