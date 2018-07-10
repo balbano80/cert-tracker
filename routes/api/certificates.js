@@ -10,7 +10,7 @@ router.route("/")
 router.route("/:id")
   .get(certificatesController.findById)
 //   .get(certificatesController.findExpiryDates)
-//   .put(certificatesController.update)
+//   .put(certificatesController.update
 //   .delete(certificatesController.remove);
 
 module.exports = router;
