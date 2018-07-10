@@ -209,7 +209,7 @@ class DashboardPage extends React.Component {
         // })
         // this.getExpiration(value.CertificateId, value.date_obtained)
 
-      console.log("Users employees certs only". employeeCrts);
+      // console.log("Users employees certs only". employeeCrts);
       // this.setState({employeeCerts: employeeCrts});
       // api.posttotable(array)
       // console.log('Employee Cert Data is: ', result.data);
