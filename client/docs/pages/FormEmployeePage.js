@@ -22,7 +22,10 @@ class FormEmployeePage extends React.Component {
             } 
         }
         this.setState({ siteArray: sitesArr });
-        console.log("User Sites", this.state.siteArray);
+        // console.log("This user's Sites are: ", this.state.siteArray[0].name);
+        for(var i = 0; i < this.state.siteArray.length; i++) {
+          console.log("This user's Sites are: ", this.state.siteArray[i].name);
+        }
       })
 
 
@@ -104,12 +107,17 @@ class FormEmployeePage extends React.Component {
         <Row>
           <Col md="6" className="mx-auto float-none white z-depth-1 py-2 px-2">
             <Card>
-              
-            <EmployeePageFormGen />
+            <Row>
+              <EmployeePageFormGen />
+            </Row>
+            <Row>
+              <p>Test Content</p>
+            </Row>
               
             </Card>
           </Col>  
         </Row>
+
         <Row>
           <Col md="6" className="mx-auto float-none white z-depth-1 py-2 px-2">
             <Card>

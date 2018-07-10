@@ -83,11 +83,6 @@ class EmployeePageFormGen extends React.Component {
     }
   }
 
-  // removeElement = id => {
-  //   const friends = this.state.friends.filter(friend => friend.id !== id);
-  //   this.setState({ friends });
-  // };
-
 
   handleSaveChanges = () => {
     console.log("Yay, handleSaveChanges ran")
@@ -131,6 +126,24 @@ class EmployeePageFormGen extends React.Component {
     }).then(function(data) {
         self.setState({crews: data});
         console.log("this.state.crews: " + self.state.crews)
+    }).catch(err => {
+    console.log('caught it!',err);
+    })
+  }
+
+  handleGetSites = () => {
+    let self = this;
+    fetch('/api/sites', {
+        method: 'GET'
+    })
+    .then(function(response) {
+        if (response.status >= 400) {
+            throw new Error("Bad response from server");
+        }
+        return response.json();
+    }).then(function(data) {
+        self.setState({sites: data});
+        console.log("this.state.sites: " + self.state.sites)
     }).catch(err => {
     console.log('caught it!',err);
     })
