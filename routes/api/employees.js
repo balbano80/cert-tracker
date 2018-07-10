@@ -10,6 +10,7 @@ router.route("/")
 router
   .route("/:id")
   .get(employeeController.findById)
+  // .get(employeeController.findByCrewId) //in progress SKO
   .put(employeeController.update)
   .delete(employeeController.remove);
 
