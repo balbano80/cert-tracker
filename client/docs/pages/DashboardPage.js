@@ -153,7 +153,7 @@ class DashboardPage extends React.Component {
     API.getEmployees()
     .then( empResult => {
       const employeeArr = [];
-      for (let i = 0; i < this.state.crewsArr.length; i++){
+      for (let i = 0; i < this.state.crewArray.length; i++){
         for (let j = 0; j< empResult.data.length; j++){
           if (this.state.crewsArr[i].id === empResult.data[j].CrewId){
             employeeArr.push(empResult.data[j])
@@ -292,13 +292,11 @@ class DashboardPage extends React.Component {
 
                           (siteObj) => {
     
-                            {/* if (siteObj.CompanyId === 1) { */}
                               return (
 
                                 <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === `${siteObj.id}` })} id="sidenav-site" onClick={() => { this.toggleInnerPills(`${siteObj.id}`); }} name={siteObj.name} companyId={siteObj.CompanyId} icon="building-o"></SideNavCat>
-
                               )
-                            {/* } */}
+
                           }
                         )
                       }
