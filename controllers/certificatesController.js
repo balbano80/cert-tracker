@@ -8,11 +8,10 @@ module.exports = {
   findAll: function (req, res) {
     console.log("Find All Certs")
     db.Certificate.findAll({})
-      .then(function (result) {
-        console.log("Results are: ", result)
-        console.log("SHIT WORKS");
-        res.json(result);
-      });
+    .then(function(result) {
+      // console.log("Results are: " ,result)
+      res.json(result);
+    });
   },
   create: function (req, res) {
     db.Certificate.create(req.body)
