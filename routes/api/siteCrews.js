@@ -9,6 +9,7 @@ router.route("/")
 // Matches with "/api/crews/:id"
 router
   .route("/:id")
+  .get(siteCrewController.findBySite) //WIP 7/9
   .get(siteCrewController.findById)
   .put(siteCrewController.update)
 

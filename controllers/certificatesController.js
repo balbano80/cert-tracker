@@ -5,7 +5,7 @@ const db = require("../models");
 
 module.exports = {
 
-  findAll: function(req, res) {
+  findAll: function (req, res) {
     console.log("Find All Certs")
     db.Certificate.findAll({})
     .then(function(result) {
@@ -13,25 +13,21 @@ module.exports = {
       res.json(result);
     });
   },
-  create: function(req, res) {
+  create: function (req, res) {
     db.Certificate.create(req.body)
-      .then(dbModel => {
-        // console.log(dbModel)
-        res.json(dbModel)
-      });
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  remove: function (req, res) {
+    db.Certificate.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+      .then(function (dbCerts) {
+        res.json(dbCerts);
+      })
   }
-//   update: function(req, res) {
-//     db.Certificate.update(req.body,
-//      {
-//        where: {
-//          id: req.body.name
-//        }
-//      })
-//      .then(function(dbCertificate) {
-//        res.json(dbCertificate);
-//      });
-
-//  },
 
   // findAll: function(req, res) {
   //   console.log("hit")
