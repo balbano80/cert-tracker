@@ -3,6 +3,7 @@
 // React
 import React, { Component } from "react";
 import API from '../utils/API';
+import axios from "axios";
 
 // MD React-Bootstrap
 import { Container, Row, Col, Button, Card, CardBody, Modal, ModalBody, ModalHeader, ModalFooter, Select, SelectInput, SelectOptions, SelectOption, CardHeader, Table, PerfectScrollbar } from 'mdbreact';
@@ -29,7 +30,10 @@ class EmployeePageFormGen extends React.Component {
       crews: [],
       certs: [],
       employees: [],
-      value: ''
+      crewsValue: '',
+      sitesValue: '',
+      siteContainer: [],
+      crewContainer: []
     }
 
   }
@@ -40,24 +44,23 @@ class EmployeePageFormGen extends React.Component {
     });
   }
 
-  // Select Crew Dropdown Value
-  optionClick = (value) => {
-    // if (value.constructor === Array) {
-    //   value = value.join(', ');
-    // }
-    console.log("value: " + value)
-    this.setState({ value: value });
-    this.handleSelectCrew();
 
-  }
+    // Select Sites to Add Values
+    optionClickSites = (value) => {
 
-  // Select Certifications to Add Values
-  optionClick2 = (value) => {
-    if (value.constructor === Array) {
-      value = value.join(', ');
+      console.log("optionClickSites: " + value)
+      this.setState({ sitesValue: value });
+      // this.handleSelectSites();
     }
-    this.setState({ value: value });
-  }
+
+    // Select Crew Dropdown Value
+    optionClickCrews = (value) => {
+
+      console.log("optionClickCrews: " + value)
+      this.setState({ crewsValue: value });
+      // this.handleSelectCrew();
+  
+    }
 
   onClick = (e) => {
     // check if select is multiple
@@ -89,106 +92,32 @@ class EmployeePageFormGen extends React.Component {
     console.log("Yay, handleSaveChanges ran")
   }
 
+  // this.handleGetSites();
+
   handleSelectCrew = () => {
-    this.handleGetEmployees();
-    this.handleGetCerts();
+    this.handleGetCrews();
   }
 
-  /* API CALLS */
-
-
-  handleGetEmployees = () => {
-    let self = this;
-    fetch('/api/employee', {
-        method: 'GET'
-    }).then(function(response) {
-        if (response.status >= 400) {
-            throw new Error("Bad response from server");
-        }
-        return response.json();
-    }).then(function(data) {
-        self.setState({employees: data});
-        console.log("this.state.employees: " + self.state.employees)
-    }).catch(err => {
-    console.log('caught it!',err);
-    })
-  }
-
-  handleGetCrews = () => {
-    let self = this;
-    fetch('/api/crews', {
-        method: 'GET'
-    })
-    .then(function(response) {
-        if (response.status >= 400) {
-            throw new Error("Bad response from server");
-        }
-        return response.json();
-    }).then(function(data) {
-        self.setState({crews: data});
-        console.log("this.state.crews: " + self.state.crews)
-    }).catch(err => {
-    console.log('caught it!',err);
-    })
-  }
-
-  handleGetSites = () => {
-    let self = this;
-    fetch('/api/sites', {
-        method: 'GET'
-    })
-    .then(function(response) {
-        if (response.status >= 400) {
-            throw new Error("Bad response from server");
-        }
-        return response.json();
-    }).then(function(data) {
-        self.setState({sites: data});
-        console.log("this.state.sites: " + self.state.sites)
-    }).catch(err => {
-    console.log('caught it!',err);
-    })
-  }
-
-
-  handleGetCerts = () => {
-    let self = this;
-    fetch('/api/certification', {
-        method: 'GET'
-    }).then(function(response) {
-        if (response.status >= 400) {
-            throw new Error("Bad response from server");
-        }
-        return response.json();
-    }).then(function(data) {
-        self.setState({certs: data});
-        console.log("this.state.certs: " + self.state.certs)
-    }).catch(err => {
-    console.log('caught it!',err);
-    })
-  }
-  // handleGetCerts = () => {
-  //   let self = this;
-  //   fetch('/api/certificates', {
-  //       method: 'GET'
-  //   }).then(function(response) {
-  //       if (response.status >= 400) {
-  //           throw new Error("Bad response from server");
-  //       }
-  //       return response.json();
-  //   }).then(function(data) {
-  //       self.setState({certs: data});
-  //       console.log("this.state.certs: " + self.state.certs)
-  //   }).catch(err => {
-  //   console.log('caught it!',err);
-  //   })
-  // }
-
+ 
 
   componentDidMount() {
+    axios.get("/api/user_data").then(res => {
+      this.setState({
+        user: res.data
+      })
+      console.log("UserInfo ", this.state.user);
+      this.state.user.sites.map(site => {
+        this.state.siteContainer.push(site);
+      })
+      this.state.user.crews.map(crew => {
+        this.state.crewContainer.push(crew);
+      })
+    });
+    API.getSites().then(res => {
+      // console.log(res.data[0].name)
+    });
+
     document.addEventListener('click', this.onClick);
-    this.handleGetSites();
-    this.handleGetCrews();
 
   }
 
@@ -199,51 +128,54 @@ class EmployeePageFormGen extends React.Component {
 
 
   render() {
-    const modalStyle = { width: '40%' }
-    const outerContainerStyle = { width: '40%', height: '200px' }
+    const modalStyle = { width: '50%' }
+    const outerContainerStyle = { width: '55%', height: '200px' }
     return (
       <Container>
-        <Button outline color="primary" onClick={this.toggle}>Create your Form</Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        <Button outline color="primary" onClick={this.toggle}>Configure your Form</Button>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} style={modalStyle}>
           <ModalHeader className="blue-grey-text text-center" toggle={this.toggle}>Edit your Form</ModalHeader>
           <ModalBody className="blue-grey-text">
             <Row>
-            <Col size="4">
+            <Col size="6">
                 {/* Select Crew Dropdown */}
                 <h5>Select the Site</h5>
                 <Select>
                     <SelectInput value={this.state.value}></SelectInput>
                         <SelectOptions>
                             <SelectOption disabled>Select Site</SelectOption>
-                            {this.state.sites.map(site => (
-                            <DropdownOption
-                                key={site.id}
-                                id={site.id}
-                                name={site.name}
-                                optionClick={this.optionClick}
-                            />
-                            ))}
+                            {/* {console.log("Sites state: ", this.state.user)} */}
+                            {this.state.siteContainer.map(site => {
+                              return(
+                                <SelectOption triggerOptionClick={() => props.optionClick(site.name)}> 
+                                  {site.name}
+                                </SelectOption>
+                                )}
+                            )}    
+                           
                         </SelectOptions>
                     </Select>
                     {/* Select Crew Dropdown */}
                 </Col>
-              <Col size="4">
+              <Col size="6">
                 {/* Select Crew Dropdown */}
                 <h5>Select the Crew</h5>
                 <Select>
                     <SelectInput value={this.state.value}></SelectInput>
                         <SelectOptions>
-                            <SelectOption disabled>Select Crew</SelectOption>
-                            {this.state.crews.map(crew => (
-                            <DropdownOption
-                                key={crew.id}
-                                id={crew.id}
-                                crew_type={crew.crew_type}
-                                optionClick={this.optionClick}
-                            />
-                            ))}
+                            <SelectOption disabled>Select a Crew</SelectOption>
+                            {/* {console.log("Sites state: ", this.state.user)} */}
+                            {this.state.crewContainer.map(crew => {
+                              return(
+                                <SelectOption triggerOptionClick={() => props.optionClick(crew.crew_type)}> 
+                                  {crew.crew_type}
+                                </SelectOption>
+                                )}
+                            )}    
+                           
                         </SelectOptions>
                     </Select>
+                
                     {/* Select Crew Dropdown */}
                 </Col>
             </Row>

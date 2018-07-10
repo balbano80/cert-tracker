@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Table, Input, Button, Fa, Card, CardBody, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
 import DatePickerMod from '../../components/DatePickerMod';
+import EmployeePageFormGen from '../../components/EmployeePageFormGen';
 import API from '../../utils/API';
 import axios from "axios";
 
@@ -12,19 +13,12 @@ class FormEmployeePage extends React.Component {
         user: res.data
       })
       console.log("UserInfo ", this.state.user);
+      // console.log("this.state.user.sites: ", this.state.user.sites)
     });
     API.getSites().then(res => {
-      console.log(res.data[0].name)
+      // console.log(res.data[0].name)
     });
-
-    // getCrews
-    API.getCrews().then(res => {
-      console.log("The Site name is: ", res.data[0].crew_type)
-      res.data.forEach(function (crewObj) {
-        console.log("Crew Names: ", crewObj.crew_type)
-      })
-      console.log("The array is: ", res.data)
-    });
+    
 
     API.getCertificates().then(res => {
       const certArr = []
@@ -32,10 +26,8 @@ class FormEmployeePage extends React.Component {
         certArr.push(res.data[i]);
       }
       this.setState({ certArray: certArr });
-      console.log("Certificates", this.state.certArray);
+      // console.log("Certificates", this.state.certArray);
     })
-
-
 
   }
 
@@ -101,6 +93,15 @@ class FormEmployeePage extends React.Component {
       //   </Container>  
       <Container className="mt-5">
         <h2 className="mb-5 text-center">Certificate Tracking</h2>
+        <Row>
+          <Col md="6" className="mx-auto float-none white z-depth-1 py-2 px-2">
+            <Card>
+              
+            <EmployeePageFormGen />
+              
+            </Card>
+          </Col>  
+        </Row>
         <Row>
           <Col md="6" className="mx-auto float-none white z-depth-1 py-2 px-2">
             <Card>
