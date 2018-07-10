@@ -62,9 +62,6 @@ app.get("/api/user_data", function (req, res) {
     // Sending back a password, even a hashed password, isn't a good idea
     var companyName;
     var sites = [];
-    var crews = [];
-    var employees = [];
-    var certificates = [];
     db.Company.findOne({
       where: {
         id: req.user.CompanyId
@@ -75,31 +72,12 @@ app.get("/api/user_data", function (req, res) {
 
     db.Site.findAll({
       where: {
-        CompanyId: 1
-        //hard coding now for testing purposes
-        // req.user.CompanyId
+        CompanyId: req.user.CompanyId
       }
     })
     .then(function (siteResults) {
-      // console.log("siteResults:", siteResults[0].dataValues);
       sites = siteResults;
       })
-      // .then(function () {
-      //   console.log("sites length ", sites.length);
-      //   for (let i = 0; i < sites.length; i++) {
-      //   // sites.forEach(element =>{
-      //   // console.log("id", element.dataValues.id);
-      //     db.Crew.findAll({
-      //       where: {
-      //         SiteId: sites[i].dataValues.id,
-      //       }
-      //     }).then(function (crewResult) {
-      //       // console.log(crewResult);
-      //       crews.push(crewResult.dataValues);
-      //     })
-      //   }
-      //   console.log("crews", crews);
-      // })
       .then( function(){
         // console.log("crews", crews);
         var userData = {
