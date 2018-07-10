@@ -32,7 +32,7 @@ class DashbMainCertModal extends React.Component {
                 certArr.push(res.data[i]);
             }
             this.setState({ certArray: certArr });
-            console.log("Certificates", this.state.certArray);
+            // console.log("Certificates", this.state.certArray);
         })
     }
 
