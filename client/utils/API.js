@@ -69,7 +69,7 @@ export default {
   },
     // Make route for getting data from the EmployeeCerts table
   getCrews: function() {
-    console.log("getting all crew data")
+    // console.log("getting all crew data")
     return axios.get("/api/crews");
   },
   getUserData: function(req, res){

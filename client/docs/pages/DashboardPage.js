@@ -187,9 +187,7 @@ class DashboardPage extends React.Component {
       // console.log("employeeCerts", result.data);
         for (let i = 0; i < this.state.employeesArr.length; i++){
           for (let j = 0; j< result.data.length; j++){
-              // console.log("state employee id", this.state.employeesArr[i].id);
-              // console.log("results ids", result.data[j].id);
-            if (this.state.employeesArr[i].id === result.data[j].id){
+            if (this.state.employeesArr[i].id === result.data[j].EmployeeId){
               employeeCrts.push(result.data[j])
             }
           }
