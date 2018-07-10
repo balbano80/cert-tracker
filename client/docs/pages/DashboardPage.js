@@ -173,7 +173,7 @@ class DashboardPage extends React.Component {
             employee_id: value.EmployeeId,
             cert_id: value.CertificateId,
           }
-          console.log('Employee No: : ', value.EmployeeId, " has Certificate: ", value.CertificateId);
+          // console.log('Employee No: : ', value.EmployeeId, " has Certificate: ", value.CertificateId);
           // tmp["date_expiration"] = 
 
           API.getCertificates(value.CertificateId)
