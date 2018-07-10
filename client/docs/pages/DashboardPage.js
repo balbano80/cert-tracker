@@ -146,9 +146,21 @@ class DashboardPage extends React.Component {
             }
           }
         }
-        this.setState({ crewArray: crewArr })
-        // console.log("CrewsArr", this.state.crewArray);
-      });
+      this.setState({crewArray: crewArr})
+      // console.log("CrewsArr", this.state.crewArray);
+
+      let crewCerts = [];
+      for (let i = 0; i < this.state.crewArray.length; i++){
+        // console.log("sending api call for crew with id: ", this .state.crewArray[i].id)
+        API.getCertificate(this.state.crewArray[i].id)
+        .then( cert => {
+          // if (typeof cert === array){
+            crewCerts.push(cert.data);
+          // }
+        })
+      }
+      this.setState({crewCertsArr: crewCerts});
+    })
 
     API.getEmployees()
       .then(empResult => {
@@ -166,40 +178,24 @@ class DashboardPage extends React.Component {
       });
 
     API.getEmployeeCerts()
-      .then(result => {
-        const employeeCrts = [];
-        let expirey
-        // result.data.forEach(value => {
-        //   const tmp = {
-        //     employee_id: value.EmployeeId,
-        //     cert_id: value.CertificateId,
-        //   }
-        //   // console.log('Employee No: : ', value.EmployeeId, " has Certificate: ", value.CertificateId );
-        //   // tmp["date_expiration"] =
-        //   this.state.employeesArr.forEach(employee => {
-        //     if (employee.id === tmp.employee_id){
-        //       employeeCrts.push(tmp);
-        //     }
-        //   }) 
-
-        // })
-
-        // console.log("employeeCerts", result.data);
-        for (let i = 0; i < this.state.employeesArr.length; i++) {
-          for (let j = 0; j < result.data.length; j++) {
-            if (this.state.employeesArr[i].id === result.data[j].EmployeeId) {
+    .then( result => {
+      const employeeCrts = [];
+      // console.log("employeeCerts", result.data);
+        for (let i = 0; i < this.state.employeesArr.length; i++){
+          for (let j = 0; j< result.data.length; j++){
+            if (this.state.employeesArr[i].id === result.data[j].EmployeeId){
               employeeCrts.push(result.data[j])
             }
           }
         }
-        this.setState({ employeeCerts: employeeCrts })
-        // console.log("EmployeesArr", this.state.employeesArr);
-        console.log("State info", this.state);
+      this.setState({employeeCerts: employeeCrts})
 
-      })
-    // API.getCertificates(value.CertificateId)
-    // .then(res => {
-    //   console.log(res)
+
+    });
+    API.getCertificates()
+    .then(res => {
+      // console.log(res)
+      this.setState({certArray: res.data})
     //   // expirey = data that you want to save ex. res.data.days
     //   // do calc to get new date expirey
     //   // tmp[date_exp] = set to tmp
@@ -207,14 +203,10 @@ class DashboardPage extends React.Component {
     // })
     // this.getExpiration(value.CertificateId, value.date_obtained)
 
-    // console.log("Users employees certs only". employeeCrts);
-    // this.setState({employeeCerts: employeeCrts});
-    // api.posttotable(array)
-    // console.log('Employee Cert Data is: ', result.data);
-    // })
-
-
-
+  // api.posttotable(array)
+  // console.log('Employee Cert Data is: ', result.data);
+      console.log("State info", this.state);
+    });
   }
 
   // getExpiration = (id, date) => {
