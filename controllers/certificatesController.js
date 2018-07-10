@@ -5,31 +5,20 @@ const db = require("../models");
 
 module.exports = {
 
-  // findExpiryDates: function(req, res) {
-  //   console.log("Find Expiry Dates")
-  //   db.Certificate.findAll({
-  //     // where id: id parameter thats passed in
-  //   })
-  
-    findAll: function(req, res) {
-      db.Certificate.findAll({})
-      .then(function(results) {
-        res.json(results);
-      });
-    },
-    create: function(req, res) {
-      db.Certificate.create(req.body)
-        .then(dbModel => res.json(dbModel))
-        .catch(err => res.status(422).json(err));
-    },
-   
-  
-
-  // .then(function(result) {
-    //   console.log("Results are: " ,result)
-    //   console.log("SHIT WORKS");
-    //   res.json(result);
-    // });
+  findAll: function(req, res) {
+    console.log("Find All Certs")
+    db.Certificate.findAll({})
+    .then(function(result) {
+      console.log("Results are: " ,result)
+      console.log("SHIT WORKS");
+      res.json(result);
+    });
+  },
+  create: function(req, res) {
+    db.Certificate.create(req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
 
   // findAll: function(req, res) {
   //   console.log("hit")

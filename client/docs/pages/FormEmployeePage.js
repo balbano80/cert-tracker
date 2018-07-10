@@ -105,12 +105,17 @@ class FormEmployeePage extends React.Component {
         <Row>
           <Col md="6" className="mx-auto float-none white z-depth-1 py-2 px-2">
             <Card>
-              
-            <EmployeePageFormGen />
+            <Row>
+              <EmployeePageFormGen />
+            </Row>
+            <Row>
+              <p>Test Content</p>
+            </Row>
               
             </Card>
           </Col>  
         </Row>
+
         <Row>
           <Col md="6" className="mx-auto float-none white z-depth-1 py-2 px-2">
             <Card>
