@@ -6,38 +6,49 @@ import axios from "axios";
 
 class FormEmployeePage extends React.Component {
 
-    componentDidMount() {
-        axios.get("/api/user_data").then(res => {
-          this.setState({
-            user: res.data
-          })
-          console.log("UserInfo ", this.state.user);
-        });
-        API.getSites().then(res => {
-          console.log(res.data[0].name)
-        });
+  componentDidMount() {
+    axios.get("/api/user_data").then(res => {
+      this.setState({
+        user: res.data
+      })
+      console.log("UserInfo ", this.state.user);
+    });
+    API.getSites().then(res => {
+      console.log(res.data[0].name)
+    });
 
-        // getCrews
-        API.getCrews().then(res => {
-            console.log("The Site name is: ", res.data[0].crew_type)
-            res.data.forEach(function(crewObj) {
-                console.log("Crew Names: ", crewObj.crew_type)
-                })
-                console.log("The array is: ", res.data)
-            });
-            
-        
-    }
+    // getCrews
+    API.getCrews().then(res => {
+      console.log("The Site name is: ", res.data[0].crew_type)
+      res.data.forEach(function (crewObj) {
+        console.log("Crew Names: ", crewObj.crew_type)
+      })
+      console.log("The array is: ", res.data)
+    });
+
+    API.getCertificates().then(res => {
+      const certArr = []
+      for (let i = 0; i < res.data.length; i++) {
+        certArr.push(res.data[i]);
+      }
+      this.setState({ certArray: certArr });
+      console.log("Certificates", this.state.certArray);
+    })
+
+
+
+  }
 
   constructor(props) {
     super(props);
     this.state = {
       modal: false,
+      certArray: [],
       first_name: "",
       last_name: "",
       phone_number: "",
       email: ""
-    
+
     }
     this.toggle = this.toggle.bind(this);
   };
@@ -48,46 +59,46 @@ class FormEmployeePage extends React.Component {
     });
   };
 
-    // Handles updating component state when the user types into the input field
-    handleInputChange = event => {
-      // Getting the value and name of the input which triggered the change
-      let value = event.target.value;
-      const name = event.target.name;
-  
-      // Updating the input's state
-      this.setState({
-        [name]: value
-      });
-    };
+  // Handles updating component state when the user types into the input field
+  handleInputChange = event => {
+    // Getting the value and name of the input which triggered the change
+    let value = event.target.value;
+    const name = event.target.name;
 
-    handleFormSubmit = event => {
-      // Preventing the default behavior of the form submit (which is to refresh the page)
-      event.preventDefault();
-      if (!this.state.first_name || !this.state.last_name || !this.state.phone_number || !this.state.email ) {
-        alert("Fill out your first name, last name, email and phone number please");
+    // Updating the input's state
+    this.setState({
+      [name]: value
+    });
+  };
 
-      }
+  handleFormSubmit = event => {
+    // Preventing the default behavior of the form submit (which is to refresh the page)
+    event.preventDefault();
+    if (!this.state.first_name || !this.state.last_name || !this.state.phone_number || !this.state.email) {
+      alert("Fill out your first name, last name, email and phone number please");
 
-      else {
-        API.saveEmployee({
-          first_name: this.state.first_name,
-          last_name: this.state.last_name,
-          phone_number: this.state.phone_number,
-          email: this.state.email
-          
+    }
+
+    else {
+      API.saveEmployee({
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
+        phone_number: this.state.phone_number,
+        email: this.state.email
+
       })
-        //.then(direct to dashboard)
-        //.catch(error)
-      }
-    };
+      //.then(direct to dashboard)
+      //.catch(error)
+    }
+  };
 
   render() {
-    return(
-    //   <Container>
-    //     <Row>
+    return (
+      //   <Container>
+      //     <Row>
 
-    //     </Row>
-    //   </Container>  
+      //     </Row>
+      //   </Container>  
       <Container className="mt-5">
         <h2 className="mb-5 text-center">Certificate Tracking</h2>
         <Row>
@@ -106,37 +117,35 @@ class FormEmployeePage extends React.Component {
                     <Input label="Enter your email" icon="envelope" group type="email" validate error="wrong" success="right"
                       value={this.state.email} name="email" onChange={this.handleInputChange} />
                   </div>
-                    <Row>
-                      <Col>
+                  <Row>
+                    <Col>
                       <p>Cert Name</p>
-                      </Col>
-                      <Col>
+                    </Col>
+                    <Col>
                       <p>Cert Date</p>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col>
-                      <p className="grey-text">CA OSHA Fire Saftey</p>
-                      </Col>
-                      <Col>
-                      <DatePickerMod/>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col>
-                      <p className="grey-text">CA OSHA Ladder Saftey</p>
-                      </Col>
-                      <Col>
-                      <DatePickerMod/>
-                      </Col>
-                    </Row>
-
+                    </Col>
+                  </Row>
+                  {this.state.certArray.length > 0 &&
+                    this.state.certArray.map((certObj) => {
+                      return (
+                        <Row>
+                          <Col>
+                            <p className="grey-text">{certObj.name}</p>
+                          </Col>
+                          <Col>
+                            <DatePickerMod />
+                          </Col>
+                        </Row>
+                      )
+                    }
+                    )}
+                 
                   <div className="text-center py-4 mt-3">
                     <Button color="blue" type="submit" onClick={this.handleFormSubmit}>Submit</Button>
                   </div>
                 </form>
               </CardBody>
-            </Card>                    
+            </Card>
           </Col>
         </Row>
       </Container>
