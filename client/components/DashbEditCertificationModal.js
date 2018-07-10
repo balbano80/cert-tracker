@@ -1,7 +1,8 @@
 import React from 'react';
 import { Container, Row, Col, Input, Button, Table, Fa, Card, CardBody, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
-import DashbDropdownReminder from '../components/DashbDropdownReminder';
-import DashbDropdownValidfor from '../components/DashbDropdownValidfor';
+// import DashbDropdownReminder from '../components/DashbDropdownReminder';
+// import DashbDropdownValidfor from '../components/DashbDropdownValidfor';
+import API from '../utils/API';
 
 const modStyle = {
   'text': 'center',
@@ -15,8 +16,7 @@ class DashbEditCertificationModal extends React.Component {
     super(props);
     this.state = {
       modal: false,
-      id: "",
-      certification: "",
+      name: "",
       reminder: "",
       validFor: "",
       supervisorEmail: "",
@@ -39,11 +39,20 @@ class DashbEditCertificationModal extends React.Component {
   handleFormSubmit = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
-    if (!this.state.certification || !this.state.supervisorEmail || !this.state.supervisorEmail) {
+    if (!this.state.certification || !this.state.validFor) {
       alert("Fill out all fields");
     } else {
-      this.props.populate(<div>{this.state.certification}</div>)
-
+      // this.props.populate(<div>{this.state.certification}</div>)
+      
+      API.updateCertificates({
+        name: this.state.certification,
+        valid_for: this.state.validFor
+      })
+      .then(res => {
+        console.log("Update cert:" , res.data)
+        this.setState({name: res.data.name, validFor: res.data.validFor})
+        this.toggle()
+      })
     }
 
   };
@@ -78,11 +87,11 @@ class DashbEditCertificationModal extends React.Component {
                       </thead>
                       <tbody>
                         <tr>
-                          <td><Input size="sm" label="Certification" icon="list-ul" group type="text" validate error="wrong" success="right" /></td>
-                          <td><DashbDropdownValidfor /></td>
-                          <td><DashbDropdownReminder /></td>
-                          <td><Input size="sm" label="Supervisor Email" icon="envelope" group type="text" validate error="wrong" success="right" /></td>
-                          <td><Input size="sm" label="Supervisor Phone" icon="phone" group type="text" validate error="wrong" success="right" /></td>
+                          <td><Input name ="certification" value={this.state.certification} onChange={this.handleInputChange} size="sm" label="Certification" icon="list-ul" group type="text" validate error="wrong" success="right" /></td>
+                          <td><Input name ="validFor" value={this.state.validFor} onChange={this.handleInputChange} size="sm" label="Valid For (enter # of days)" icon="exclamation" group type="text" validate error="wrong" success="right" /></td>
+                          <td><Input name ="reminder" value={this.state.reminder} onChange={this.handleInputChange} size="sm" label="Reminder (enter 30, 60, or 90 days)" icon="clock-o" group type="text" validate error="wrong" success="right" /></td>
+                          <td><Input name = "supervisorEmail" value={this.state.supervisorEmail} onChange={this.handleInputChange} size="sm" label="Supervisor Email" icon="envelope" group type="text" validate error="wrong" success="right" /></td>
+                          <td><Input name = "supervisorPhone" value={this.state.supervisorPhone} onChange={this.handleInputChange} size="sm" label="Supervisor Phone" icon="phone" group type="text" validate error="wrong" success="right" /></td>
                         </tr>
                       </tbody>
                     </Table>

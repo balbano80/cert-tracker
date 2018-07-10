@@ -18,6 +18,14 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  update: function(req, res) {
+    db.Certificate.update(
+      {name: req.body.name,
+      validFor: req.body.validFor},
+      {where: req.params.id})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   remove: function (req, res) {
     db.Certificate.destroy({
       where: {

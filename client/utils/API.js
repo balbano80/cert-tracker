@@ -57,8 +57,11 @@ export default {
     return axios.get("/api/certificates")
   },
   createCertificates: function(certData) {
-    console.log("Created Certification data: ", certData);
+    // console.log("Created Certification data: ", certData);
     return axios.post("/api/certificates", certData);
+  },
+  updateCertificates: function(id){
+    return axios.put("/api/certificates/" + id)
   },
   // New route for getting Certificates
   deleteCert: function(id) {
