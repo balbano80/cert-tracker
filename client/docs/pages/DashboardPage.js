@@ -51,12 +51,13 @@ class DashboardPage extends React.Component {
     });
     API.getSites().then(res => {
       const sitesArr = []
-      for (let i = 0; i < res.data.length; i++) {
-        if (this.state.user.CompanyId === res.data[i].CompanyId) {
-          sitesArr.push(res.data[i]);
-        }
+        for (let i = 0; i <res.data.length; i++){
+          if (this.state.user.CompanyId === res.data[i].CompanyId){
+            sitesArr.push(res.data[i]);
+          } 
       }
       this.setState({ siteArray: sitesArr });
+      // console.log("User Sites", this.state.siteArray);
     })
     // Bar chart
     var ctxB = document.getElementById("barChart").getContext('2d');
@@ -136,72 +137,100 @@ class DashboardPage extends React.Component {
     });
 
     API.getCrews()
-      .then(result => {
-        const crewArr = [];
-        for (let i = 0; i < this.state.siteArray.length; i++) {
-          for (let j = 0; j < result.data.length; j++) {
-            if (this.state.siteArray[i].id === result.data[j].SiteId) {
-              crewArr.push(result.data[j])
-            }
+    .then( result => {
+      const crewArr = [];
+      for (let i = 0; i < this.state.siteArray.length; i++){
+        for (let j = 0; j< result.data.length; j++){
+          if (this.state.siteArray[i].id === result.data[j].SiteId){
+            crewArr.push(result.data[j])
           }
         }
-        this.setState({ crewArray: crewArr })
-        // console.log("CrewsArr", this.state.crewsArr);
-      });
+      }
+      this.setState({crewArray: crewArr})
+      // console.log("CrewsArr", this.state.crewArray);
+    });
 
     API.getEmployees()
-      .then(empResult => {
-        const employeeArr = [];
-        for (let i = 0; i < this.state.crewArray.length; i++) {
-          for (let j = 0; j < empResult.data.length; j++) {
-            if (this.state.crewsArr[i].id === empResult.data[j].CrewId) {
-              employeeArr.push(empResult.data[j])
+    .then( empResult => {
+      const employeeArr = [];
+      for (let i = 0; i < this.state.crewArray.length; i++){
+        for (let j = 0; j< empResult.data.length; j++){
+          if (this.state.crewArray[i].id === empResult.data[j].CrewId){
+            employeeArr.push(empResult.data[j])
+          }
+        }
+      }
+      this.setState({employeesArr: employeeArr})
+      // console.log("EmployeesArr", this.state.employeesArr);
+      // console.log("State info", this.state);
+    });
+
+    API.getEmployeeCerts()
+    .then( result => {
+      const employeeCrts = [];
+      let expirey
+      // result.data.forEach(value => {
+      //   const tmp = {
+      //     employee_id: value.EmployeeId,
+      //     cert_id: value.CertificateId,
+      //   }
+      //   // console.log('Employee No: : ', value.EmployeeId, " has Certificate: ", value.CertificateId );
+      //   // tmp["date_expiration"] =
+      //   this.state.employeesArr.forEach(employee => {
+      //     if (employee.id === tmp.employee_id){
+      //       employeeCrts.push(tmp);
+      //     }
+      //   }) 
+
+      // })
+
+      // console.log("employeeCerts", result.data);
+        for (let i = 0; i < this.state.employeesArr.length; i++){
+          for (let j = 0; j< result.data.length; j++){
+            if (this.state.employeesArr[i].id === result.data[j].EmployeeId){
+              employeeCrts.push(result.data[j])
             }
           }
         }
-        this.setState({ employeesArr: employeeArr })
-        // console.log("EmployeesArr", this.state.employeesArr);
-        console.log("State info", this.state);
-      });
+      this.setState({employeeCerts: employeeCrts})
+      // console.log("EmployeesArr", this.state.employeesArr);
+      console.log("State info", this.state);
 
-    API.getEmployeeCerts()
-      .then(function (result) {
-        var employeeCrts = [];
-        let expirey
-        result.data.forEach(function (value) {
-          var tmp = {
-            employee_id: value.EmployeeId,
-            cert_id: value.CertificateId,
-          }
-          console.log('Employee No: : ', value.EmployeeId, " has Certificate: ", value.CertificateId);
-          // tmp["date_expiration"] = 
+      })
+        // API.getCertificates(value.CertificateId)
+        // .then(res => {
+        //   console.log(res)
+        //   // expirey = data that you want to save ex. res.data.days
+        //   // do calc to get new date expirey
+        //   // tmp[date_exp] = set to tmp
+        //   // arr.push(tmp)
+        // })
+        // this.getExpiration(value.CertificateId, value.date_obtained)
 
-          API.getCertificates(value.CertificateId)
-            .then(res => {
-              // console.log(res)
-              // expirey = data that you want to save ex. res.data.days
-              // do calc to get new date expirey
-              // tmp[date_exp] = set to tmp
-              // arr.push(tmp)
-            })
-          // this.getExpiration(value.CertificateId, value.date_obtained)
-        });
-        // api.posttotable(array)
-        // console.log('Employee Cert Data is: ', result.data);
-      });
+      // console.log("Users employees certs only". employeeCrts);
+      // this.setState({employeeCerts: employeeCrts});
+      // api.posttotable(array)
+      // console.log('Employee Cert Data is: ', result.data);
+    // })
+
 
 
   }
 
   // getExpiration = (id, date) => {
+
+
   // }
+
 
   constructor(props) {
     super(props);
 
+
     this.state = {
       siteArray: [],
       crewArray: [],
+      certArray:[],
       activeItem: '1',
       activeItemPills: '1',
       activeItemVerticalPills: '1',
@@ -283,10 +312,14 @@ class DashboardPage extends React.Component {
                       <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '0' })} onClick={() => { this.toggleInnerPills('0'); }} name="Main" icon="bar-chart"></SideNavCat>
                       {this.state.siteArray.length > 0 &&
                         this.state.siteArray.map(
+
                           (siteObj) => {
-                            return (
-                              <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === `${siteObj.id}` })} id="sidenav-site" onClick={() => { this.toggleInnerPills(`${siteObj.id}`); }} name={siteObj.name} companyId={siteObj.CompanyId} icon="building-o"></SideNavCat>
-                            )
+    
+                              return (
+
+                                <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === `${siteObj.id}` })} id="sidenav-site" onClick={() => { this.toggleInnerPills(`${siteObj.id}`); }} name={siteObj.name} companyId={siteObj.CompanyId} icon="building-o"></SideNavCat>
+                              )
+
                           }
                         )
                       }
@@ -335,8 +368,8 @@ class DashboardPage extends React.Component {
 
                               {this.state.siteArray.length > 0 &&
                                 this.state.siteArray.map((siteObj) => {
-                                  return (
-                                    <TabPane tabId={siteObj.id.toString()} >
+                                    return (
+                                      <TabPane tabId= {siteObj.id.toString()} >
                                       <Row className="pb-3">
                                         <Col md="12">
                                           <Card>
@@ -356,30 +389,30 @@ class DashboardPage extends React.Component {
                                                     <th>Number of members</th>
                                                   </tr>
                                                 </thead>
-                                                <tbody>
-                                                  {this.state.crewArray.length > 0 &&
-                                                    this.state.crewArray.map((crewObj) => {
-                                                      if (crewObj.SiteId === siteObj.id) {
-                                                        return (
-                                                          <tr>
-                                                            <td>{crewObj.crew_type}</td>
-                                                            <td>{crewObj.SiteId}</td>
-                                                          </tr>
-                                                        )
-                                                      }
-                                                    }
-                                                    )}
+                                              <tbody>
+                                              {this.state.crewArray.length > 0 &&
+                                                this.state.crewArray.map((crewObj) => {
+                                              if (crewObj.SiteId === siteObj.id) {
+                                                  return (
+                                                      <tr>
+                                                        <td>{crewObj.crew_type}</td>
+                                                        <td>{crewObj.SiteId}</td>
+                                                      </tr>
+                                                    )
+                                                  }
+                                                }
+                                                )}
                                                 </tbody>
                                               </Table>
                                             </CardBody>
                                           </Card>
                                           <br /><br />
-                                          <DashbMainCertModal/>
+                                          <DashbMainCertModal />
                                         </Col>
                                       </Row>
-                                    </TabPane>
-                                  )
-                                }
+                                      </TabPane>
+                                    )
+                                  }
                                 )}
                             </TabContent>
                           </Col>
@@ -393,6 +426,7 @@ class DashboardPage extends React.Component {
           </Container>
         </Router>
       </div>
+
     );
   }
 }
