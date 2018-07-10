@@ -30,7 +30,7 @@ export default {
     return axios.post("/api/user", newUser);
   },
   signIn: function(user){
-    console.log("in utils API folder", user)
+    // console.log("in utils API folder", user)
 
     return axios.get("/api/signin/" + user.email, user)
   },
@@ -53,8 +53,13 @@ export default {
   },
 
   // New route for getting Certificates
-  getCertificates: function(id) {
+  getCertificates: function() {
     return axios.get("/api/certificates")
+  },
+
+  getCertificate: function(id){
+    // console.log("getting certificate for crew with id: ", id)
+    return axios.get("api/certificates/" + id);
   },
 
   // Creates an reminder in the Reminders table
