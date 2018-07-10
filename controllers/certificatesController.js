@@ -6,18 +6,28 @@ const db = require("../models");
 module.exports = {
 
   findAll: function(req, res) {
-    console.log("Find All Certs")
+    // console.log("Find All Certs")
     db.Certificate.findAll({})
     .then(function(result) {
-      console.log("Results are: " ,result)
-      console.log("SHIT WORKS");
+      // console.log("Results are: " ,result)
+      // console.log("SHIT WORKS");
       res.json(result);
     });
   },
-  create: function(req, res) {
+  create: function (req, res) {
     db.Certificate.create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
+  },
+  remove: function (req, res) {
+    db.Certificate.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+      .then(function (dbCerts) {
+        res.json(dbCerts);
+      })
   },
 
   // findAll: function(req, res) {
@@ -28,16 +38,18 @@ module.exports = {
   //     res.json(result);
   //   });
   // },
-  // findById: function(req, res) {
-  //   db.EmployeeCerts.findOne({
-  //     where: {
-  //       id: req.params.id
-  //     }
-  //   })
-  //     .then(function(dbEmployeeCerts) {
-  //       res.json(dbEmployeeCerts);
-  //     });
-  // },
+  findById: function(req, res) {
+    // console.log("in cert controller file checking for crew with id: ", req.params.id)
+    db.CrewCert.findAll({
+      where: {
+        CrewId: req.params.id
+      }
+    })
+      .then(function(crewCerts) {
+        // console.log("Return from crewCerts database", crewCerts)
+        res.json(crewCerts);
+      });
+  },
   // create: function(req, res) {
   //   db.Reminders.create(req.body)
   //     .then(dbModel => res.json(dbModel))

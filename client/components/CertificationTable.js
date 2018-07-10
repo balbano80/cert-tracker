@@ -5,16 +5,15 @@ import CertTableRow from "../components/CertTableRow"
 
 const CertificationTable = props => (
 
-    <tbody>
+    <tr>
 
-           {props.cert.map(cert=>(
-               <CertTableRow 
+        {props.cert.map(cert => (
+            <CertTableRow
                 cert={cert}
-
-               />
-           ))}
-
-    </tbody>
+            />
+        ))}
+    </tr>
+    
 );
 
 export default CertificationTable;

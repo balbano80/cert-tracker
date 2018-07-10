@@ -4,9 +4,9 @@ import DashbAddCertificationModal from "../components/DashbAddCertificationModal
 import CertificationTable from "../components/CertificationTable";
 
 const CertTableRow = props => (
-    <tr>
+    <p>
         {props.cert}
-    </tr>
+    </p>
 );
 
 export default CertTableRow;

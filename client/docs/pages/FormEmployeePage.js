@@ -13,22 +13,22 @@ class FormEmployeePage extends React.Component {
         user: res.data
       })
       console.log("UserInfo ", this.state.user);
+
       // console.log("this.state.user.sites: ", this.state.user.sites)
     });
     API.getSites().then(res => {
       // console.log(res.data[0].name)
     });
     
-
     API.getCertificates().then(res => {
       const certArr = []
       for (let i = 0; i < res.data.length; i++) {
         certArr.push(res.data[i]);
       }
       this.setState({ certArray: certArr });
+
       // console.log("Certificates", this.state.certArray);
     })
-
   }
 
   constructor(props) {

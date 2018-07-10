@@ -15,7 +15,7 @@ class DashbAddCertificationModal extends React.Component {
     super(props);
     this.state = {
       modal: false, 
-      certification: "",
+      name: "",
       reminder: "",
       validFor:"",
       supervisorEmail:"",
@@ -25,33 +25,36 @@ class DashbAddCertificationModal extends React.Component {
 
   }
 
-  handleInputChange = event => {
-    // Getting the value and name of the input which triggered the change
-    const { name, value} = event.target;
+  // componentDidMount() {
+    handleInputChange = event => {
+      // Getting the value and name of the input which triggered the change
+      const { name, value} = event.target;
 
-    // Updating the input's state
-    this.setState({
-      [name]: value
-    });
-  };
+      // Updating the input's state
+      this.setState({
+        [name]: value
+      });
+    };
 
-  handleFormSubmit = event => {
-    // Preventing the default behavior of the form submit (which is to refresh the page)
-    event.preventDefault();
-    if (!this.state.certification || !this.state.supervisorEmail || !this.state.supervisorEmail||!this.state.reminder||!this.state.validFor) {
-      alert("Fill out all fields");
-    } else {
-      this.props.populate(<div>{this.state.certification}</div>),
-     
-      API.saveCert({
-        first_name: this.state.certification,
-        valid_for: this.state.validFor,
-        reminder: this.state.reminder,
-        supervisor_email: this.state.supervisorEmail,
-        supervisor_phone: this.state.supervisorPhone,
-      }).then(this.toggle)
-    }
-
+    handleFormSubmit = event => {
+      // Preventing the default behavior of the form submit (which is to refresh the page)
+      event.preventDefault();
+      if (!this.state.certification ||!this.state.validFor) {
+        alert("Fill out all fields");
+      } else {
+        this.props.populate(<div>{this.state.certification}</div>),
+      
+        API.createCertificates({
+          name: this.state.certification,
+          valid_for: this.state.validFor
+        })
+        .then(res => {
+          console.log("Create cert:" , res)
+          this.setState({name: res.data.name, validFor: res.data.validFor})
+          this.toggle()
+        })
+      }
+    // }
   };
 
   toggle() {
