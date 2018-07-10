@@ -146,7 +146,7 @@ class DashboardPage extends React.Component {
           }
         }
       }
-      this.setState({crewsArr: crewArr})
+      this.setState({crewArray: crewArr})
       // console.log("CrewsArr", this.state.crewsArr);
     });
 
