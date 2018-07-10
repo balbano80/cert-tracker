@@ -8,7 +8,17 @@ module.exports = {
     console.log("hit siteCrews")
     db.Crew.findAll({})
     .then(function(result) {
-    //   console.log("Results are: " ,result)
+      res.json(result);
+    });
+  },
+  findBySite: function(req, res) {    // WIP 7/9
+    console.log("hit siteCrews")
+    db.Crew.findAll({
+      where: {
+        SiteId: req.params.id
+      }
+    })
+    .then(function(result) {
       res.json(result);
     });
   },
