@@ -46,11 +46,14 @@ class EmployeePageFormGen extends React.Component {
 
 
     // Select Sites to Add Values
-    optionClickSites = (value) => {
+    optionClickSites = (id, value) => {
+      var siteIdArr = this.state.crews.filter(ele => ele.SiteId === id)
+      console.log("Site ID Array is: ",siteIdArr)
 
-      console.log("optionClickSites: " + value)
-      this.setState({ sitesValue: value });
-      // this.handleSelectSites();
+      // console.log("optionClickSites: " + value)
+      this.setState({ sitesValue: value, crewContainer: siteIdArr });
+      // console.log("This State", this.state)
+      // console.log("This Sites IDs is: ", id)
     }
 
     // Select Crew Dropdown Value
@@ -116,6 +119,18 @@ class EmployeePageFormGen extends React.Component {
     API.getSites().then(res => {
       // console.log(res.data[0].name)
     });
+    API.getCrews().then(response => {
+      if (response.status >= 400) {
+          throw new Error("Bad response from server");
+      }
+    else {
+      console.log("Response.data for handleGetCrews is: ", response.data)
+      this.setState({crews: response.data}, function(){
+        // console.log("GetCrews this.state.crews: " + this.state.crews)
+      });
+    }
+  })
+
 
     document.addEventListener('click', this.onClick);
 
@@ -129,9 +144,9 @@ class EmployeePageFormGen extends React.Component {
 
   render() {
     const modalStyle = { width: '50%' }
-    const outerContainerStyle = { width: '55%', height: '200px' }
+    const outerContainerStyle = { width: '55%', height: '250px' }
     return (
-      <Container>
+      <Container className="text-center">
         <Button outline color="primary" onClick={this.toggle}>Configure your Form</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} style={modalStyle}>
           <ModalHeader className="blue-grey-text text-center" toggle={this.toggle}>Edit your Form</ModalHeader>
@@ -147,7 +162,7 @@ class EmployeePageFormGen extends React.Component {
                             {/* {console.log("Sites state: ", this.state.user)} */}
                             {this.state.siteContainer.map(site => {
                               return(
-                                <SelectOption triggerOptionClick={() => props.optionClick(site.name)}> 
+                                <SelectOption id={site.id} triggerOptionClick={() => this.optionClickSites(site.id, site.name)}> 
                                   {site.name}
                                 </SelectOption>
                                 )}
@@ -167,7 +182,7 @@ class EmployeePageFormGen extends React.Component {
                             {/* {console.log("Sites state: ", this.state.user)} */}
                             {this.state.crewContainer.map(crew => {
                               return(
-                                <SelectOption triggerOptionClick={() => props.optionClick(crew.crew_type)}> 
+                                <SelectOption triggerOptionClick={() => props.optionClickCrews(crew.crew_type)}> 
                                   {crew.crew_type}
                                 </SelectOption>
                                 )}
@@ -194,4 +209,3 @@ class EmployeePageFormGen extends React.Component {
 }
 
 export default EmployeePageFormGen;
-
