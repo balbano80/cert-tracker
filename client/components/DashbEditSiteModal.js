@@ -37,7 +37,7 @@ class DashbEditSiteModal extends React.Component {
     super(props);
     this.state = {
       modal: false,
-      crews: [],
+      // crews: [],
       certs: [],
       employees: [],
       value: ''
@@ -55,7 +55,7 @@ class DashbEditSiteModal extends React.Component {
       })
       console.log("UserInfo ", this.state.user);
     });
-    this.handleGetCrews();
+    // this.handleGetCrews();         //WIP
   }
 
   // Select Crew Dropdown Value
@@ -125,26 +125,26 @@ class DashbEditSiteModal extends React.Component {
   handleGetEmployees = () => {
     API.getEmployees().then((result) => {
       console.log("Employees working ", result.data)
-      this.setState({employees: result.data })
+      this.setState({ employees: result.data })
     })
   }
 
-  handleGetCrews = (id) => {
-    API.getCrewBySite(id).then((result) => {
-      console.log("Crews working ", result.data)
-      this.setState({crews: result.data })
-    })
-    // axios.get("/api/user_data").then(res => {                  /* WIP 7/9 Displaying crews by site by company  */
-    //   this.setState({  
-    //     user: res.data
-    //   })
-    //   // console.log("UserInfo ", this.state.user);
-    // });
-    // API.getCrewBySite(res.data.CompanyId).then((result) => {
-    //   console.log("Crews working ", result.data)
-    //   this.setState({crews: result.data })
-    // })
-  }
+  // handleGetCrews = (id) => {                       //WIP
+  //   API.getCrewBySite(id).then((result) => {
+  //     console.log("Crews working ", result.data)
+  //     this.setState({ crews: result.data })
+  //   })
+  //   // axios.get("/api/user_data").then(res => {               
+  //   //   this.setState({  
+  //   //     user: res.data
+  //   //   })
+  //   //   // console.log("UserInfo ", this.state.user);
+  //   // });
+  //   // API.getCrewBySite(res.data.CompanyId).then((result) => {
+  //   //   console.log("Crews working ", result.data)
+  //   //   this.setState({crews: result.data })
+  //   // })
+  // }
 
 
 
@@ -152,7 +152,7 @@ class DashbEditSiteModal extends React.Component {
   handleGetCerts = () => {
     API.getCertificates().then((result) => {
       console.log("getCerts success" + result.data)
-      this.setState({certs: result.data })
+      this.setState({ certs: result.data })
     })
   }
 
@@ -170,6 +170,7 @@ class DashbEditSiteModal extends React.Component {
 
 
   render() {
+    console.log(this.props.crews)
     const modalStyle = { width: '100%' }
     const outerContainerStyle = { width: '100%', height: '200px' }
     return (
@@ -187,10 +188,8 @@ class DashbEditSiteModal extends React.Component {
                   <SelectInput value={this.state.value}></SelectInput>
                   <SelectOptions>
                     <SelectOption disabled>Select Crew</SelectOption>
-                    {this.state.crews.map(crew => (
+                    {this.props.crews.map(crew => (
                       <DropdownOption
-                        key={crew.id}
-                        id={crew.id}
                         crew_type={crew.crew_type}
                         optionClick={this.optionClick}
                       />
