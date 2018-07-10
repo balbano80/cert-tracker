@@ -49,6 +49,12 @@ class DashbEditSiteModal extends React.Component {
     this.setState({
       modal: !this.state.modal
     });
+    axios.get("/api/user_data").then(res => {
+      this.setState({
+        user: res.data
+      })
+      console.log("UserInfo ", this.state.user);
+    });
     this.handleGetCrews();
   }
 
