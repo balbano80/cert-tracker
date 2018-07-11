@@ -105,9 +105,9 @@ class DashbMainCertModal extends React.Component {
                                 </thead>
                                 <tbody>
                                     {this.state.certArray.length > 0 &&
-                                        this.state.certArray.map((certObj) => {
+                                        this.state.certArray.map((certObj, i) => {
                                             return (
-                                                <tr>
+                                                <tr key={i}>
                                                     <td>{certObj.name}</td>
                                                 </tr>
                                             )

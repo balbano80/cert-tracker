@@ -336,8 +336,6 @@ class DashboardPage extends React.Component {
     }
   }
   toggleInnerPills(siteId) {
-    // console.log("============",siteId)
-    // console.log(":::::::::", typeof siteId)
     let siteObj = this.state.siteArray.find(siteObj => siteObj.id.toString() === siteId)
     console.log("+++++++++", siteObj)
     if (siteId === "0"){
@@ -374,9 +372,9 @@ class DashboardPage extends React.Component {
                       <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === "0" })} onClick={() => { this.toggleInnerPills("0"); }} name="Main" icon="bar-chart"></SideNavCat>
                       {this.state.siteArray.length > 0 &&
                         this.state.siteArray.map(
-                          (siteObj) => {
+                          (siteObj, i) => {
                             return (
-                              <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === `${siteObj.id}` })} id="sidenav-site" onClick={() => { this.toggleInnerPills(`${siteObj.id}`); }} name={siteObj.name} companyId={siteObj.CompanyId} icon="building-o"></SideNavCat>
+                              <SideNavCat to="#" key={i} className={classnames({ active: this.state.activeItemInnerPills === `${siteObj.id}` })} id="sidenav-site" onClick={() => { this.toggleInnerPills(`${siteObj.id}`); }} name={siteObj.name} companyid={siteObj.CompanyId} icon="building-o"></SideNavCat>
                             )
                           }
                         )
@@ -429,7 +427,7 @@ class DashboardPage extends React.Component {
 
                               })} */}
                               {this.state.siteArray.length > 0 &&
-                                this.state.siteArray.map((siteObj) => {
+                                this.state.siteArray.map((siteObj, i) => {
                                   let id = siteObj.id;
                                   let siteCrews = [];
                                   let crewArr = this.state.crewArray;
@@ -441,8 +439,7 @@ class DashboardPage extends React.Component {
                                   }
 
                                   return (
-
-                                    <TabPane tabId={siteObj.id.toString()} >
+                                    <TabPane key={i} tabId={siteObj.id.toString()} >
                                       <Row className="pb-3">
                                         <Col md="12">
                                           <Card>
@@ -470,10 +467,10 @@ class DashboardPage extends React.Component {
                                                 </thead>
                                                 <tbody>
                                                   {this.state.crewArray.length > 0 &&
-                                                    this.state.crewArray.map((crewObj) => {
+                                                    this.state.crewArray.map((crewObj, i) => {
                                                       if (crewObj.SiteId === siteObj.id) {
                                                         return (
-                                                          <tr>
+                                                          <tr key={i}>
                                                             <td>{crewObj.crew_type}</td>
                                                             <td>{crewObj.SiteId}</td>
                                                           </tr>

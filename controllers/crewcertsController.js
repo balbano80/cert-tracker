@@ -11,16 +11,29 @@ module.exports = {
     });
   },
   findById: function(req, res) {
-    // console.log("in cert controller file checking for crew with id: ", req.params.id)
     db.CrewCert.findAll({
       where: {
         CrewId: req.params.id
       }
     })
       .then(function(crewCerts) {
-        // console.log("Return from crewCerts database", crewCerts)
         res.json(crewCerts);
       });
+  },
+  create: function (req, res) {
+    db.CrewCert.create(req.body)
+      .then(dbCrewCert => res.json(dbCrewCert))
+      .catch(err => res.status(422).json(err));
+  },
+  remove: function (req, res) {
+    db.CrewCert.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+      .then(function (dbCrewCerts) {
+        res.json(dbCrewCerts);
+      })
   }
  
 };
