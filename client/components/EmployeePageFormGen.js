@@ -30,12 +30,12 @@ class EmployeePageFormGen extends React.Component {
       crews: [],
       certs: [],
       employees: [],
-      crewsValue: '',
       sitesValue: '',
       siteContainer: [],
       crewContainer: [],
       siteValue: '',
-      crewValue: ''
+      crewValue: '',
+      crewId: null
     }
 
   }
@@ -55,14 +55,14 @@ class EmployeePageFormGen extends React.Component {
       // console.log("optionClickSites: " + value)
       this.setState({ sitesValue: value, crewContainer: siteIdArr, siteValue: value });
       // console.log("This State", this.state)
-      // console.log("This Sites IDs is: ", id)
+      console.log("siteIdArr is: ", siteIdArr)
     }
 
     // Select Crew Dropdown Value
-    optionClickCrews = (value) => {
+    optionClickCrews = (id, value) => {
 
-      console.log("optionClickCrews: " + value)
-      this.setState({ crewsValue: value, crewValue: value });
+      console.log("optionClickCrews: " + id + value)
+      this.setState({ crewId: id, crewValue: value });
       // this.handleSelectCrew();
   
     }
@@ -94,9 +94,13 @@ class EmployeePageFormGen extends React.Component {
 
   handleSaveChanges = () => {
     console.log("Yay, handleSaveChanges ran")
-    API.getCrewCerts(id).then(response => {
+    API.getCrewCerts(this.state.crewId).then(response => {
       // setState to array that you map to
-      
+      // console.log("getCrewCerts: ", response)
+      this.setState({certIds: response.data}, function(){
+        console.log("certIs are: ", this.state.certIds)
+        this.props.handleCertIds(this.state.certIds)
+      })
     })
   }
 
@@ -180,7 +184,7 @@ class EmployeePageFormGen extends React.Component {
                             {/* {console.log("Sites state: ", this.state.user)} */}
                             {this.state.crewContainer.map(crew => {
                               return(
-                                <SelectOption triggerOptionClick={() => this.optionClickCrews(crew.crew_type)}> 
+                                <SelectOption triggerOptionClick={() => this.optionClickCrews(crew.id, crew.crew_type)}> 
                                   {crew.crew_type}
                                 </SelectOption>
                                 )}
