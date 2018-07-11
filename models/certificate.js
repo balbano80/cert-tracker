@@ -32,7 +32,8 @@ module.exports = function (sequelize, DataTypes) {
         });
 
         Certificate.belongsToMany(models.Employee, {
-            through: {model: models.EmployeeCert}
+            through: {model: models.EmployeeCert},
+            as: "crewCerts"
         });
     }
     return Certificate;

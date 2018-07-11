@@ -25,7 +25,8 @@ passport.use(new LocalStrategy(
       }
       // If there is a user with the given email, but the password the user gives us is incorrect
       else if (!dbUser.validPassword(password)) {
-        console.log("user found, but password not matched", );
+        // console.log("user found, but password not matched" , ); // This comma breaks things on my desktop! Lol, Mike (But not my laptop)
+        console.log("user found, but password not matched");
         return done(null, false, {
           message: "Incorrect password."
         });

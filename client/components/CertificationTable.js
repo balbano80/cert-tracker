@@ -4,7 +4,7 @@ import DashbAddCertificationModal from "../components/DashbAddCertificationModal
 import CertTableRow from "../components/CertTableRow"
 
 const CertificationTable = props => (
-
+    
     <tr>
 
         {props.cert.map(cert => (

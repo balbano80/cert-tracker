@@ -43,22 +43,6 @@ const data = {
 class DashboardPage extends React.Component {
 
   componentDidMount() {
-    axios.get("/api/user_data").then(res => {
-      this.setState({
-        user: res.data
-      })
-      // console.log("UserInfo ", this.state.user);
-    });
-    API.getSites().then(res => {
-      const sitesArr = []
-      for (let i = 0; i < res.data.length; i++) {
-        if (this.state.user.CompanyId === res.data[i].CompanyId) {
-          sitesArr.push(res.data[i]);
-        }
-      }
-      this.setState({ siteArray: sitesArr });
-      // console.log("User Sites", this.state.siteArray);
-    })
     // Bar chart
     var ctxB = document.getElementById("barChart").getContext('2d');
     new Chart(ctxB, {
@@ -135,84 +119,91 @@ class DashboardPage extends React.Component {
         responsive: true
       }
     });
+    axios.get("/api/user_data").then(res => {
+      this.setState({
+        user: res.data
+      })
+      // console.log("UserInfo ", this.state.user);
 
-    API.getCrews()
-      .then(result => {
-        const crewArr = [];
-        for (let i = 0; i < this.state.siteArray.length; i++) {
-          for (let j = 0; j < result.data.length; j++) {
-            if (this.state.siteArray[i].id === result.data[j].SiteId) {
-              crewArr.push(result.data[j])
+      API.getSites()
+        .then(res => {
+          const sitesArr = []
+          for (let i = 0; i < res.data.length; i++) {
+            if (this.state.user.CompanyId === res.data[i].CompanyId) {
+              sitesArr.push(res.data[i]);
             }
           }
-        }
-      this.setState({crewArray: crewArr})
-      // console.log("CrewsArr", this.state.crewArray);
+          this.setState({ siteArray: sitesArr });
+          // console.log("User Sites", this.state.siteArray);
+          API.getCrews()
+            .then(result => {
+              const crewArr = [];
+              for (let k = 0; k < this.state.siteArray.length; k++) {
+                for (let j = 0; j < result.data.length; j++) {
+                  if (this.state.siteArray[k].id === result.data[j].SiteId) {
+                    crewArr.push(result.data[j])
+                  }
+                }
+              }
+              this.setState({ crewArray: crewArr })
+              // console.log("CrewsArr", this.state.crewArray);
 
-      let crewCerts = [];
-      for (let i = 0; i < this.state.crewArray.length; i++){
-        // console.log("sending api call for crew with id: ", this .state.crewArray[i].id)
-        API.getCertificate(this.state.crewArray[i].id)
-        .then( cert => {
-          // if (typeof cert === array){
-            crewCerts.push(cert.data);
-          // }
-        })
-      }
-      this.setState({crewCertsArr: crewCerts});
-    })
+              API.getEmployees()
+                .then(empResult => {
+                  const employeeArr = [];
+                  for (let n = 0; n < this.state.crewArray.length; n++) {
+                    for (let o = 0; o < empResult.data.length; o++) {
+                      if (this.state.crewArray[n].id === empResult.data[o].CrewId) {
+                        employeeArr.push(empResult.data[o])
+                      }
+                    }
+                  }
+                  this.setState({ employeesArr: employeeArr })
 
-    API.getEmployees()
-      .then(empResult => {
-        const employeeArr = [];
-        for (let i = 0; i < this.state.crewArray.length; i++) {
-          for (let j = 0; j < empResult.data.length; j++) {
-            if (this.state.crewArray[i].id === empResult.data[j].CrewId) {
-              employeeArr.push(empResult.data[j])
-            }
-          }
-        }
-        this.setState({ employeesArr: employeeArr })
-        // console.log("EmployeesArr", this.state.employeesArr);
-        // console.log("State info", this.state);
-      });
+                  API.getEmployeeCerts()
+                    .then(result => {
+                      const employeeCrts = [];
+                      // console.log("employeeCerts", result.data);
+                      for (let p = 0; p < this.state.employeesArr.length; p++) {
+                        for (let q = 0; q < result.data.length; q++) {
+                          if (this.state.employeesArr[p].id === result.data[q].EmployeeId) {
+                            employeeCrts.push(result.data[q])
+                          }
+                        }
+                      }
+                      this.setState({ employeeCerts: employeeCrts })
+                      const crewCerts = [];
+                      for (let l = 0; l < this.state.crewArray.length; l++) {
+                        // console.log("sending api call for crew with id: ", this .state.crewArray[l].id)
+                        API.getCertificate(this.state.crewArray[l].id)
+                          .then(cert => {
+                            console.log(cert.data)
+                            crewCerts.push(cert.data);
+                          })
+                      }
 
-    API.getEmployeeCerts()
-    .then( result => {
-      const employeeCrts = [];
-      // console.log("employeeCerts", result.data);
-        for (let i = 0; i < this.state.employeesArr.length; i++){
-          for (let j = 0; j< result.data.length; j++){
-            if (this.state.employeesArr[i].id === result.data[j].EmployeeId){
-              employeeCrts.push(result.data[j])
-            }
-          }
-        }
-      this.setState({employeeCerts: employeeCrts})
+                      this.setState({crewCertsArr: crewCerts});
+                      console.log("State info", this.state);
+                      
 
+                      // var crewCertifs = this.state.crewCertsArr
+                      // console.log("test:", this.state.crewCertsArr[0][0].Certificates[0].CrewCert.CertificateId)
+                      // console.log("test:" + this.state.crewCerts[0].Certificates)
+                      // console.log(typeof this.state.crewCertsArr)
+                      // for (var i = 0; i < crewCertifs.length; i++) {
+                      //   if (crewCerts[i][0].SiteId === 1) {
+                      //     console.log("match: " + crewCertifs[i][0].SiteId)
+                      //   }
+                      // }
 
+                    });
+                });
+            });
+        });
     });
-    API.getCertificates()
-    .then(res => {
-      // console.log(res)
-      this.setState({certArray: res.data})
-    //   // expirey = data that you want to save ex. res.data.days
-    //   // do calc to get new date expirey
-    //   // tmp[date_exp] = set to tmp
-    //   // arr.push(tmp)
-    // })
-    // this.getExpiration(value.CertificateId, value.date_obtained)
 
-  // api.posttotable(array)
-  // console.log('Employee Cert Data is: ', result.data);
-      console.log("State info", this.state);
-    });
-  }
+  };
 
-  // getExpiration = (id, date) => {
-
-
-  // }
 
 
   constructor(props) {
@@ -290,6 +281,14 @@ class DashboardPage extends React.Component {
       });
     }
   }
+  testing(id) {
+    var crewCerts = this.state.crewCertsArr
+    for (var i = 0; i < crewCerts.length; i++) {
+      if (crewCerts[i].SiteId === id) {
+        console.log("match: " + crewCerts[i].SideId)
+      }
+    }
+  }
 
   render() {
     return (
@@ -356,13 +355,13 @@ class DashboardPage extends React.Component {
 
                               {this.state.siteArray.length > 0 &&
                                 this.state.siteArray.map((siteObj) => {
-                                  var id = siteObj.id;
-                                  var siteCrews = [];
-                                  var crewArr = this.state.crewArray;
+                                  let id = siteObj.id;
+                                  let siteCrews = [];
+                                  let crewArr = this.state.crewArray;
 
-                                  for (let i = 0; i < crewArr.length; i++) {
-                                    if (id === crewArr[i].SiteId) {
-                                      siteCrews.push(crewArr[i])
+                                  for (let i = 0; i < crewArr.length; i++) {                               
+                                      if (id === crewArr[i].SiteId) {
+                                        siteCrews.push(crewArr[i])
                                     }
                                   }
 
