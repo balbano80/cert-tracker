@@ -1,68 +1,76 @@
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('EmployeeCerts', [
+    return queryInterface.bulkInsert('Reminders', [
       {
-        date_obtained: 20181107,
+        employee_id: 6,
+        cert_id: 1,
+        date_expiration: 20191106,
         createdAt: new Date(),
         updatedAt: new Date(),
         CertificateId: 1,
-        EmployeeId: 6
       },
       {
-        date_obtained: 20181107,
+        employee_id: 6,
+        cert_id: 1, 
+        date_expiration: 20191106,
         createdAt: new Date(),
         updatedAt: new Date(),
         CertificateId: 2,
-        EmployeeId: 6
       },
       {
-        date_obtained: 20181107,
+        employee_id: 6,
+        cert_id: 1,
+        date_expiration: 20191106,
         createdAt: new Date(),
         updatedAt: new Date(),
         CertificateId: 3,
-        EmployeeId: 6
       },
       {
-        date_obtained: 20181107,
+        employee_id: 6,
+        cert_id: 1,
+        date_expiration: 20191106,
         createdAt: new Date(),
         updatedAt: new Date(),
         CertificateId: 4,
-        EmployeeId: 6
       },
       {
-        date_obtained: 20181107,
+        employee_id: 6,
+        cert_id: 1,
+        date_expiration: 20191106,
         createdAt: new Date(),
         updatedAt: new Date(),
         CertificateId: 5,
-        EmployeeId: 6
+        employee_id: 1
       },
       {
-        date_obtained: 20181107,
+        employee_id: 6,
+        cert_id: 1,
+        date_expiration: 20191106,
         createdAt: new Date(),
         updatedAt: new Date(),
         CertificateId: 6,
-        EmployeeId: 6
       },
       {
-        date_obtained: 20181107,
+        employee_id: 6,
+        cert_id: 1,
+        date_expiration: 20191106,
         createdAt: new Date(),
         updatedAt: new Date(),
         CertificateId: 7,
-        EmployeeId: 6
       },
       {
-        date_obtained: 20181107,
+        employee_id: 6,
+        cert_id: 1,
+        date_expiration: 20191106,
         createdAt: new Date(),
         updatedAt: new Date(),
         CertificateId: 8,
-        EmployeeId: 6
       }
-      
     ], {});
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('EmployeeCerts', null, {});
+    return queryInterface.bulkDelete('Reminders', null, {});
   }
 };
-
