@@ -130,94 +130,6 @@ class DashboardPage extends React.Component {
   }
 
   componentDidMount() {
-    API.getReminder()
-      .then(results => {
-        const reminderArr = [];
-        // console.log("reminders data ::::::", results.data)
-        for (let i = 0; i < results.data.length; i++) {
-          reminderArr.push(results.data[i]);
-        }
-        this.setState({ reminderArray: reminderArr })
-        // console.log("reminders :::::::", this.state.reminderArray)
-
-
-        var ctxB = document.getElementById("barChart").getContext('2d');
-        new Chart(ctxB, {
-          type: 'bar',
-          data: {
-            labels: ["30 days", "60 days", "90 days"],
-            datasets: [{
-              label: ["certification expiry dates"],
-              // Change data to reflect database
-              data: [12, 19, this.state.reminderArray.length, 5, 2, 3],
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
-            }]
-          },
-          optionss: {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true
-                }
-              }]
-            }
-          }
-        });
-        // Pie chart
-        var ctxP = document.getElementById("pieChart").getContext('2d');
-        new Chart(ctxP, {
-          type: 'pie',
-          data: {
-            labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
-            datasets: [
-              {
-                // Content data to database
-                data: [300, 50, 100, 40, 120],
-                backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
-                hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
-              }
-            ]
-          },
-          options: {
-            responsive: true
-          }
-        });
-        //doughnut
-        var ctxD = document.getElementById("doughnutChart").getContext('2d');
-        new Chart(ctxD, {
-          type: 'doughnut',
-          data: {
-            labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
-            datasets: [
-              {
-                data: [300, 50, 100, 40, 120],
-                backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
-                hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
-              }
-            ]
-          },
-          options: {
-            responsive: true
-          }
-        });
-      });
-
     axios.get("/api/user_data").then(res => {
       if (res.data.email) {
         this.setState({
@@ -309,6 +221,113 @@ class DashboardPage extends React.Component {
                       //     console.log("match: " + crewCertifs[i][0].SiteId)
                       //   }
                       // }
+
+                      API.getReminder()
+                        .then(results => {
+                          const reminderArr = [];
+                          console.log("reminders data ::::::", results.data)
+                          for (let i = 0; i < results.data.length; i++) {
+                            reminderArr.push(results.data[i]);
+                          }
+                          this.setState({ reminderArray: reminderArr })
+                          console.log("reminders :::::::", this.state.reminderArray)
+                          if (this.state.siteArray.length === 0) {
+                            var baseData = [];
+                          }
+                          else {
+                            baseData = [5, 19, 12, this.state.reminderArray.length];
+                          }
+                          //Bar chart
+                          var ctxB = document.getElementById("barChart").getContext('2d');
+                          new Chart(ctxB, {
+                            type: 'bar',
+                            data: {
+                              labels: ["30 days", "60 days", "90 days", "over 90 days"],
+                              datasets: [{
+                                label: ["Certification Expiry Dates"],
+                                // Change data to reflect database
+                                data: baseData,
+                                backgroundColor: [
+                                  'rgba(255, 99, 132, 0.2)',
+                                  'rgba(255,152,0,0.2)',
+                                  'rgba(255, 238, 88, 0.2)',
+                                  'rgba(75, 192, 192, 0.2)',
+                                  'rgba(153, 102, 255, 0.2)',
+                                  'rgba(255, 159, 64, 0.2)'
+                                  // rgba(255,152,0,1)
+                                ],
+                                borderColor: [
+                                  'rgba(255,99,132,1)',
+                                  'rgba(54, 162, 235, 1)',
+                                  'rgba(75, 192, 192, 1)',
+                                  'rgba(75, 192, 192, 1)',
+                                  'rgba(153, 102, 255, 1)',
+                                  'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                              }]
+                            },
+                            optionss: {
+                              scales: {
+                                yAxes: [{
+                                  ticks: {
+                                    beginAtZero: true
+                                  }
+                                }]
+                              }
+                            }
+                          });
+                        });
+                      //doughnut chart
+                      var ctxD = document.getElementById("doughnutChart").getContext('2d');
+                      console.log("site array length", this.state.siteArray.length);
+                      if (this.state.siteArray.length === 0) {
+                        var baseData2 = [];
+                      }
+                      else {
+                        baseData2 = [300, 50, 100, 40, 120];
+                      }
+                      new Chart(ctxD, {
+                        type: 'doughnut',
+                        data: {
+                          labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+                          datasets: [
+                            {
+                              data: baseData2,
+                              backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+                              hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+                            }
+                          ]
+                        },
+                        options: {
+                          responsive: true
+                        }
+                      });
+                      //doughnut chart 2
+                      var ctxP = document.getElementById("pieChart").getContext('2d');
+                      if (this.state.siteArray.length === 0) {
+                        var baseData3 = [];
+                      }
+                      else {
+                        baseData3 = [300, 50, 100, 40, 120];
+                      }
+                      new Chart(ctxP, {
+                        type: 'pie',
+                        data: {
+                          labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+                          datasets: [
+                            {
+                              // Content data to database
+                              data: baseData3,
+                              backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+                              hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+                            }
+                          ]
+                        },
+                        options: {
+                          responsive: true
+                        }
+                      });
 
                     });
                 });
