@@ -55,7 +55,8 @@ app.post("/login", passport.authenticate("local"), function (req, res) {
 app.get("/api/user_data", function (req, res) {
   if (!req.user) {
     // The user is not logged in, send back an empty object
-    res.json({});
+    // res.json({});
+    res.redirect("/");
   }
   else {
     // Otherwise send back the user's email and id
@@ -90,6 +91,12 @@ app.get("/api/user_data", function (req, res) {
         res.json(userData);
       })
   };
+});
+
+app.get('/logout', function(req, res){
+  console.log("in server logout call");
+  req.logout();
+  res.redirect('/');
 });
 
 // Route config -------------------------------------------/
