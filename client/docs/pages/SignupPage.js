@@ -46,7 +46,7 @@ class SignupPage extends React.Component {
       );
     }
     else if (this.state.email !== this.state.confirmEmail){
-      alert("Passwords do not match")
+      alert("Email addresses do not match")
     }
     else {
 

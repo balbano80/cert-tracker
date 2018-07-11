@@ -222,7 +222,7 @@ class DashboardPage extends React.Component {
                         }
                       }
                       this.setState({ employeeCerts: employeeCrts })
-                      const crewCerts = [];
+                      var crewCerts = [];
                       for (let l = 0; l < this.state.crewArray.length; l++) {
                         // console.log("sending api call for crew with id: ", this .state.crewArray[l].id)
                         API.getCertificate(this.state.crewArray[l].id)
@@ -421,6 +421,10 @@ class DashboardPage extends React.Component {
                                 </Row>
                               </TabPane>
 
+                             {/* {this.state.crewCertsArr.map((crewInfo) => {
+                                console.log("crewInfo", crewInfo);
+
+                              })} */}
                               {this.state.siteArray.length > 0 &&
                                 this.state.siteArray.map((siteObj) => {
                                   let id = siteObj.id;
