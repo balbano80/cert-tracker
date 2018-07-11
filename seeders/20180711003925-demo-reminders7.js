@@ -41,7 +41,6 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         CertificateId: 5,
-        employee_id: 1
       },
       {
         employee_id: 7,

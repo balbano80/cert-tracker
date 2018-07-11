@@ -23,9 +23,6 @@ const modStyle = {
   margin: 0
 }
 
-
-
-
 class DashbEditSiteModal extends React.Component {
 
   constructor(props) {
