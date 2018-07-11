@@ -16,7 +16,7 @@ export default {
   },
   // Saves an employee to the database
   saveEmployee: function(employeeData) {
-    console.log("Form submission data: ", employeeData);
+    // console.log("Form submission data: ", employeeData);
     return axios.post("/api/employee", employeeData);
   },
   // Creates a new company
@@ -76,12 +76,12 @@ export default {
   },
 
   createCertificates: function(certData) {
-    console.log("Created Certification data: ", certData);
+    // console.log("Created Certification data: ", certData);
     return axios.post("/api/certificates", certData);
   },
   // New route for getting Certificates
   deleteCert: function(id) {
-    console.log("deleting cert with id: " + id)
+    // console.log("deleting cert with id: " + id)
     // return axios.get("/api/certificates")
     // return axios.delete("/api/certificates/" + ${this.state.id}, id)
     // .then(res => {
@@ -91,7 +91,7 @@ export default {
   },
   // Creates an reminder in the Reminders table
   createReminder: function(reminderData) {
-    console.log("Created a new reminder with : ", reminderData);
+    // console.log("Created a new reminder with : ", reminderData);
     return axios.post("/api/reminder", reminderData);
   },
     // Make route for getting data from the EmployeeCerts table
@@ -101,7 +101,7 @@ export default {
   },
   // Get crew by company_id
   getCrewBySite: function(id) {
-    console.log("getting crew data for this site")
+    // console.log("getting crew data for this site")
     return axios.get("/api/employee/" + id);
   },
   getUserData: function(req, res){
@@ -109,7 +109,7 @@ export default {
       res.json({});
     }
     else{
-      console.log("getting user data");
+      // console.log("getting user data");
       return axios.get("/api/user_data");
     }
   }
