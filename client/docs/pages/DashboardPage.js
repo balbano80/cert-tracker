@@ -10,9 +10,6 @@ import DashSideNav from '../components/DashSideNav/DashSideNav.css';
 import API from '../../utils/API';
 import axios from "axios";
 
-// Line chart
-// We have to link database to this object?
-
 const data = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
@@ -41,239 +38,13 @@ const data = {
 };
 
 class DashboardPage extends React.Component {
-
-  componentDidMount() {
-    // Bar chart
-    // var ctxB = document.getElementById("barChart").getContext('2d');
-    // new Chart(ctxB, {
-    //   type: 'bar',
-    //   data: {
-    //     labels: ["30 days", "60 days", "90 days"],
-    //     datasets: [{
-    //       label: ["certification expiry dates"],
-    //       // Change data to reflect database
-    //       data: [12, 19, this.state.reminderArray.length, 5, 2, 3],
-    //       backgroundColor: [
-    //         'rgba(255, 99, 132, 0.2)',
-    //         'rgba(54, 162, 235, 0.2)',
-    //         'rgba(75, 192, 192, 0.2)',
-    //         'rgba(75, 192, 192, 0.2)',
-    //         'rgba(153, 102, 255, 0.2)',
-    //         'rgba(255, 159, 64, 0.2)'
-    //       ],
-    //       borderColor: [
-    //         'rgba(255,99,132,1)',
-    //         'rgba(54, 162, 235, 1)',
-    //         'rgba(75, 192, 192, 1)',
-    //         'rgba(75, 192, 192, 1)',
-    //         'rgba(153, 102, 255, 1)',
-    //         'rgba(255, 159, 64, 1)'
-    //       ],
-    //       borderWidth: 1
-    //     }]
-    //   },
-    //   optionss: {
-    //     scales: {
-    //       yAxes: [{
-    //         ticks: {
-    //           beginAtZero: true
-    //         }
-    //       }]
-    //     }
-    //   }
-    // });
-    // Pie chart
-    var ctxP = document.getElementById("pieChart").getContext('2d');
-    new Chart(ctxP, {
-      type: 'pie',
-      data: {
-        labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
-        datasets: [
-          {
-            // Content data to database
-            data: [300, 50, 100, 40, 120],
-            backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
-            hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
-          }
-        ]
-      },
-      options: {
-        responsive: true
-      }
-    });
-    //doughnut
-    var ctxD = document.getElementById("doughnutChart").getContext('2d');
-    new Chart(ctxD, {
-      type: 'doughnut',
-      data: {
-        labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
-        datasets: [
-          {
-            data: [300, 50, 100, 40, 120],
-            backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
-            hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
-          }
-        ]
-      },
-      options: {
-        responsive: true
-      }
-    });
-    API.getReminder()
-    .then(results => {
-      const reminderArr =[];
-      console.log("reminders data ::::::", results.data)
-      for (let i = 0; i < results.data.length; i++) {
-        reminderArr.push(results.data[i]);
-      }
-      this.setState({reminderArray: reminderArr})
-      console.log("reminders :::::::", this.state.reminderArray)
-      var ctxB = document.getElementById("barChart").getContext('2d');
-      new Chart(ctxB, {
-        type: 'bar',
-        data: {
-          labels: ["30 days", "60 days", "90 days"],
-          datasets: [{
-            label: ["certification expiry dates"],
-            // Change data to reflect database
-            data: [12, 19, this.state.reminderArray.length, 5, 2, 3],
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-              'rgba(255,99,132,1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-          }]
-        },
-        optionss: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true
-              }
-            }]
-          }
-        }
-      });
-    });
-
-    axios.get("/api/user_data").then(res => {
-      this.setState({
-        user: res.data,
-        selectedSites: res.data.companyName + " Dashboard"
-      })
-      // console.log("UserInfo ", this.state.user);
-     
- 
-      API.getSites()
-        .then(res => {
-          const sitesArr = []
-          for (let i = 0; i < res.data.length; i++) {
-            if (this.state.user.CompanyId === res.data[i].CompanyId) {
-              sitesArr.push(res.data[i]);
-            }
-          }
-          this.setState({ siteArray: sitesArr });
-          // console.log("User Sites", this.state.siteArray);
-          API.getCrews()
-            .then(result => {
-              const crewArr = [];
-              for (let k = 0; k < this.state.siteArray.length; k++) {
-                for (let j = 0; j < result.data.length; j++) {
-                  if (this.state.siteArray[k].id === result.data[j].SiteId) {
-                    crewArr.push(result.data[j])
-                  }
-                }
-              }
-              this.setState({ crewArray: crewArr })
-              // console.log("CrewsArr", this.state.crewArray);
-
-              API.getEmployees()
-                .then(empResult => {
-                  const employeeArr = [];
-                  for (let n = 0; n < this.state.crewArray.length; n++) {
-                    for (let o = 0; o < empResult.data.length; o++) {
-                      if (this.state.crewArray[n].id === empResult.data[o].CrewId) {
-                        employeeArr.push(empResult.data[o])
-                      }
-                    }
-                  }
-                  this.setState({ employeesArr: employeeArr })
-
-                  API.getEmployeeCerts()
-                    .then(result => {
-                      const employeeCrts = [];
-                      // console.log("employeeCerts", result.data);
-                      for (let p = 0; p < this.state.employeesArr.length; p++) {
-                        for (let q = 0; q < result.data.length; q++) {
-                          if (this.state.employeesArr[p].id === result.data[q].EmployeeId) {
-                            employeeCrts.push(result.data[q])
-                          }
-                        }
-                      }
-                      this.setState({ employeeCerts: employeeCrts })
-                      var crewCerts = [];
-                      for (let l = 0; l < this.state.crewArray.length; l++) {
-                        // console.log("sending api call for crew with id: ", this .state.crewArray[l].id)
-                        API.getCertificate(this.state.crewArray[l].id)
-                          .then(cert => {
-                            crewCerts.push(cert.data);
-                          })
-                      }
-
-                      this.setState({crewCertsArr: crewCerts});
-                      console.log("State info", this.state);
-                      
-                      // API.getReminder()
-                      // .then(res => {
-                      //   const reminderArr =[];
-                      //   console.log("reminders data ::::::", res.data)
-                      //   for (let i = 0; i < res.data.length; i++) {
-                      //     reminderArr.push(res.data[i]);
-                      //   }
-                      //   this.setState({reminderArray: reminderArr})
-                      //   console.log("reminders :::::::", this.state.reminderArray)
-                      // });
-                      // var crewCertifs = this.state.crewCertsArr
-                      // console.log("test:", this.state.crewCertsArr[0][0].Certificates[0].CrewCert.CertificateId)
-                      // console.log("test:" + this.state.crewCerts[0].Certificates)
-                      // console.log(typeof this.state.crewCertsArr)
-                      // for (var i = 0; i < crewCertifs.length; i++) {
-                      //   if (crewCerts[i][0].SiteId === 1) {
-                      //     console.log("match: " + crewCertifs[i][0].SiteId)
-                      //   }
-                      // }
-
-                    });
-                });
-            });
-        });
-    });
-
-  };
-
-
-
   constructor(props) {
     super(props);
-
-
     this.state = {
       siteArray: [],
       crewArray: [],
       certArray: [],
-      reminderArray:[],
+      reminderArray: [],
       selectedSites: "",
       activeItem: '1',
       activeItemPills: '1',
@@ -337,8 +108,7 @@ class DashboardPage extends React.Component {
   }
   toggleInnerPills(siteId) {
     let siteObj = this.state.siteArray.find(siteObj => siteObj.id.toString() === siteId)
-    console.log("+++++++++", siteObj)
-    if (siteId === "0"){
+    if (siteId === "0") {
       this.setState({
         activeItemInnerPills: siteId,
         selectedSites: this.state.user.companyName + " Dashboard"
@@ -348,7 +118,7 @@ class DashboardPage extends React.Component {
         activeItemInnerPills: siteId,
         selectedSites: "Site: " + siteObj.name
       });
-    } 
+    }
   }
   testing(id) {
     var crewCerts = this.state.crewCertsArr
@@ -358,6 +128,195 @@ class DashboardPage extends React.Component {
       }
     }
   }
+
+  componentDidMount() {
+    API.getReminder()
+      .then(results => {
+        const reminderArr = [];
+        console.log("reminders data ::::::", results.data)
+        for (let i = 0; i < results.data.length; i++) {
+          reminderArr.push(results.data[i]);
+        }
+        this.setState({ reminderArray: reminderArr })
+        console.log("reminders :::::::", this.state.reminderArray)
+
+
+        var ctxB = document.getElementById("barChart").getContext('2d');
+        new Chart(ctxB, {
+          type: 'bar',
+          data: {
+            labels: ["30 days", "60 days", "90 days"],
+            datasets: [{
+              label: ["certification expiry dates"],
+              // Change data to reflect database
+              data: [12, 19, this.state.reminderArray.length, 5, 2, 3],
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          optionss: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
+        });
+        // Pie chart
+        var ctxP = document.getElementById("pieChart").getContext('2d');
+        new Chart(ctxP, {
+          type: 'pie',
+          data: {
+            labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+            datasets: [
+              {
+                // Content data to database
+                data: [300, 50, 100, 40, 120],
+                backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+                hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+              }
+            ]
+          },
+          options: {
+            responsive: true
+          }
+        });
+        //doughnut
+        var ctxD = document.getElementById("doughnutChart").getContext('2d');
+        new Chart(ctxD, {
+          type: 'doughnut',
+          data: {
+            labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+            datasets: [
+              {
+                data: [300, 50, 100, 40, 120],
+                backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+                hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+              }
+            ]
+          },
+          options: {
+            responsive: true
+          }
+        });
+      });
+
+    axios.get("/api/user_data").then(res => {
+      if (this.state.siteArray.length !== 0) {
+        this.setState({
+          user: res.data,
+          selectedSites: res.data.companyName + " Dashboard"
+        });
+      } else if (this.state.siteArray.length === 0) {
+        this.setState({
+          user: res.data,
+          selectedSites: "You are not logged in. Please log in to see your company data."
+        });
+      }
+
+      API.getSites()
+        .then(res => {
+          const sitesArr = []
+          for (let i = 0; i < res.data.length; i++) {
+            if (this.state.user.CompanyId === res.data[i].CompanyId) {
+              sitesArr.push(res.data[i]);
+            }
+          }
+          this.setState({ siteArray: sitesArr });
+          // console.log("User Sites", this.state.siteArray);
+          API.getCrews()
+            .then(result => {
+              const crewArr = [];
+              for (let k = 0; k < this.state.siteArray.length; k++) {
+                for (let j = 0; j < result.data.length; j++) {
+                  if (this.state.siteArray[k].id === result.data[j].SiteId) {
+                    crewArr.push(result.data[j])
+                  }
+                }
+              }
+              this.setState({ crewArray: crewArr })
+              // console.log("CrewsArr", this.state.crewArray);
+
+              API.getEmployees()
+                .then(empResult => {
+                  const employeeArr = [];
+                  for (let n = 0; n < this.state.crewArray.length; n++) {
+                    for (let o = 0; o < empResult.data.length; o++) {
+                      if (this.state.crewArray[n].id === empResult.data[o].CrewId) {
+                        employeeArr.push(empResult.data[o])
+                      }
+                    }
+                  }
+                  this.setState({ employeesArr: employeeArr })
+
+                  API.getEmployeeCerts()
+                    .then(result => {
+                      const employeeCrts = [];
+                      // console.log("employeeCerts", result.data);
+                      for (let p = 0; p < this.state.employeesArr.length; p++) {
+                        for (let q = 0; q < result.data.length; q++) {
+                          if (this.state.employeesArr[p].id === result.data[q].EmployeeId) {
+                            employeeCrts.push(result.data[q])
+                          }
+                        }
+                      }
+                      this.setState({ employeeCerts: employeeCrts })
+                      var crewCerts = [];
+                      for (let l = 0; l < this.state.crewArray.length; l++) {
+                        // console.log("sending api call for crew with id: ", this .state.crewArray[l].id)
+                        API.getCertificate(this.state.crewArray[l].id)
+                          .then(cert => {
+                            crewCerts.push(cert.data);
+                          })
+                      }
+
+                      this.setState({ crewCertsArr: crewCerts });
+                      console.log("State info", this.state);
+
+                      // API.getReminder()
+                      // .then(res => {
+                      //   const reminderArr =[];
+                      //   console.log("reminders data ::::::", res.data)
+                      //   for (let i = 0; i < res.data.length; i++) {
+                      //     reminderArr.push(res.data[i]);
+                      //   }
+                      //   this.setState({reminderArray: reminderArr})
+                      //   console.log("reminders :::::::", this.state.reminderArray)
+                      // });
+                      // var crewCertifs = this.state.crewCertsArr
+                      // console.log("test:", this.state.crewCertsArr[0][0].Certificates[0].CrewCert.CertificateId)
+                      // console.log("test:" + this.state.crewCerts[0].Certificates)
+                      // console.log(typeof this.state.crewCertsArr)
+                      // for (var i = 0; i < crewCertifs.length; i++) {
+                      //   if (crewCerts[i][0].SiteId === 1) {
+                      //     console.log("match: " + crewCertifs[i][0].SiteId)
+                      //   }
+                      // }
+
+                    });
+                });
+            });
+        });
+    });
+
+  };
 
   render() {
     return (
@@ -387,7 +346,7 @@ class DashboardPage extends React.Component {
               <Col lg="11">
                 <Row>
                   <Col lg="12">
-                     <h2 className="mt-5 text-center">{this.state.selectedSites}</h2> 
+                    <h2 className="mt-5 text-center">{this.state.selectedSites}</h2>
                     <TabContent className="card" activeItem={this.state.activeItemOuterTabs}>
                       <TabPane tabId="1" role="tabpanel">
                         <Row>
@@ -422,7 +381,7 @@ class DashboardPage extends React.Component {
                                 </Row>
                               </TabPane>
 
-                             {/* {this.state.crewCertsArr.map((crewInfo) => {
+                              {/* {this.state.crewCertsArr.map((crewInfo) => {
                                 console.log("crewInfo", crewInfo);
 
                               })} */}
@@ -432,9 +391,9 @@ class DashboardPage extends React.Component {
                                   let siteCrews = [];
                                   let crewArr = this.state.crewArray;
 
-                                  for (let i = 0; i < crewArr.length; i++) {                               
-                                      if (id === crewArr[i].SiteId) {
-                                        siteCrews.push(crewArr[i])
+                                  for (let i = 0; i < crewArr.length; i++) {
+                                    if (id === crewArr[i].SiteId) {
+                                      siteCrews.push(crewArr[i])
                                     }
                                   }
 
