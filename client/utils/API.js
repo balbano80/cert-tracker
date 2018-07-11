@@ -38,7 +38,7 @@ export default {
   getCert: function (id) {
     return axios.get("/api/certification/" + id);
   },
-
+  
   getSites: function(){
     return axios.get("/api/site");
   },

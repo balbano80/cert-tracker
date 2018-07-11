@@ -8,6 +8,7 @@ const userRoutes = require("./user");
 const crewcertsRoutes = require("./crewcertsRoutes");
 // const loginRoutes = require("./login");
 const companyRoutes = require("./company");
+const reminderRoutes = require("./reminders")
 
 
 // Employee routes
@@ -20,6 +21,7 @@ router.use("/crewcerts", crewcertsRoutes);
 router.use("/user", userRoutes);
 // router.use("/login", loginRoutes);
 router.use("/company", companyRoutes);
+router.use("/reminders", reminderRoutes);
 
 
 module.exports = router;

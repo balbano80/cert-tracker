@@ -44,44 +44,44 @@ class DashboardPage extends React.Component {
 
   componentDidMount() {
     // Bar chart
-    var ctxB = document.getElementById("barChart").getContext('2d');
-    new Chart(ctxB, {
-      type: 'bar',
-      data: {
-        labels: ["30 days", "60 days", "90 days"],
-        datasets: [{
-          label: ["certification expiry dates"],
-          // Change data to reflect database
-          data: [12, 19, 10, 5, 2, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255,99,132,1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      optionss: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-    });
+    // var ctxB = document.getElementById("barChart").getContext('2d');
+    // new Chart(ctxB, {
+    //   type: 'bar',
+    //   data: {
+    //     labels: ["30 days", "60 days", "90 days"],
+    //     datasets: [{
+    //       label: ["certification expiry dates"],
+    //       // Change data to reflect database
+    //       data: [12, 19, this.state.reminderArray.length, 5, 2, 3],
+    //       backgroundColor: [
+    //         'rgba(255, 99, 132, 0.2)',
+    //         'rgba(54, 162, 235, 0.2)',
+    //         'rgba(75, 192, 192, 0.2)',
+    //         'rgba(75, 192, 192, 0.2)',
+    //         'rgba(153, 102, 255, 0.2)',
+    //         'rgba(255, 159, 64, 0.2)'
+    //       ],
+    //       borderColor: [
+    //         'rgba(255,99,132,1)',
+    //         'rgba(54, 162, 235, 1)',
+    //         'rgba(75, 192, 192, 1)',
+    //         'rgba(75, 192, 192, 1)',
+    //         'rgba(153, 102, 255, 1)',
+    //         'rgba(255, 159, 64, 1)'
+    //       ],
+    //       borderWidth: 1
+    //     }]
+    //   },
+    //   optionss: {
+    //     scales: {
+    //       yAxes: [{
+    //         ticks: {
+    //           beginAtZero: true
+    //         }
+    //       }]
+    //     }
+    //   }
+    // });
     // Pie chart
     var ctxP = document.getElementById("pieChart").getContext('2d');
     new Chart(ctxP, {
@@ -128,6 +128,44 @@ class DashboardPage extends React.Component {
       }
       this.setState({reminderArray: reminderArr})
       console.log("reminders :::::::", this.state.reminderArray)
+      var ctxB = document.getElementById("barChart").getContext('2d');
+      new Chart(ctxB, {
+        type: 'bar',
+        data: {
+          labels: ["30 days", "60 days", "90 days"],
+          datasets: [{
+            label: ["certification expiry dates"],
+            // Change data to reflect database
+            data: [12, 19, this.state.reminderArray.length, 5, 2, 3],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        optionss: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
     });
 
     axios.get("/api/user_data").then(res => {
@@ -340,7 +378,16 @@ class DashboardPage extends React.Component {
               <Col lg="11">
                 <Row>
                   <Col lg="12">
-                    <h2 className="mt-5 text-center">Dashboard</h2>
+                  {/* {this.state.siteArray.length > 0 &&
+                        this.state.siteArray.map(
+                          (siteObj) => {
+                            return ( */}
+                              <h2 className="mt-5 text-center">{this.state.user.companyName} Dashboard </h2>
+                            {/* )
+                          }
+                        )
+                      } */}
+                    {/* <h2 className="mt-5 text-center">{this.state.user.companyName} Dashboard </h2> */}
                     <TabContent className="card" activeItem={this.state.activeItemOuterTabs}>
                       <TabPane tabId="1" role="tabpanel">
                         <Row>
@@ -408,7 +455,7 @@ class DashboardPage extends React.Component {
                                                 <thead>
                                                   <tr>
                                                     <th>Crew Names</th>
-                                                    <th>Number of members</th>
+                                                    <th>Site Id</th>
                                                   </tr>
                                                 </thead>
                                                 <tbody>
