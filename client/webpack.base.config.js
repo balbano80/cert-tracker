@@ -70,16 +70,14 @@ module.exports = function (env) {
       ]
     },
     resolve: {
+      alias: {
+        mdbreact: 'src/index'
+      },
+      extensions: ['.js', '.json'],
       modules: [
         path.join(__dirname, "src"),
         "node_modules"
       ]
-     },
-    resolve: {
-      alias: {
-        mdbreact: 'src/index'
-      },
-      extensions: ['.js', '.json']
     },
     plugins: plugins
   };
