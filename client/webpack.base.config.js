@@ -69,10 +69,6 @@ module.exports = function (env) {
         { test: /\.png(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=image/png' }
       ]
     },
-    resolveLoader: {
-      root: path.join(__dirname, 'node_modules')
-    },
-  
     resolve: {
       alias: {
         mdbreact: 'src/index'
