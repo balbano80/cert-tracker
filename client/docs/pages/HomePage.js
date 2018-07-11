@@ -13,8 +13,8 @@ class HomePage extends React.Component {
         <EdgeHeader color="unique-color darken-3" />
         <FreeBird>
           <Row>
-            <Col lg="12" className="mx-auto float-none white z-depth-1 py-2 px-2">
-            <CardImage top src="http://engenhariae.com.br/wp-content/uploads/2015/12/shutterstock_111119858_mini.jpg" overlay="white-slight" hover waves alt="Card image cap"/>
+            <Col lg="12" className="mx-auto float-none white z-depth-1 py-2 px-2 jumbo-img-container">
+            <CardImage top src="https://image.ibb.co/eiiGNT/shutterstock_111119858_2.jpg" overlay="white-slight" hover waves alt="Card image cap" className="img-holder"/>
                 <CardBody>
                 <h2 className="h2-responsive text-center"><strong>Certification Tracking made simple</strong></h2>
                 <p className="pb-4 text-center">Deploy employees quickly, seamlessly and effectively with all certifications in place to do their jobs!</p>

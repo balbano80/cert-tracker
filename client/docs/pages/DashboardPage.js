@@ -227,7 +227,6 @@ class DashboardPage extends React.Component {
                         // console.log("sending api call for crew with id: ", this .state.crewArray[l].id)
                         API.getCertificate(this.state.crewArray[l].id)
                           .then(cert => {
-                            console.log(cert.data)
                             crewCerts.push(cert.data);
                           })
                       }
@@ -445,12 +444,15 @@ class DashboardPage extends React.Component {
                                                   <h4 className="h4-responsive">{siteObj.name}</h4>
                                                 </Col>
                                                 <Col>
-                                                  <DashbEditSiteModal
-                                                    site={siteObj}
-                                                    crews={siteCrews}
-                                                  />
+                                                  <div className="float-right">
+                                                    <DashbEditSiteModal
+                                                      site={siteObj}
+                                                      crews={siteCrews}
+                                                    />
+                                                  </div>
                                                 </Col>
                                               </Row>
+                                              <br />
                                               <Table striped bordered small>
                                                 <thead>
                                                   <tr>

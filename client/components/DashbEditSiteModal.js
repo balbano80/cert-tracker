@@ -14,11 +14,6 @@ import MultipleSelectOption from "./MultipleSelectOption";
 
 // Modal CSS
 import "./styles/DashEditSiteModal.css";
-
-// TEMPORARY JSON files for employees/certifications
-// import crews from "./temp-json/crews.json";
-// import certs from "./temp-json/certs.json";
-// import employees from "./temp-json/employees.json";
 import { conditionallyUpdateScrollbar } from '../src/components/utils';
 import { updateLocale } from "../../node_modules/moment";
 
@@ -76,7 +71,7 @@ class DashbEditSiteModal extends React.Component {
     var crewCertIdArr = this.state.crewCerts.filter(ele => ele.CrewId === id)
     console.log("crewCert ID Array is: ", crewCertIdArr)
     this.setState({ crewCertIds: crewCertIdArr })
-    
+
     let CrewCertIds = this.state.crewCertIds;
     let AllCerts = this.state.allCerts;
     let tempMatchedCerts = [];
@@ -187,21 +182,21 @@ class DashbEditSiteModal extends React.Component {
                     <SelectOption disabled>Select Crew</SelectOption>
                     {this.props.crews.map(crew => {
                       return (
-                      <SelectOption triggerOptionClick={() => this.optionClick(crew.id, crew.crew_type)}> 
-                        {crew.crew_type}
-                      </SelectOption>
+                        <SelectOption triggerOptionClick={() => this.optionClick(crew.id, crew.crew_type)}>
+                          {crew.crew_type}
+                        </SelectOption>
                       )
                     })}
                   </SelectOptions>
                 </Select>
-                {/* Select Crew Dropdown */}
+                {/* End Select Crew Dropdown */}
 
               </Col>
-
             </Row>
             <Row>
               <Col size="12">
                 <h5>Edit Crew Members</h5>
+
                 {/* Edit Crew Member Table */}
                 <Card style={outerContainerStyle} className="mt-5">
                   <CardHeader>
@@ -209,22 +204,29 @@ class DashbEditSiteModal extends React.Component {
                   </CardHeader>
                   <PerfectScrollbar className="scrollbar-primary">
                     <CardBody>
-                      <Table striped bordered small>
-                        <tbody>
-                          {this.state.crewEmployees.map(crewEmployee => (
+                      {this.state.crewEmployees.length > 0 &&
+                        this.state.crewEmployees.map(crewEmployee => (
+                        <Table striped bordered small>
+                          <tbody>
                             <TableData
                               key={crewEmployee.id}
                               name={crewEmployee.first_name}
                               last_name={crewEmployee.last_name}
                             />
-                          ))}
-                        </tbody>
-                      </Table>
+                          </tbody>
+                        </Table>
+                      ))}
+                      {this.state.crewEmployees.length < 1 &&
+                        <div className="text-center">
+                            <h5>No Crew Members In This Crew</h5>
+                        </div>
+                      }
                     </CardBody>
                   </PerfectScrollbar>
                 </Card>
                 <hr />
                 {/* End Edit Crew Member Table */}
+
               </Col>
             </Row>
             <Row>
@@ -238,16 +240,25 @@ class DashbEditSiteModal extends React.Component {
                   </CardHeader>
                   <PerfectScrollbar className="scrollbar-primary">
                     <CardBody>
-                      <Table striped bordered small>
-                        <tbody>
-                          {this.state.matchedCerts.map(cert => (
-                            <TableData
-                              key={cert.id}
-                              name={cert.name}
-                            />
-                          ))}
-                        </tbody>
-                      </Table>
+                          {this.state.matchedCerts.length > 0 &&
+                            this.state.matchedCerts.map((matchedCert) => {
+                              return (
+                                <Table striped bordered small>
+                                <tbody>
+                                <TableData
+                                  key={matchedCert.id}
+                                  name={matchedCert.name}
+                                />
+                                </tbody>
+                                </Table>
+                              )
+                            }
+                            )}
+                          {this.state.matchedCerts.length === 0 &&
+                            <div className="text-center">
+                                <h5>No Certificates Available For This Crew</h5>
+                            </div>
+                          }
                     </CardBody>
                   </PerfectScrollbar>
                 </Card>
@@ -265,21 +276,28 @@ class DashbEditSiteModal extends React.Component {
                     Assign New Certifications
                   </CardHeader>
                   <CardBody>
-                    <Select multiple>
-                      <SelectInput value="Select Certifications">
-                      </SelectInput>
-                      <SelectOptions>
-                        <SelectOption disabled> Select Certifications </SelectOption>
-                        {this.state.allCerts.map(cert => (
-                          <MultipleSelectOption
-                            key={cert.id}
-                            id={cert.id}
-                            name={cert.name}
-                            optionClick={this.optionClick2}
-                          />
-                        ))}
-                      </SelectOptions>
-                    </Select>
+                    <Row>
+                      <Col size="9">
+                        <Select multiple>
+                          <SelectInput value="Select Certifications">
+                          </SelectInput>
+                          <SelectOptions>
+                            <SelectOption disabled> Select Certifications </SelectOption>
+                            {this.state.allCerts.map(cert => (
+                              <MultipleSelectOption
+                                key={cert.id}
+                                id={cert.id}
+                                name={cert.name}
+                                optionClick={this.optionClick2}
+                              />
+                            ))}
+                          </SelectOptions>
+                        </Select>
+                      </Col>
+                      <Col size="3">
+                        <Button color="success"> Add Certifications </Button>
+                      </Col>
+                    </Row>
                   </CardBody>
                 </Card>
                 <hr />

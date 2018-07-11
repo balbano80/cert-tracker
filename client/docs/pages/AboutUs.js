@@ -70,7 +70,7 @@ const AboutUs = () =>  {
             </Col>
 
             <Col lg="4" md="6"  className="mb-lg-0 mb-5">
-              <Avatar tag="img" src="https://media.licdn.com/dms/image/C4E03AQGnHZpp6iGCzQ/profile-displayphoto-shrink_800_800/0?e=1536796800&v=beta&t=Tfui8dW2i8ZTj_s46cCRSCLpnNwT0tQyMoVYaI4CS_M" className="rounded-circle z-depth-1 img-fluid" alt="Sample avatar"/>
+              <Avatar tag="img" src="https://image.ibb.co/cndpbo/IMG_2439.jpg" className="rounded-circle z-depth-1 img-fluid" alt="Sample avatar"/>
               <h5 className="font-weight-bold mt-4 mb-3">Sophie Obayashi</h5>
               <p className="text-uppercase blue-text">Full Stack Web Developer</p>
               <p className="grey-text"></p>
