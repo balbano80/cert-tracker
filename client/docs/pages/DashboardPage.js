@@ -375,12 +375,15 @@ class DashboardPage extends React.Component {
                                                   <h4 className="h4-responsive">{siteObj.name}</h4>
                                                 </Col>
                                                 <Col>
-                                                  <DashbEditSiteModal
-                                                    site={siteObj}
-                                                    crews={siteCrews}
-                                                  />
+                                                  <div className="float-right">
+                                                    <DashbEditSiteModal
+                                                      site={siteObj}
+                                                      crews={siteCrews}
+                                                    />
+                                                  </div>
                                                 </Col>
                                               </Row>
+                                              <br />
                                               <Table striped bordered small>
                                                 <thead>
                                                   <tr>
