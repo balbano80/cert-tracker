@@ -52,9 +52,18 @@ export default {
     return axios.get("/api/employeecerts")
   },
 
+  getfindById: function(id) {
+    return axios.get("/api/certificates")
+  },
+
   // New route for getting Certificates
   getCertificates: function() {
     return axios.get("/api/certificates")
+  },
+
+  // New route for getting CrewCerts
+  getCrewCerts: function(id) {
+    return axios.get("/api/crewcerts/" + id);
   },
 
   getCertificate: function(id){

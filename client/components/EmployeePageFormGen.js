@@ -90,18 +90,13 @@ class EmployeePageFormGen extends React.Component {
     }
   }
 
-
   handleSaveChanges = () => {
     console.log("Yay, handleSaveChanges ran")
+    API.getCrewCerts(id).then(response => {
+      // setState to array that you map to
+      
+    })
   }
-
-  // this.handleGetSites();
-
-  handleSelectCrew = () => {
-    this.handleGetCrews();
-  }
-
- 
 
   componentDidMount() {
     axios.get("/api/user_data").then(res => {
@@ -129,6 +124,7 @@ class EmployeePageFormGen extends React.Component {
         // console.log("GetCrews this.state.crews: " + this.state.crews)
       });
     }
+
   })
 
 
@@ -182,7 +178,7 @@ class EmployeePageFormGen extends React.Component {
                             {/* {console.log("Sites state: ", this.state.user)} */}
                             {this.state.crewContainer.map(crew => {
                               return(
-                                <SelectOption triggerOptionClick={() => props.optionClickCrews(crew.crew_type)}> 
+                                <SelectOption triggerOptionClick={() => this.optionClickCrews(crew.crew_type)}> 
                                   {crew.crew_type}
                                 </SelectOption>
                                 )}
