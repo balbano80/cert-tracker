@@ -10,9 +10,6 @@ import DashSideNav from '../components/DashSideNav/DashSideNav.css';
 import API from '../../utils/API';
 import axios from "axios";
 
-// Line chart
-// We have to link database to this object?
-
 const data = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
@@ -41,20 +38,19 @@ const data = {
 };
 
 class DashboardPage extends React.Component {
-
   constructor(props) {
     super(props);
-
     this.state = {
       siteArray: [],
       crewArray: [],
       certArray: [],
       reminderArray: [],
+      selectedSites: "",
       activeItem: '1',
       activeItemPills: '1',
       activeItemVerticalPills: '1',
       activeItemOuterTabs: '1',
-      activeItemInnerPills: '0',
+      activeItemInnerPills: "0",
       activeItemClassicTabs1: '1',
       activeItemClassicTabs2: '1',
       modal: false,
@@ -63,12 +59,89 @@ class DashboardPage extends React.Component {
     this.toggle = this.toggle.bind(this);
   }
 
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
+    });
+  }
+  toggle(tab) {
+    if (this.state.activeItem !== tab) {
+      this.setState({
+        activeItem: tab
+      });
+    }
+  }
+  togglePills(tab) {
+    if (this.state.activePills !== tab) {
+      this.setState({
+        activeItemPills: tab
+      });
+    }
+  }
+  toggleVerticalPills(tab) {
+    if (this.state.activeItem3 !== tab) {
+      this.setState({
+        activeItemVerticalPills: tab
+      });
+    }
+  }
+  toggleClassicTabs1(tab) {
+    if (this.state.activeItemClassicTabs1 !== tab) {
+      this.setState({
+        activeItemClassicTabs1: tab
+      });
+    }
+  }
+  toggleClassicTabs2(tab) {
+    if (this.state.activeItemClassicTabs2 !== tab) {
+      this.setState({
+        activeItemClassicTabs2: tab
+      });
+    }
+  }
+  toggleOuterTabs(tab) {
+    if (this.state.activeItemOuterTabs2 !== tab) {
+      this.setState({
+        activeItemOuterTabs: tab
+      });
+    }
+  }
+  toggleInnerPills(siteId) {
+    let siteObj = this.state.siteArray.find(siteObj => siteObj.id.toString() === siteId)
+    if (siteId === "0") {
+      this.setState({
+        activeItemInnerPills: siteId,
+        selectedSites: this.state.user.companyName + " Dashboard"
+      });
+    } else if (this.state.activeItemInnerPills !== siteId) {
+      this.setState({
+        activeItemInnerPills: siteId,
+        selectedSites: "Site: " + siteObj.name
+      });
+    }
+  }
+  testing(id) {
+    var crewCerts = this.state.crewCertsArr
+    for (var i = 0; i < crewCerts.length; i++) {
+      if (crewCerts[i].SiteId === id) {
+        console.log("match: " + crewCerts[i].SideId)
+      }
+    }
+  }
+
   componentDidMount() {
     axios.get("/api/user_data").then(res => {
-      this.setState({
-        user: res.data
-      })
-      // console.log("UserInfo ", this.state.user);
+      if (res.data.email) {
+        this.setState({
+          user: res.data,
+          selectedSites: res.data.companyName + " Dashboard"
+        });
+      } else if (this.state.siteArray.length === 0) {
+        this.setState({
+          user: res.data,
+          selectedSites: "You are not logged in. Please log in to see your company data."
+        });
+      }
 
       API.getSites()
         .then(res => {
@@ -264,69 +337,6 @@ class DashboardPage extends React.Component {
 
   };
 
-  toggle() {
-    this.setState({
-      modal: !this.state.modal
-    });
-  }
-  toggle(tab) {
-    if (this.state.activeItem !== tab) {
-      this.setState({
-        activeItem: tab
-      });
-    }
-  }
-  togglePills(tab) {
-    if (this.state.activePills !== tab) {
-      this.setState({
-        activeItemPills: tab
-      });
-    }
-  }
-  toggleVerticalPills(tab) {
-    if (this.state.activeItem3 !== tab) {
-      this.setState({
-        activeItemVerticalPills: tab
-      });
-    }
-  }
-  toggleClassicTabs1(tab) {
-    if (this.state.activeItemClassicTabs1 !== tab) {
-      this.setState({
-        activeItemClassicTabs1: tab
-      });
-    }
-  }
-  toggleClassicTabs2(tab) {
-    if (this.state.activeItemClassicTabs2 !== tab) {
-      this.setState({
-        activeItemClassicTabs2: tab
-      });
-    }
-  }
-  toggleOuterTabs(tab) {
-    if (this.state.activeItemOuterTabs2 !== tab) {
-      this.setState({
-        activeItemOuterTabs: tab
-      });
-    }
-  }
-  toggleInnerPills(tab) {
-    if (this.state.activeItemInnerPills !== tab) {
-      this.setState({
-        activeItemInnerPills: tab
-      });
-    }
-  }
-  testing(id) {
-    var crewCerts = this.state.crewCertsArr
-    for (var i = 0; i < crewCerts.length; i++) {
-      if (crewCerts[i].SiteId === id) {
-        console.log("match: " + crewCerts[i].SideId)
-      }
-    }
-  }
-
   render() {
     return (
       <div>
@@ -337,12 +347,12 @@ class DashboardPage extends React.Component {
                 <div className="container" style={{ height: "10px" }}>
                   <SideNav fixed breakWidth={1300} className="stylish-color-dark">
                     <SideNavNav>
-                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '0' })} onClick={() => { this.toggleInnerPills('0'); }} name="Main" icon="bar-chart"></SideNavCat>
+                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === "0" })} onClick={() => { this.toggleInnerPills("0"); }} name="Main" icon="bar-chart"></SideNavCat>
                       {this.state.siteArray.length > 0 &&
                         this.state.siteArray.map(
-                          (siteObj) => {
+                          (siteObj, i) => {
                             return (
-                              <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === `${siteObj.id}` })} id="sidenav-site" onClick={() => { this.toggleInnerPills(`${siteObj.id}`); }} name={siteObj.name} companyId={siteObj.CompanyId} icon="building-o"></SideNavCat>
+                              <SideNavCat to="#" key={i} className={classnames({ active: this.state.activeItemInnerPills === `${siteObj.id}` })} id="sidenav-site" onClick={() => { this.toggleInnerPills(`${siteObj.id}`); }} name={siteObj.name} companyid={siteObj.CompanyId} icon="building-o"></SideNavCat>
                             )
                           }
                         )
@@ -355,16 +365,7 @@ class DashboardPage extends React.Component {
               <Col lg="11">
                 <Row>
                   <Col lg="12">
-                    {/* {this.state.siteArray.length > 0 &&
-                        this.state.siteArray.map(
-                          (siteObj) => {
-                            return ( */}
-                    <h2 className="mt-5 text-center">{this.state.user.companyName} Dashboard </h2>
-                    {/* )
-                          }
-                        )
-                      } */}
-                    {/* <h2 className="mt-5 text-center">{this.state.user.companyName} Dashboard </h2> */}
+                    <h2 className="mt-5 text-center">{this.state.selectedSites}</h2>
                     <TabContent className="card" activeItem={this.state.activeItemOuterTabs}>
                       <TabPane tabId="1" role="tabpanel">
                         <Row>
@@ -404,7 +405,7 @@ class DashboardPage extends React.Component {
 
                               })} */}
                               {this.state.siteArray.length > 0 &&
-                                this.state.siteArray.map((siteObj) => {
+                                this.state.siteArray.map((siteObj, i) => {
                                   let id = siteObj.id;
                                   let siteCrews = [];
                                   let crewArr = this.state.crewArray;
@@ -416,7 +417,7 @@ class DashboardPage extends React.Component {
                                   }
 
                                   return (
-                                    <TabPane tabId={siteObj.id.toString()} >
+                                    <TabPane key={i} tabId={siteObj.id.toString()} >
                                       <Row className="pb-3">
                                         <Col md="12">
                                           <Card>
@@ -444,10 +445,10 @@ class DashboardPage extends React.Component {
                                                 </thead>
                                                 <tbody>
                                                   {this.state.crewArray.length > 0 &&
-                                                    this.state.crewArray.map((crewObj) => {
+                                                    this.state.crewArray.map((crewObj, i) => {
                                                       if (crewObj.SiteId === siteObj.id) {
                                                         return (
-                                                          <tr>
+                                                          <tr key={i}>
                                                             <td>{crewObj.crew_type}</td>
                                                             <td>{crewObj.SiteId}</td>
                                                           </tr>
