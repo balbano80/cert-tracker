@@ -170,7 +170,8 @@ class DashboardPage extends React.Component {
 
     axios.get("/api/user_data").then(res => {
       this.setState({
-        user: res.data
+        user: res.data,
+        selectedSites: res.data.companyName + " Dashboard"
       })
       // console.log("UserInfo ", this.state.user);
      
@@ -273,11 +274,12 @@ class DashboardPage extends React.Component {
       crewArray: [],
       certArray: [],
       reminderArray:[],
+      selectedSites: "",
       activeItem: '1',
       activeItemPills: '1',
       activeItemVerticalPills: '1',
       activeItemOuterTabs: '1',
-      activeItemInnerPills: '0',
+      activeItemInnerPills: "0",
       activeItemClassicTabs1: '1',
       activeItemClassicTabs2: '1',
       modal: false,
@@ -333,12 +335,22 @@ class DashboardPage extends React.Component {
       });
     }
   }
-  toggleInnerPills(tab) {
-    if (this.state.activeItemInnerPills !== tab) {
+  toggleInnerPills(siteId) {
+    // console.log("============",siteId)
+    // console.log(":::::::::", typeof siteId)
+    let siteObj = this.state.siteArray.find(siteObj => siteObj.id.toString() === siteId)
+    console.log("+++++++++", siteObj)
+    if (siteId === "0"){
       this.setState({
-        activeItemInnerPills: tab
+        activeItemInnerPills: siteId,
+        selectedSites: this.state.user.companyName + " Dashboard"
       });
-    }
+    } else if (this.state.activeItemInnerPills !== siteId) {
+      this.setState({
+        activeItemInnerPills: siteId,
+        selectedSites: "Site: " + siteObj.name
+      });
+    } 
   }
   testing(id) {
     var crewCerts = this.state.crewCertsArr
@@ -359,7 +371,7 @@ class DashboardPage extends React.Component {
                 <div className="container" style={{ height: "10px" }}>
                   <SideNav fixed breakWidth={1300} className="stylish-color-dark">
                     <SideNavNav>
-                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '0' })} onClick={() => { this.toggleInnerPills('0'); }} name="Main" icon="bar-chart"></SideNavCat>
+                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === "0" })} onClick={() => { this.toggleInnerPills("0"); }} name="Main" icon="bar-chart"></SideNavCat>
                       {this.state.siteArray.length > 0 &&
                         this.state.siteArray.map(
                           (siteObj) => {
@@ -377,16 +389,7 @@ class DashboardPage extends React.Component {
               <Col lg="11">
                 <Row>
                   <Col lg="12">
-                  {/* {this.state.siteArray.length > 0 &&
-                        this.state.siteArray.map(
-                          (siteObj) => {
-                            return ( */}
-                              <h2 className="mt-5 text-center">{this.state.user.companyName} Dashboard </h2>
-                            {/* )
-                          }
-                        )
-                      } */}
-                    {/* <h2 className="mt-5 text-center">{this.state.user.companyName} Dashboard </h2> */}
+                     <h2 className="mt-5 text-center">{this.state.selectedSites}</h2> 
                     <TabContent className="card" activeItem={this.state.activeItemOuterTabs}>
                       <TabPane tabId="1" role="tabpanel">
                         <Row>
@@ -438,6 +441,7 @@ class DashboardPage extends React.Component {
                                   }
 
                                   return (
+
                                     <TabPane tabId={siteObj.id.toString()} >
                                       <Row className="pb-3">
                                         <Col md="12">
