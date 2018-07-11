@@ -40,10 +40,13 @@ module.exports = {
   // },
   findById: function(req, res) {
     // console.log("in cert controller file checking for crew with id: ", req.params.id)
-    db.CrewCert.findAll({
+    db.Crew.findAll({
       where: {
-        CrewId: req.params.id
-      }
+        id: req.params.id
+      },
+        include: [{
+          model: db.Certificate 
+      }]
     })
       .then(function(crewCerts) {
         // console.log("Return from crewCerts database", crewCerts)
