@@ -74,7 +74,7 @@ class DashbEditSiteModal extends React.Component {
     var crewCertIdArr = this.state.crewCerts.filter(ele => ele.CrewId === id)
     console.log("crewCert ID Array is: ", crewCertIdArr)
     this.setState({ crewCertIds: crewCertIdArr })
-    
+
     let CrewCertIds = this.state.crewCertIds;
     let AllCerts = this.state.allCerts;
     let tempMatchedCerts = [];
@@ -185,9 +185,9 @@ class DashbEditSiteModal extends React.Component {
                     <SelectOption disabled>Select Crew</SelectOption>
                     {this.props.crews.map(crew => {
                       return (
-                      <SelectOption triggerOptionClick={() => this.optionClick(crew.id, crew.crew_type)}> 
-                        {crew.crew_type}
-                      </SelectOption>
+                        <SelectOption triggerOptionClick={() => this.optionClick(crew.id, crew.crew_type)}>
+                          {crew.crew_type}
+                        </SelectOption>
                       )
                     })}
                   </SelectOptions>
@@ -207,17 +207,23 @@ class DashbEditSiteModal extends React.Component {
                   </CardHeader>
                   <PerfectScrollbar className="scrollbar-primary">
                     <CardBody>
-                      <Table striped bordered small>
-                        <tbody>
-                          {this.state.crewEmployees.map(crewEmployee => (
+                      {this.state.crewEmployees.length > 0 &&
+                        this.state.crewEmployees.map(crewEmployee => (
+                        <Table striped bordered small>
+                          <tbody>
                             <TableData
                               key={crewEmployee.id}
                               name={crewEmployee.first_name}
                               last_name={crewEmployee.last_name}
                             />
-                          ))}
-                        </tbody>
-                      </Table>
+                          </tbody>
+                        </Table>
+                      ))}
+                      {this.state.crewEmployees.length < 1 &&
+                        <div className="text-center">
+                            <h5>No Crew Members In This Crew</h5>
+                        </div>
+                      }
                     </CardBody>
                   </PerfectScrollbar>
                 </Card>
@@ -237,16 +243,25 @@ class DashbEditSiteModal extends React.Component {
                   </CardHeader>
                   <PerfectScrollbar className="scrollbar-primary">
                     <CardBody>
-                      <Table striped bordered small>
-                        <tbody>
-                          {this.state.matchedCerts.map(cert => (
-                            <TableData
-                              key={cert.id}
-                              name={cert.name}
-                            />
-                          ))}
-                        </tbody>
-                      </Table>
+                          {this.state.matchedCerts.length > 0 &&
+                            this.state.matchedCerts.map((matchedCert) => {
+                              return (
+                                <Table striped bordered small>
+                                <tbody>
+                                <TableData
+                                  key={matchedCert.id}
+                                  name={matchedCert.name}
+                                />
+                                </tbody>
+                                </Table>
+                              )
+                            }
+                            )}
+                          {this.state.matchedCerts.length === 0 &&
+                            <div className="text-center">
+                                <h5>No Certificates Available For This Crew</h5>
+                            </div>
+                          }
                     </CardBody>
                   </PerfectScrollbar>
                 </Card>
