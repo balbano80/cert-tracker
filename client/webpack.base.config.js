@@ -69,6 +69,12 @@ module.exports = function (env) {
       ]
     },
     resolve: {
+      modules: [
+        path.join(__dirname, "src"),
+        "node_modules"
+      ]
+     },
+    resolve: {
       alias: {
         mdbreact: 'src/index'
       },
