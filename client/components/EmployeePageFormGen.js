@@ -50,7 +50,7 @@ class EmployeePageFormGen extends React.Component {
     // Select Sites to Add Values
     optionClickSites = (id, value) => {
       var siteIdArr = this.state.crews.filter(ele => ele.SiteId === id)
-      console.log("Site ID Array is: ",siteIdArr)
+      console.log("Site ID Array is: ", siteIdArr)
 
       // console.log("optionClickSites: " + value)
       this.setState({ sitesValue: value, crewContainer: siteIdArr, siteValue: value });

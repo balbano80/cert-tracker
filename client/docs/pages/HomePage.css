@@ -1,3 +1,7 @@
 body {
 	background:#ededed;
 }
+
+.img-holder {
+	opacity: 0.9;
+}
