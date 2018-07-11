@@ -38,15 +38,13 @@ export default {
   getCert: function (id) {
     return axios.get("/api/certification/" + id);
   },
-
+  
   getSites: function(){
     return axios.get("/api/site");
   },
-
-  createSite: function(newSite){
-    return axios.post("/api/addSite", newSite)
+  getReminder: function() {
+    return axios.get("/api/reminders");
   },
-
   // saveCert: function(certData) {
   //   console.log("Certification data: ", certData);
   //   return axios.post("/api/certification", certData);
@@ -83,6 +81,9 @@ export default {
     // console.log("Created Certification data: ", certData);
     return axios.post("/api/certificates", certData);
   },
+  updateCertificates: function(id){
+    return axios.put("/api/certificates/" + id)
+  },
   // New route for getting Certificates
   deleteCert: function(id) {
     // console.log("deleting cert with id: " + id)
@@ -93,11 +94,12 @@ export default {
     //   console.log(res.data);
     // })
   },
+
   // Creates an reminder in the Reminders table
-  createReminder: function(reminderData) {
-    // console.log("Created a new reminder with : ", reminderData);
-    return axios.post("/api/reminder", reminderData);
-  },
+  // createReminder: function(reminderData) {
+  //   // console.log("Created a new reminder with : ", reminderData);
+  //   return axios.post("/api/reminder", reminderData);
+  // },
     // Make route for getting data from the EmployeeCerts table
   getCrews: function() {
     // console.log("getting all crew data")

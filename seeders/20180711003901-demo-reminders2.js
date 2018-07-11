@@ -40,8 +40,7 @@ module.exports = {
         date_expiration: 20190303,
         createdAt: new Date(),
         updatedAt: new Date(),
-        CertificateId: 5,
-        employee_id: 1
+        CertificateId: 5
       },
       {
         employee_id: 2,
