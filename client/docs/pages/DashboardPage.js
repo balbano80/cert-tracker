@@ -119,12 +119,24 @@ class DashboardPage extends React.Component {
         responsive: true
       }
     });
+    API.getReminder()
+    .then(results => {
+      const reminderArr =[];
+      console.log("reminders data ::::::", results.data)
+      for (let i = 0; i < results.data.length; i++) {
+        reminderArr.push(results.data[i]);
+      }
+      this.setState({reminderArray: reminderArr})
+      console.log("reminders :::::::", this.state.reminderArray)
+    });
+
     axios.get("/api/user_data").then(res => {
       this.setState({
         user: res.data
       })
       // console.log("UserInfo ", this.state.user);
-
+     
+ 
       API.getSites()
         .then(res => {
           const sitesArr = []
@@ -185,7 +197,16 @@ class DashboardPage extends React.Component {
                       this.setState({crewCertsArr: crewCerts});
                       console.log("State info", this.state);
                       
-
+                      // API.getReminder()
+                      // .then(res => {
+                      //   const reminderArr =[];
+                      //   console.log("reminders data ::::::", res.data)
+                      //   for (let i = 0; i < res.data.length; i++) {
+                      //     reminderArr.push(res.data[i]);
+                      //   }
+                      //   this.setState({reminderArray: reminderArr})
+                      //   console.log("reminders :::::::", this.state.reminderArray)
+                      // });
                       // var crewCertifs = this.state.crewCertsArr
                       // console.log("test:", this.state.crewCertsArr[0][0].Certificates[0].CrewCert.CertificateId)
                       // console.log("test:" + this.state.crewCerts[0].Certificates)
@@ -214,6 +235,7 @@ class DashboardPage extends React.Component {
       siteArray: [],
       crewArray: [],
       certArray: [],
+      reminderArray:[],
       activeItem: '1',
       activeItemPills: '1',
       activeItemVerticalPills: '1',
