@@ -73,7 +73,11 @@ module.exports = function (env) {
       alias: {
         mdbreact: 'src/index'
       },
-      extensions: ['.js', '.json']
+      extensions: ['.js', '.json'],
+      modules: [
+        path.join(__dirname, "src"),
+        "node_modules"
+      ]
     },
     plugins: plugins
   };
