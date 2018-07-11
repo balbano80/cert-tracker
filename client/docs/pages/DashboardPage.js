@@ -172,18 +172,20 @@ class DashboardPage extends React.Component {
                         }
                       }
                       this.setState({ employeeCerts: employeeCrts })
-                      const crewCerts = [];
+                      var crewCerts = [];
                       for (let l = 0; l < this.state.crewArray.length; l++) {
                         // console.log("sending api call for crew with id: ", this .state.crewArray[l].id)
                         API.getCertificate(this.state.crewArray[l].id)
                           .then(cert => {
-                            console.log(cert.data)
-                            crewCerts.push(cert.data);
+                            // console.log(cert.data)
+                            crewCerts.push(cert);
                           })
                       }
 
                       this.setState({crewCertsArr: crewCerts});
                       console.log("State info", this.state);
+                      console.log(this.state.crewCertsArr);
+
                     });
                 });
             });
@@ -295,7 +297,7 @@ class DashboardPage extends React.Component {
               <Col lg="11">
                 <Row>
                   <Col lg="12">
-                    <h2 className="mt-5 text-center">Dashboard</h2>
+                    <h2 className="mt-5 text-center"> Dashboard </h2>
                     <TabContent className="card" activeItem={this.state.activeItemOuterTabs}>
                       <TabPane tabId="1" role="tabpanel">
                         <Row>
@@ -330,6 +332,10 @@ class DashboardPage extends React.Component {
                                 </Row>
                               </TabPane>
 
+                             {/* {this.state.crewCertsArr.map((crewInfo) => {
+                                console.log("crewInfo", crewInfo);
+
+                              })} */}
                               {this.state.siteArray.length > 0 &&
                                 this.state.siteArray.map((siteObj) => {
                                   let id = siteObj.id;

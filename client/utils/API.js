@@ -43,6 +43,10 @@ export default {
     return axios.get("/api/site");
   },
 
+  createSite: function(newSite){
+    return axios.post("/api/addSite", newSite)
+  },
+
   // saveCert: function(certData) {
   //   console.log("Certification data: ", certData);
   //   return axios.post("/api/certification", certData);
