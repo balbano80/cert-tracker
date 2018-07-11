@@ -43,17 +43,24 @@ class FormEmployeePage extends React.Component {
 
   handleCertIds = (certIds) => {
     this.setState({certIds:certIds}, function(){
-      // console.log("certId state set to: ", this.state.certIds)
+      console.log("certId state set to: ", this.state.certIds)
     })
     // Loop though certIds
+  
+
+
     for(let i = 0; i < certIds.length; i++) {
       API.getCertificate(certIds[i].CertificateId).then(res => {
         // console.log("CertIds Objects is: ", res.data)
         this.state.crewsCerts.push(res.data)
         })
       }
-      console.log("this.state.crewsCerts: ", this.state.crewsCerts)
+    //   console.log("this.state.crewsCerts: ", this.state.crewsCerts)
+      // for(let l = 0; l < this.state.certCrews.length; l++) {
+      //   console.log("Crew names here please : ", this.state.certCrews[l].crew_type)
+      // }
     };
+    
   
 
   // Handles updating component state when the user types into the input field
@@ -135,11 +142,11 @@ class FormEmployeePage extends React.Component {
                   </Row>
                   {this.state.crewsCerts.length > 0 &&
                     this.state.crewsCerts.map((certObj) => {
-                      console.log("certObj.crew_type: ", certObj)
+                      {/* console.log("certObj.name: ", certObj.name) */}
                       return (
                         <Row key={certObj.id}>
                           <Col>
-                            <p className="grey-text">{certObj.crew_type}</p>
+                            <p className="grey-text">{certObj}</p>
                           </Col>
                           <Col>
                             <DatePickerMod />
