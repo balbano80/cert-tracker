@@ -69,6 +69,10 @@ export default {
   getCrewCerts: function(id) {
     return axios.get("/api/crewcerts/" + id);
   },
+  getAllCrewCerts: function() {
+    return axios.get("/api/crewcerts");
+  },
+
 
   getCertificate: function(id){
     // console.log("getting certificate for crew with id: ", id)

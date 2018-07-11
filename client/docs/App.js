@@ -67,26 +67,8 @@ class App extends Component {
                 <NavItem>
                   <NavLink onClick={this.handleNavbarClick} to="/aboutus">About Us</NavLink>
                 </NavItem>
-                {/* PRO */}
                 <NavItem>
-                  <Dropdown isOpen={this.state.dropdownOpen} toggle={()=>"baba"} onMouseEnter={this.toggle} onMouseLeave={this.toggle}>
-                    <DropdownToggle nav caret> <div className="d-none d-md-inline">Extras</div></DropdownToggle>
-                    <DropdownMenu right>
-                      <DropdownItem href="/#">CSS</DropdownItem>
-                      <DropdownItem href="/#">Components</DropdownItem>
-                      <DropdownItem href="/#">Advanced</DropdownItem>
-                      <DropdownItem href="/#">Sections</DropdownItem>
-                    </DropdownMenu>
-                  </Dropdown>
-                </NavItem>
-                <NavItem>
-                    <NavLink to="#!"><Fa icon="user" className="d-inline-inline"/>  <div className="d-none d-md-inline">Account</div></NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink to="#!"><Fa icon="envelope" className="d-inline-inline"/>  <div className="d-none d-md-inline">Contact</div></NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink to="#!"><Fa icon="comments-o" className="d-inline-inline"/> <div className="d-none d-md-inline">Support</div></NavLink>
+                    <NavLink to="#!"><Fa icon="user" className="d-inline-inline"/>  <div className="d-none d-md-inline">My Account</div></NavLink>
                 </NavItem>
                 
               </NavbarNav>

@@ -177,21 +177,33 @@ class DashboardPage extends React.Component {
                         // console.log("sending api call for crew with id: ", this .state.crewArray[l].id)
                         API.getCertificate(this.state.crewArray[l].id)
                           .then(cert => {
-                            // console.log(cert.data)
-                            crewCerts.push(cert);
+                            crewCerts.push(cert.data);
                           })
                       }
 
                       this.setState({crewCertsArr: crewCerts});
                       console.log("State info", this.state);
-                      console.log(this.state.crewCertsArr);
+                      
+
+                      // var crewCertifs = this.state.crewCertsArr
+                      // console.log("test:", this.state.crewCertsArr[0][0].Certificates[0].CrewCert.CertificateId)
+                      // console.log("test:" + this.state.crewCerts[0].Certificates)
+                      // console.log(typeof this.state.crewCertsArr)
+                      // for (var i = 0; i < crewCertifs.length; i++) {
+                      //   if (crewCerts[i][0].SiteId === 1) {
+                      //     console.log("match: " + crewCertifs[i][0].SiteId)
+                      //   }
+                      // }
 
                     });
                 });
             });
         });
     });
+
   };
+
+
 
   constructor(props) {
     super(props);
@@ -266,6 +278,14 @@ class DashboardPage extends React.Component {
       this.setState({
         activeItemInnerPills: tab
       });
+    }
+  }
+  testing(id) {
+    var crewCerts = this.state.crewCertsArr
+    for (var i = 0; i < crewCerts.length; i++) {
+      if (crewCerts[i].SiteId === id) {
+        console.log("match: " + crewCerts[i].SideId)
+      }
     }
   }
 
@@ -359,12 +379,15 @@ class DashboardPage extends React.Component {
                                                   <h4 className="h4-responsive">{siteObj.name}</h4>
                                                 </Col>
                                                 <Col>
-                                                  <DashbEditSiteModal
-                                                    site={siteObj}
-                                                    crews={siteCrews}
-                                                  />
+                                                  <div className="float-right">
+                                                    <DashbEditSiteModal
+                                                      site={siteObj}
+                                                      crews={siteCrews}
+                                                    />
+                                                  </div>
                                                 </Col>
                                               </Row>
+                                              <br />
                                               <Table striped bordered small>
                                                 <thead>
                                                   <tr>
