@@ -9,6 +9,9 @@ Delete your database, re create it, run yarn start
 
 http://docs.sequelizejs.com/manual/tutorial/migrations.html
 
+# Create seeder file
+node_modules/.bin/sequelize seed:generate --name demo-user
+
 # Load Database data
 node_modules/.bin/sequelize db:seed:all
 
