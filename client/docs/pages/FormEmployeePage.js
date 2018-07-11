@@ -27,21 +27,19 @@ class FormEmployeePage extends React.Component {
           console.log("This user's Sites are: ", this.state.siteArray[i].name);
         }
       })
-
-
-      API.getCrews()
-      .then( result => {
-        const crewArr = [];
-        for (let i = 0; i < this.state.siteArray.length; i++){
-          for (let j = 0; j< result.data.length; j++){
-            if (this.state.siteArray[i].id === result.data[j].SiteId){
-              crewArr.push(result.data[j])
-            }
+      API.getCrews().then(res => {
+        const newCrewArr = []
+        for (let i = 0; i < res.data.length; i++) {
+          if (this.state.crews.SiteId === res.data[i].SiteId) {
+            newCrewArr.push(res.data[i]);
           }
         }
-        this.setState({crewArray: crewArr})
-        // console.log("CrewsArr", this.state.crewsArr);
-      });
+        this.setState({newCrewArray: newCrewArr});
+        for(var i = 0; i < this.state.newCrewArray.length; i ++) {
+          console.log("This sites's crews are: ", res.data[i].crew_type);
+        }
+      })
+
 
             
         

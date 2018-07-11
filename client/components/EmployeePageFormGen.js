@@ -25,6 +25,7 @@ class EmployeePageFormGen extends React.Component {
     super(props);
     this.state = {
       modal: false,
+      sites: [],
       crews: [],
       certs: [],
       employees: [],
@@ -186,6 +187,7 @@ class EmployeePageFormGen extends React.Component {
 
   componentDidMount() {
     document.addEventListener('click', this.onClick);
+    this.handleGetSites();
     this.handleGetCrews();
 
   }
@@ -213,11 +215,11 @@ class EmployeePageFormGen extends React.Component {
                     <SelectInput value={this.state.value}></SelectInput>
                         <SelectOptions>
                             <SelectOption disabled>Select Site</SelectOption>
-                            {this.state.crews.map(crew => (
+                            {this.state.sites.map(site => (
                             <DropdownOption
-                                key={crew.id}
-                                id={crew.id}
-                                crew_type={crew.crew_type}
+                                key={site.id}
+                                id={site.id}
+                                name={site.name}
                                 optionClick={this.optionClick}
                             />
                             ))}
@@ -260,15 +262,4 @@ class EmployeePageFormGen extends React.Component {
 }
 
 export default EmployeePageFormGen;
-
-
-// {this.state.employees.map(employee => (
-//   <Dropdown
-//       id={employee.id}
-//       key={employee.id}
-//       name={employee.name}
-//       removeEmployee={this.removeEmployee}
-//       editEmployee={this.editEmployee}
-//   />
-// ))}
 
