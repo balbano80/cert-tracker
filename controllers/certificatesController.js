@@ -45,7 +45,7 @@ module.exports = {
         id: req.params.id
       },
         include: [{
-          model: db.Certificate 
+          model: db.Certificate
       }]
     })
       .then(function(crewCerts) {
