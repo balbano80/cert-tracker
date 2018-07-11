@@ -3,7 +3,7 @@
 // React
 import React, { Component } from "react";
 import API from '../utils/API';
-import axios from "axios";
+import axios from "axios"
 
 // MD React-Bootstrap
 import { Container, Row, Col, Button, Card, CardBody, Modal, ModalBody, ModalHeader, ModalFooter, Select, SelectInput, SelectOptions, SelectOption, CardHeader, Table, PerfectScrollbar } from 'mdbreact';
@@ -21,9 +21,6 @@ import { updateLocale } from "../../node_modules/moment";
 const modStyle = {
   margin: 0
 }
-
-
-
 
 class DashbEditSiteModal extends React.Component {
 

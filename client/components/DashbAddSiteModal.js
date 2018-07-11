@@ -1,13 +1,15 @@
 import React from 'react';
 import { Container, Row, Col, Input, Button, Fa, Card, CardBody, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
-
+import axios from "axios";
+import API from "../utils/API";
 
 
 class DashbAddSiteModal extends React.Component  {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
+      modal: false,
+      site: ""
     }
     this.toggle = this.toggle.bind(this);
   }
@@ -15,6 +17,12 @@ class DashbAddSiteModal extends React.Component  {
   toggle() {
     this.setState({
       modal: !this.state.modal
+    });
+    axios.get("/api/user_data").then(res => {
+      this.setState({
+        user: res.data
+      })
+      // console.log("UserInfo ", this.state.user);
     });
   }
 
@@ -36,12 +44,13 @@ class DashbAddSiteModal extends React.Component  {
                         <label className="blue-grey-text" htmlFor="defaultFormCardNameEx">Site Name:</label>
                       </Col>
                       <Col size="8" className="lg-8">
-                        <input type="text" id="defaultFormCardNameEx" className="form-control" />
+                        <input type="text" id="defaultFormCardNameEx" className="form-control"
+                        value={this.state.site} name="site" onChange={this.handleInputChange} />
                       </Col>
                   </Row>
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="stylish" className="stylish-color-dark">Submit</Button>
+                  <Button color="stylish" className="stylish-color-dark" onClick={this.handleFormSubmit}>Submit</Button>
                 </ModalFooter>
               </form>
             </Modal>

@@ -7,10 +7,11 @@ router.route("/")
   .post(certificatesController.create)
 
 // Matches with "/api/getCertificates/:id"
-router.route("/:id")
+router
+  .route("/:id")
+  .put(certificatesController.update)
   .get(certificatesController.findById)
 //   .get(certificatesController.findExpiryDates)
-//   .put(certificatesController.update
 //   .delete(certificatesController.remove);
 
 module.exports = router;

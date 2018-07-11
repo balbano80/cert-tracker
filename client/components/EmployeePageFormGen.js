@@ -33,7 +33,9 @@ class EmployeePageFormGen extends React.Component {
       crewsValue: '',
       sitesValue: '',
       siteContainer: [],
-      crewContainer: []
+      crewContainer: [],
+      siteValue: '',
+      crewValue: ''
     }
 
   }
@@ -51,7 +53,7 @@ class EmployeePageFormGen extends React.Component {
       console.log("Site ID Array is: ", siteIdArr)
 
       // console.log("optionClickSites: " + value)
-      this.setState({ sitesValue: value, crewContainer: siteIdArr });
+      this.setState({ sitesValue: value, crewContainer: siteIdArr, siteValue: value });
       // console.log("This State", this.state)
       // console.log("This Sites IDs is: ", id)
     }
@@ -60,7 +62,7 @@ class EmployeePageFormGen extends React.Component {
     optionClickCrews = (value) => {
 
       console.log("optionClickCrews: " + value)
-      this.setState({ crewsValue: value });
+      this.setState({ crewsValue: value, crewValue: value });
       // this.handleSelectCrew();
   
     }
@@ -152,7 +154,7 @@ class EmployeePageFormGen extends React.Component {
                 {/* Select Crew Dropdown */}
                 <h5>Select the Site</h5>
                 <Select>
-                    <SelectInput value={this.state.value}></SelectInput>
+                    <SelectInput value={this.state.siteValue}></SelectInput>
                         <SelectOptions>
                             <SelectOption disabled>Select Site</SelectOption>
                             {/* {console.log("Sites state: ", this.state.user)} */}
@@ -172,7 +174,7 @@ class EmployeePageFormGen extends React.Component {
                 {/* Select Crew Dropdown */}
                 <h5>Select the Crew</h5>
                 <Select>
-                    <SelectInput value={this.state.value}></SelectInput>
+                    <SelectInput value={this.state.crewValue}></SelectInput>
                         <SelectOptions>
                             <SelectOption disabled>Select a Crew</SelectOption>
                             {/* {console.log("Sites state: ", this.state.user)} */}

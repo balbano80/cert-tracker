@@ -44,44 +44,44 @@ class DashboardPage extends React.Component {
 
   componentDidMount() {
     // Bar chart
-    var ctxB = document.getElementById("barChart").getContext('2d');
-    new Chart(ctxB, {
-      type: 'bar',
-      data: {
-        labels: ["30 days", "60 days", "90 days"],
-        datasets: [{
-          label: ["certification expiry dates"],
-          // Change data to reflect database
-          data: [12, 19, 10, 5, 2, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255,99,132,1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      optionss: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-    });
+    // var ctxB = document.getElementById("barChart").getContext('2d');
+    // new Chart(ctxB, {
+    //   type: 'bar',
+    //   data: {
+    //     labels: ["30 days", "60 days", "90 days"],
+    //     datasets: [{
+    //       label: ["certification expiry dates"],
+    //       // Change data to reflect database
+    //       data: [12, 19, this.state.reminderArray.length, 5, 2, 3],
+    //       backgroundColor: [
+    //         'rgba(255, 99, 132, 0.2)',
+    //         'rgba(54, 162, 235, 0.2)',
+    //         'rgba(75, 192, 192, 0.2)',
+    //         'rgba(75, 192, 192, 0.2)',
+    //         'rgba(153, 102, 255, 0.2)',
+    //         'rgba(255, 159, 64, 0.2)'
+    //       ],
+    //       borderColor: [
+    //         'rgba(255,99,132,1)',
+    //         'rgba(54, 162, 235, 1)',
+    //         'rgba(75, 192, 192, 1)',
+    //         'rgba(75, 192, 192, 1)',
+    //         'rgba(153, 102, 255, 1)',
+    //         'rgba(255, 159, 64, 1)'
+    //       ],
+    //       borderWidth: 1
+    //     }]
+    //   },
+    //   optionss: {
+    //     scales: {
+    //       yAxes: [{
+    //         ticks: {
+    //           beginAtZero: true
+    //         }
+    //       }]
+    //     }
+    //   }
+    // });
     // Pie chart
     var ctxP = document.getElementById("pieChart").getContext('2d');
     new Chart(ctxP, {
@@ -119,12 +119,63 @@ class DashboardPage extends React.Component {
         responsive: true
       }
     });
+    API.getReminder()
+    .then(results => {
+      const reminderArr =[];
+      console.log("reminders data ::::::", results.data)
+      for (let i = 0; i < results.data.length; i++) {
+        reminderArr.push(results.data[i]);
+      }
+      this.setState({reminderArray: reminderArr})
+      console.log("reminders :::::::", this.state.reminderArray)
+      var ctxB = document.getElementById("barChart").getContext('2d');
+      new Chart(ctxB, {
+        type: 'bar',
+        data: {
+          labels: ["30 days", "60 days", "90 days"],
+          datasets: [{
+            label: ["certification expiry dates"],
+            // Change data to reflect database
+            data: [12, 19, this.state.reminderArray.length, 5, 2, 3],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        optionss: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+    });
+
     axios.get("/api/user_data").then(res => {
       this.setState({
-        user: res.data
+        user: res.data,
+        selectedSites: res.data.companyName + " Dashboard"
       })
       // console.log("UserInfo ", this.state.user);
-
+     
+ 
       API.getSites()
         .then(res => {
           const sitesArr = []
@@ -172,7 +223,7 @@ class DashboardPage extends React.Component {
                         }
                       }
                       this.setState({ employeeCerts: employeeCrts })
-                      const crewCerts = [];
+                      var crewCerts = [];
                       for (let l = 0; l < this.state.crewArray.length; l++) {
                         // console.log("sending api call for crew with id: ", this .state.crewArray[l].id)
                         API.getCertificate(this.state.crewArray[l].id)
@@ -184,7 +235,16 @@ class DashboardPage extends React.Component {
                       this.setState({crewCertsArr: crewCerts});
                       console.log("State info", this.state);
                       
-
+                      // API.getReminder()
+                      // .then(res => {
+                      //   const reminderArr =[];
+                      //   console.log("reminders data ::::::", res.data)
+                      //   for (let i = 0; i < res.data.length; i++) {
+                      //     reminderArr.push(res.data[i]);
+                      //   }
+                      //   this.setState({reminderArray: reminderArr})
+                      //   console.log("reminders :::::::", this.state.reminderArray)
+                      // });
                       // var crewCertifs = this.state.crewCertsArr
                       // console.log("test:", this.state.crewCertsArr[0][0].Certificates[0].CrewCert.CertificateId)
                       // console.log("test:" + this.state.crewCerts[0].Certificates)
@@ -213,11 +273,13 @@ class DashboardPage extends React.Component {
       siteArray: [],
       crewArray: [],
       certArray: [],
+      reminderArray:[],
+      selectedSites: "",
       activeItem: '1',
       activeItemPills: '1',
       activeItemVerticalPills: '1',
       activeItemOuterTabs: '1',
-      activeItemInnerPills: '0',
+      activeItemInnerPills: "0",
       activeItemClassicTabs1: '1',
       activeItemClassicTabs2: '1',
       modal: false,
@@ -273,12 +335,20 @@ class DashboardPage extends React.Component {
       });
     }
   }
-  toggleInnerPills(tab) {
-    if (this.state.activeItemInnerPills !== tab) {
+  toggleInnerPills(siteId) {
+    let siteObj = this.state.siteArray.find(siteObj => siteObj.id.toString() === siteId)
+    console.log("+++++++++", siteObj)
+    if (siteId === "0"){
       this.setState({
-        activeItemInnerPills: tab
+        activeItemInnerPills: siteId,
+        selectedSites: this.state.user.companyName + " Dashboard"
       });
-    }
+    } else if (this.state.activeItemInnerPills !== siteId) {
+      this.setState({
+        activeItemInnerPills: siteId,
+        selectedSites: "Site: " + siteObj.name
+      });
+    } 
   }
   testing(id) {
     var crewCerts = this.state.crewCertsArr
@@ -299,7 +369,7 @@ class DashboardPage extends React.Component {
                 <div className="container" style={{ height: "10px" }}>
                   <SideNav fixed breakWidth={1300} className="stylish-color-dark">
                     <SideNavNav>
-                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === '0' })} onClick={() => { this.toggleInnerPills('0'); }} name="Main" icon="bar-chart"></SideNavCat>
+                      <SideNavCat to="#" className={classnames({ active: this.state.activeItemInnerPills === "0" })} onClick={() => { this.toggleInnerPills("0"); }} name="Main" icon="bar-chart"></SideNavCat>
                       {this.state.siteArray.length > 0 &&
                         this.state.siteArray.map(
                           (siteObj, i) => {
@@ -317,7 +387,7 @@ class DashboardPage extends React.Component {
               <Col lg="11">
                 <Row>
                   <Col lg="12">
-                    <h2 className="mt-5 text-center">Dashboard</h2>
+                     <h2 className="mt-5 text-center">{this.state.selectedSites}</h2> 
                     <TabContent className="card" activeItem={this.state.activeItemOuterTabs}>
                       <TabPane tabId="1" role="tabpanel">
                         <Row>
@@ -352,6 +422,10 @@ class DashboardPage extends React.Component {
                                 </Row>
                               </TabPane>
 
+                             {/* {this.state.crewCertsArr.map((crewInfo) => {
+                                console.log("crewInfo", crewInfo);
+
+                              })} */}
                               {this.state.siteArray.length > 0 &&
                                 this.state.siteArray.map((siteObj, i) => {
                                   let id = siteObj.id;
@@ -388,7 +462,7 @@ class DashboardPage extends React.Component {
                                                 <thead>
                                                   <tr>
                                                     <th>Crew Names</th>
-                                                    <th>Number of members</th>
+                                                    <th>Site Id</th>
                                                   </tr>
                                                 </thead>
                                                 <tbody>
