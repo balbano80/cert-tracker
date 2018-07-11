@@ -17,6 +17,7 @@ router.use("/crews", siteCrews);
 router.use("/site", siteRoutes);
 router.use("/employeecerts", employeeCertRoutes);
 router.use("/certificates", certificatesRoutes);
+router.use("/certification", companyRoutes);
 router.use("/crewcerts", crewcertsRoutes);      
 router.use("/user", userRoutes);
 // router.use("/login", loginRoutes);
