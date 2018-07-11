@@ -3,14 +3,13 @@
 // React
 import React, { Component } from "react";
 import API from '../utils/API';
+import axios from "axios";
 
 // MD React-Bootstrap
 import { Container, Row, Col, Button, Card, CardBody, Modal, ModalBody, ModalHeader, ModalFooter, Select, SelectInput, SelectOptions, SelectOption, CardHeader, Table, PerfectScrollbar } from 'mdbreact';
 
 // Components
-import DropdownOption from "./DropdownOption";
 import TableData from "./TableData";
-import MultipleSelectOption from "./MultipleSelectOption";
 
 // Modal CSS
 import "./styles/DashEditSiteModal.css";
@@ -32,14 +31,16 @@ class DashbEditSiteModal extends React.Component {
     super(props);
     this.state = {
       modal: false,
-      // crews: [],
+      crewId: '',
       allCerts: [],
       crewCerts: [],
       crewCertIds: [],
       matchedCerts: [],
       employees: [],
       crewEmployees: [],
-      value: ''
+      value: '',
+      addvalues: '',
+      addCertId: ''
     }
 
   }
@@ -54,7 +55,6 @@ class DashbEditSiteModal extends React.Component {
       this.setState({
         user: res.data
       })
-      console.log("UserInfo ", this.state.user);
     });
 
   }
@@ -62,22 +62,19 @@ class DashbEditSiteModal extends React.Component {
   /* SELECT CREW DROPDOWN */
 
   optionClick = (id, value) => {
-    console.log("id: " + id)
-    console.log("value: " + value)
 
     // Displaying Employees In Selected Crew
     var crewIdArr = this.state.employees.filter(ele => ele.CrewId === id)
-    // console.log("Crew ID Array is: ", crewIdArr)
-    this.setState({ value: value, crewEmployees: crewIdArr });
+    this.setState({ value: value, crewEmployees: crewIdArr, crewId: id });
 
     // Grabbing CrewCerts That Belong to Selected Crew
     var crewCertIdArr = this.state.crewCerts.filter(ele => ele.CrewId === id)
-    console.log("crewCert ID Array is: ", crewCertIdArr)
     this.setState({ crewCertIds: crewCertIdArr })
 
     let CrewCertIds = this.state.crewCertIds;
     let AllCerts = this.state.allCerts;
     let tempMatchedCerts = [];
+
     for (let i = 0; i < CrewCertIds.length; i++) {
 
       for (let j = 0; j < AllCerts.length; j++) {
@@ -87,17 +84,15 @@ class DashbEditSiteModal extends React.Component {
       }
     }
     this.setState({ matchedCerts: tempMatchedCerts })
-    console.log("matched certs array content: ", this.state.matchedCerts)
-
   }
 
   /* OTHER DROPDOWN OPTIONS */
 
-  optionClick2 = (value) => {
-    if (value.constructor === Array) {
-      value = value.join(', ');
-    }
-    this.setState({ value: value });
+  optionClick2 = (id, value) => {
+    console.log("id: " + id + ", value: " + value)
+    this.setState({ addvalues: value, addCertId: id })
+
+
   }
 
   onClick = (e) => {
@@ -129,29 +124,44 @@ class DashbEditSiteModal extends React.Component {
 
   handleGetEmployees = () => {
     API.getEmployees().then((result) => {
-      // console.log("Employees working ", result.data)
       this.setState({ employees: result.data })
     })
   }
 
   handleGetCerts = () => {
     API.getCertificates().then((result) => {
-      // console.log("Get All Certs success", result.data)
       this.setState({ allCerts: result.data })
     })
   }
 
   handleGetCrewCerts = () => {
     API.getAllCrewCerts().then((result) => {
-      // console.log("Get Crew Certs success", result.data)
       this.setState({ crewCerts: result.data })
     })
   }
+
+
+  handleCertSubmit = (event, id) => {
+    // Preventing the default behavior of the form submit (which is to refresh the page)
+    event.preventDefault();
+
+        API.createCrewCerts({   
+          CertificateId: this.state.addCertId,
+          CrewId: this.state.crewId, 
+        })
+          .then(res => {
+            this.setState({ name: res.data.name, validFor: res.data.validFor })
+            this.toggle()
+            this.handleGetCrewCerts();
+          })
+  };
+
 
   /* LIFECYCLE EVENTS */
 
   componentDidMount() {
     document.addEventListener('click', this.onClick);
+
     this.handleGetEmployees();
     this.handleGetCrewCerts();
     this.handleGetCerts();
@@ -165,14 +175,13 @@ class DashbEditSiteModal extends React.Component {
 
 
   render() {
-    // console.log(this.props.crews)
     const modalStyle = { width: '100%' }
     const outerContainerStyle = { width: '100%', height: '200px' }
     return (
       <Container>
         <Button outline color="primary" onClick={this.toggle}>Edit Crew</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader className="blue-grey-text text-center" toggle={this.toggle}>Edit this Site</ModalHeader>
+          <ModalHeader className="blue-grey-text text-center" toggle={this.toggle}>Edit a Crew For This Site</ModalHeader>
           <ModalBody className="blue-grey-text">
             <Row>
               <Col size="12">
@@ -183,9 +192,9 @@ class DashbEditSiteModal extends React.Component {
                   <SelectInput value={this.state.value}></SelectInput>
                   <SelectOptions>
                     <SelectOption disabled>Select Crew</SelectOption>
-                    {this.props.crews.map(crew => {
+                    {this.props.crews.map((crew, i) => {
                       return (
-                        <SelectOption triggerOptionClick={() => this.optionClick(crew.id, crew.crew_type)}>
+                        <SelectOption key={i} triggerOptionClick={() => this.optionClick(crew.id, crew.crew_type)}>
                           {crew.crew_type}
                         </SelectOption>
                       )
@@ -208,20 +217,20 @@ class DashbEditSiteModal extends React.Component {
                   <PerfectScrollbar className="scrollbar-primary">
                     <CardBody>
                       {this.state.crewEmployees.length > 0 &&
-                        this.state.crewEmployees.map(crewEmployee => (
-                        <Table striped bordered small>
-                          <tbody>
-                            <TableData
-                              key={crewEmployee.id}
-                              name={crewEmployee.first_name}
-                              last_name={crewEmployee.last_name}
-                            />
-                          </tbody>
-                        </Table>
-                      ))}
+                        this.state.crewEmployees.map((crewEmployee, i) => (
+                          <Table striped bordered small key={i}>
+                            <tbody>
+                              <TableData
+                                key={crewEmployee.id}
+                                name={crewEmployee.first_name}
+                                last_name={crewEmployee.last_name}
+                              />
+                            </tbody>
+                          </Table>
+                        ))}
                       {this.state.crewEmployees.length < 1 &&
                         <div className="text-center">
-                            <h5>No Crew Members In This Crew</h5>
+                          <h5>No Crew Members In This Crew</h5>
                         </div>
                       }
                     </CardBody>
@@ -243,25 +252,27 @@ class DashbEditSiteModal extends React.Component {
                   </CardHeader>
                   <PerfectScrollbar className="scrollbar-primary">
                     <CardBody>
-                          {this.state.matchedCerts.length > 0 &&
-                            this.state.matchedCerts.map((matchedCert) => {
-                              return (
-                                <Table striped bordered small>
-                                <tbody>
-                                <TableData
-                                  key={matchedCert.id}
-                                  name={matchedCert.name}
-                                />
-                                </tbody>
-                                </Table>
-                              )
-                            }
-                            )}
-                          {this.state.matchedCerts.length === 0 &&
-                            <div className="text-center">
-                                <h5>No Certificates Available For This Crew</h5>
-                            </div>
-                          }
+                      {this.state.matchedCerts.length > 0 &&
+                        this.state.matchedCerts.map((matchedCert, i) => {
+                          return (
+                            <Table striped bordered small key={i}>
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    {matchedCert.name}
+                                    <span onClick={() => this.removeElement(matchedCert.id)} key={matchedCert.id} className="remove"> 𝘅 </span>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </Table>
+                          )
+                        }
+                        )}
+                      {this.state.matchedCerts.length === 0 &&
+                        <div className="text-center">
+                          <h5>No Certificates Available For This Crew</h5>
+                        </div>
+                      }
                     </CardBody>
                   </PerfectScrollbar>
                 </Card>
@@ -281,24 +292,22 @@ class DashbEditSiteModal extends React.Component {
                   <CardBody>
                     <Row>
                       <Col size="9">
-                        <Select multiple>
-                          <SelectInput value="Select Certifications">
-                          </SelectInput>
+                        <Select>
+                          <SelectInput value={this.state.addvalues}></SelectInput>
                           <SelectOptions>
-                            <SelectOption disabled> Select Certifications </SelectOption>
-                            {this.state.allCerts.map(cert => (
-                              <MultipleSelectOption
-                                key={cert.id}
-                                id={cert.id}
-                                name={cert.name}
-                                optionClick={this.optionClick2}
-                              />
-                            ))}
+                            <SelectOption disabled>Select Crew</SelectOption>
+                            {this.state.allCerts.map((cert, i) => {
+                              return (
+                                <SelectOption key={i} triggerOptionClick={() => this.optionClick2(cert.id, cert.name)}>
+                                  {cert.name}
+                                </SelectOption>
+                              )
+                            })}
                           </SelectOptions>
                         </Select>
                       </Col>
                       <Col size="3">
-                        <Button color="success"> Add Certifications </Button>
+                        <Button onClick={this.handleCertSubmit} color="success"> Add Certifications </Button>
                       </Col>
                     </Row>
                   </CardBody>
@@ -326,7 +335,6 @@ class DashbEditSiteModal extends React.Component {
           <ModalFooter>
             <Button color="secondary" onClick={this.toggle}>Close</Button>{' '}
             <Button color="primary" onClick={this.toggle}> Save changes</Button>{' '}
-            {/* <Button color="primary" onClick={() => { this.handleSaveChanges(); }}> Save changes</Button> */}
           </ModalFooter>
         </Modal>
       </Container>
@@ -335,15 +343,4 @@ class DashbEditSiteModal extends React.Component {
 }
 
 export default DashbEditSiteModal;
-
-
-// {this.state.employees.map(employee => (
-//   <Dropdown
-//       id={employee.id}
-//       key={employee.id}
-//       name={employee.name}
-//       removeEmployee={this.removeEmployee}
-//       editEmployee={this.editEmployee}
-//   />
-// ))}
 
