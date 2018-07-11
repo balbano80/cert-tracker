@@ -47,12 +47,12 @@ class FormEmployeePage extends React.Component {
     })
     // Loop though certIds
     for(let i = 0; i < certIds.length; i++) {
-      API.getCertificate(certIds[i].CertificateId).then(res => {
-        // console.log("CertIds Objects is: ", res.data)
-        this.state.crewsCerts.push(res.data)
+      API.getCert(certIds[i].CertificateId).then(res => {
+        console.log("CertIds Objects is: ", res.data)
+        // this.state.crewsCerts.push(res.data)
         })
       }
-      console.log("this.state.crewsCerts: ", this.state.crewsCerts)
+      // console.log("this.state.crewsCerts: ", this.state.crewsCerts)
     };
   
 

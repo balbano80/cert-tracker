@@ -45,5 +45,5 @@ module.exports = {
         // console.log("Return from crewCerts database", crewCerts)
         res.json(crewCerts);
       });
-  },
+  }
 };
