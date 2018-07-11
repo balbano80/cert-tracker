@@ -3,6 +3,7 @@ import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, Dropdown, Drop
 import { BrowserRouter as Router } from 'react-router-dom';
 import logo from './logo.png';
 import './index.css';
+import axios from "axios"
 
 import Routes from './Routes';
 
@@ -11,7 +12,8 @@ class App extends Component {
     super(props);
     this.state ={
       collapsed: false,
-      dropdownOpen: false
+      dropdownOpen: false,
+      isLoggedIn: false
     };
     this.handleTogglerClick = this.handleTogglerClick.bind(this);
     this.handleNavbarClick = this.handleNavbarClick.bind(this);
@@ -34,6 +36,29 @@ class App extends Component {
     this.setState({
         dropdownOpen: !this.state.dropdownOpen
     });
+  }
+componentDidMount(){
+  axios.get("/api/user_data")
+  .then(res => {
+    // console.log("user?", res);
+    if (res.data.email){
+      this.setState({isLoggedIn : true});
+      // console.log(this.state.isLoggedIn);
+    }
+    else{
+      // console.log(this.state.isLoggedIn);
+    }
+  })
+
+}
+
+handleLogOut(){
+  console.log("in handleLogout block");
+  axios.get("/logout")
+    .then(res =>{
+      this.setState({isLoggedIn: false});
+      // console.log(this.state.isLoggedIn);
+    })
 }
 
   render() {
@@ -56,7 +81,11 @@ class App extends Component {
                   <NavLink onClick={this.handleNavbarClick} to="/signup">Signup</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink onClick={this.handleNavbarClick} to="/login">Login</NavLink>
+                  {this.state.isLoggedIn ? 
+                    <NavLink onClick={(event) => {this.handleLogOut(); this.handleNavbarClick;}} to="/">Logout</NavLink>
+                  :
+                    <NavLink onClick={this.handleNavbarClick} to="/login">Login</NavLink>
+                  }
                 </NavItem>
                 <NavItem>
                   <NavLink onClick={this.handleNavbarClick} to="/employeeform">Employee Form</NavLink>
