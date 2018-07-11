@@ -184,12 +184,27 @@ class DashboardPage extends React.Component {
 
                       this.setState({crewCertsArr: crewCerts});
                       console.log("State info", this.state);
+                      
+
+                      // var crewCertifs = this.state.crewCertsArr
+                      // console.log("test:", this.state.crewCertsArr[0][0].Certificates[0].CrewCert.CertificateId)
+                      // console.log("test:" + this.state.crewCerts[0].Certificates)
+                      // console.log(typeof this.state.crewCertsArr)
+                      // for (var i = 0; i < crewCertifs.length; i++) {
+                      //   if (crewCerts[i][0].SiteId === 1) {
+                      //     console.log("match: " + crewCertifs[i][0].SiteId)
+                      //   }
+                      // }
+
                     });
                 });
             });
         });
     });
+
   };
+
+
 
   constructor(props) {
     super(props);
@@ -264,6 +279,14 @@ class DashboardPage extends React.Component {
       this.setState({
         activeItemInnerPills: tab
       });
+    }
+  }
+  testing(id) {
+    var crewCerts = this.state.crewCertsArr
+    for (var i = 0; i < crewCerts.length; i++) {
+      if (crewCerts[i].SiteId === id) {
+        console.log("match: " + crewCerts[i].SideId)
+      }
     }
   }
 
