@@ -177,7 +177,6 @@ class DashboardPage extends React.Component {
                         // console.log("sending api call for crew with id: ", this .state.crewArray[l].id)
                         API.getCertificate(this.state.crewArray[l].id)
                           .then(cert => {
-                            console.log(cert.data)
                             crewCerts.push(cert.data);
                           })
                       }
