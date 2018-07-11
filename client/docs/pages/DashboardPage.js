@@ -147,6 +147,7 @@ class DashboardPage extends React.Component {
           }
         }
       this.setState({crewArray: crewArr})
+
       // console.log("CrewsArr", this.state.crewArray);
 
       let crewCerts = [];
@@ -188,8 +189,8 @@ class DashboardPage extends React.Component {
             }
           }
         }
-      this.setState({employeeCerts: employeeCrts})
 
+      this.setState({employeeCerts: employeeCrts})
 
     });
     API.getCertificates()
