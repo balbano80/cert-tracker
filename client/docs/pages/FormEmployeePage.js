@@ -16,19 +16,7 @@ class FormEmployeePage extends React.Component {
 
       // console.log("this.state.user.sites: ", this.state.user.sites)
     });
-    API.getSites().then(res => {
-      // console.log(res.data[0].name)
-    });
-    
-    API.getCertificates().then(res => {
-      const certArr = []
-      for (let i = 0; i < res.data.length; i++) {
-        certArr.push(res.data[i]);
-      }
-      this.setState({ certArray: certArr });
-
-      // console.log("Certificates", this.state.certArray);
-    })
+  
   }
 
   constructor(props) {
@@ -39,7 +27,9 @@ class FormEmployeePage extends React.Component {
       first_name: "",
       last_name: "",
       phone_number: "",
-      email: ""
+      email: "",
+      certIds: [],
+      crewsCerts: []
 
     }
     this.toggle = this.toggle.bind(this);
@@ -50,6 +40,21 @@ class FormEmployeePage extends React.Component {
       modal: !this.state.modal
     });
   };
+
+  handleCertIds = (certIds) => {
+    this.setState({certIds:certIds}, function(){
+      // console.log("certId state set to: ", this.state.certIds)
+    })
+    // Loop though certIds
+    for(let i = 0; i < certIds.length; i++) {
+      API.getCertificate(certIds[i].CertificateId).then(res => {
+        // console.log("CertIds Objects is: ", res.data)
+        this.state.crewsCerts.push(res.data)
+        })
+      }
+      console.log("this.state.crewsCerts: ", this.state.crewsCerts)
+    };
+  
 
   // Handles updating component state when the user types into the input field
   handleInputChange = event => {
@@ -97,7 +102,9 @@ class FormEmployeePage extends React.Component {
           <Col md="6" className="mx-auto float-none white z-depth-1 py-2 px-2">
             <Card>
               
-            <EmployeePageFormGen />
+            <EmployeePageFormGen 
+              handleCertIds={this.handleCertIds}
+            />
               
             </Card>
           </Col>  
@@ -126,12 +133,13 @@ class FormEmployeePage extends React.Component {
                       <p>Cert Date</p>
                     </Col>
                   </Row>
-                  {this.state.certArray.length > 0 &&
-                    this.state.certArray.map((certObj) => {
+                  {this.state.crewsCerts.length > 0 &&
+                    this.state.crewsCerts.map((certObj) => {
+                      console.log("certObj.crew_type: ", certObj)
                       return (
-                        <Row>
+                        <Row key={certObj.id}>
                           <Col>
-                            <p className="grey-text">{certObj.name}</p>
+                            <p className="grey-text">{certObj.crew_type}</p>
                           </Col>
                           <Col>
                             <DatePickerMod />
