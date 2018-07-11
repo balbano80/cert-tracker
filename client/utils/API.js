@@ -1,5 +1,4 @@
 import axios from "axios";
-// var passport = require("../../config/passport");
 
 export default {
   // Gets all employee
@@ -16,21 +15,17 @@ export default {
   },
   // Saves an employee to the database
   saveEmployee: function(employeeData) {
-    // console.log("Form submission data: ", employeeData);
     return axios.post("/api/employee", employeeData);
   },
   // Creates a new company
   createCompany: function(companyData){
-    // console.log("in createCompany block, ", companyData);
     return axios.post("/api/company", companyData);
   },
   // creates a new User in the Users table of the database
   createUser: function(newUser) {
-    // console.log("in utils API createUser block", newUser);
     return axios.post("/api/user", newUser);
   },
   signIn: function(user){
-    // console.log("in utils API folder", user)
 
     return axios.get("/api/signin/" + user.email, user)
   },
@@ -46,7 +41,6 @@ export default {
     return axios.get("/api/reminders");
   },
   // saveCert: function(certData) {
-  //   console.log("Certification data: ", certData);
   //   return axios.post("/api/certification", certData);
   // },
   // Make route for getting data from the EmployeeCerts table
@@ -70,16 +64,19 @@ export default {
   getAllCrewCerts: function() {
     return axios.get("/api/crewcerts");
   },
-
-
+  createCrewCerts: function(certId) {
+    return axios.post("/api/crewcerts", certId);
+  },
   getCertificate: function(id){
-    // console.log("getting certificate for crew with id: ", id)
     return axios.get("api/certificates/" + id);
   },
 
   createCertificates: function(certData) {
-    // console.log("Created Certification data: ", certData);
     return axios.post("/api/certificates", certData);
+  },
+  // Creates an reminder in the Reminders table
+  createReminder: function(reminderData) {
+    return axios.post("/api/reminder", reminderData);
   },
   updateCertificates: function(id){
     return axios.put("/api/certificates/" + id)
@@ -102,12 +99,10 @@ export default {
   // },
     // Make route for getting data from the EmployeeCerts table
   getCrews: function() {
-    // console.log("getting all crew data")
     return axios.get("/api/crews");
   },
   // Get crew by company_id
   getCrewBySite: function(id) {
-    // console.log("getting crew data for this site")
     return axios.get("/api/employee/" + id);
   },
   getUserData: function(req, res){
@@ -115,7 +110,6 @@ export default {
       res.json({});
     }
     else{
-      // console.log("getting user data");
       return axios.get("/api/user_data");
     }
   }

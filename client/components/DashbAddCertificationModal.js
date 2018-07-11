@@ -38,7 +38,7 @@ class DashbAddCertificationModal extends React.Component {
       // Preventing the default behavior of the form submit (which is to refresh the page)
       event.preventDefault();
       if (!this.state.certification ||!this.state.validFor) {
-        alert("Fill out all fields");
+        alert("Please fill out all fields");
       } else {
         this.props.populate(<div>{this.state.certification}</div>),
       
