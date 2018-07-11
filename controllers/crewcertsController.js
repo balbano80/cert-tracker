@@ -4,8 +4,12 @@ const db = require("../models");
 
 
 module.exports = {
-
-
+  findAll: function(req, res) {
+    db.CrewCert.findAll({})
+    .then(function(dbCrewCert) {
+      res.json(dbCrewCert);
+    });
+  },
   findById: function(req, res) {
     // console.log("in cert controller file checking for crew with id: ", req.params.id)
     db.CrewCert.findAll({
@@ -17,6 +21,6 @@ module.exports = {
         // console.log("Return from crewCerts database", crewCerts)
         res.json(crewCerts);
       });
-  },
+  }
  
 };
