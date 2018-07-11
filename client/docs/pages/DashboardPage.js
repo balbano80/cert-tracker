@@ -133,12 +133,12 @@ class DashboardPage extends React.Component {
     API.getReminder()
       .then(results => {
         const reminderArr = [];
-        console.log("reminders data ::::::", results.data)
+        // console.log("reminders data ::::::", results.data)
         for (let i = 0; i < results.data.length; i++) {
           reminderArr.push(results.data[i]);
         }
         this.setState({ reminderArray: reminderArr })
-        console.log("reminders :::::::", this.state.reminderArray)
+        // console.log("reminders :::::::", this.state.reminderArray)
 
 
         var ctxB = document.getElementById("barChart").getContext('2d');
@@ -219,7 +219,7 @@ class DashboardPage extends React.Component {
       });
 
     axios.get("/api/user_data").then(res => {
-      if (this.state.siteArray.length !== 0) {
+      if (res.data.email) {
         this.setState({
           user: res.data,
           selectedSites: res.data.companyName + " Dashboard"
