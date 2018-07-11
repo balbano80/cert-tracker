@@ -5,6 +5,7 @@ import DashbAddCertificationModal from '../components/DashbAddCertificationModal
 import DashbEditCertificationModal from '../components/DashbEditCertificationModal';
 import CertificationTable from '../components/CertificationTable';
 import API from '../utils/API';
+import axios from "axios";
 
 class DashbMainCertModal extends React.Component {
     constructor(props) {
@@ -27,6 +28,12 @@ class DashbMainCertModal extends React.Component {
     };
 
     componentDidMount() {
+        axios.get("/api/user_data").then(res => {
+            this.setState({
+              user: res.data
+            })
+            // console.log("UserInfo ", this.state.user);
+          });
         API.getCertificates().then(res => {
             const certArr = []
             for (let i = 0; i < res.data.length; i++) {
@@ -34,6 +41,41 @@ class DashbMainCertModal extends React.Component {
             }
             this.setState({ certArray: certArr });
             // console.log("Certificates", this.state.certArray);
+        })
+        API.getSites().then(res => {
+            const sitesArr = []
+            for (let i = 0; i < res.data.length; i++) {
+              if (this.state.user.CompanyId === res.data[i].CompanyId) {
+                sitesArr.push(res.data[i]);
+              }
+            }
+            this.setState({ siteArray: sitesArr });
+            // console.log("User Sites", this.state.siteArray);
+          })
+
+          API.getCrews()
+          .then(result => {
+            const crewArr = [];
+            for (let i = 0; i < this.state.siteArray.length; i++) {
+              for (let j = 0; j < result.data.length; j++) {
+                if (this.state.siteArray[i].id === result.data[j].SiteId) {
+                  crewArr.push(result.data[j])
+                }
+              }
+            }
+          this.setState({crewArray: crewArr})
+          // console.log("CrewsArr", this.state.crewArray);
+    
+          let crewCerts = [];
+          for (let i = 0; i < this.state.crewArray.length; i++){
+            // console.log("sending api call for crew with id: ", this .state.crewArray[i].id)
+            API.getCertificate(this.state.crewArray[i].id)
+            .then( cert => {
+                crewCerts.push(cert.data);
+            })
+          }
+          this.setState({crewCertsArr: crewCerts});
+        //   console.log("Site state:", this.state);
         })
         
     }
