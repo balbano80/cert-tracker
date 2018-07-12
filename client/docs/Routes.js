@@ -8,6 +8,7 @@ import SignupPage from './pages/SignupPage';
 import DashboardPage from './pages/DashboardPage';
 import FormEmployeePage from './pages/FormEmployeePage';
 import AboutUs from './pages/AboutUs';
+import CarouselPage from './pages/CarouselPage';
 
 
 class Routes extends React.Component {
@@ -21,6 +22,7 @@ class Routes extends React.Component {
         <Route exact path='/dashboard' component={DashboardPage} />
         <Route exact path='/employeeform' component={FormEmployeePage} />
         <Route exact path='/aboutus' component={AboutUs} />
+        <Route exact path='/carousel' component={CarouselPage} />
         <Route render = { function() {
           return <h1>Not Found</h1>;
         }} />

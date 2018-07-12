@@ -97,6 +97,9 @@ handleLogOut(){
                   <NavLink onClick={this.handleNavbarClick} to="/aboutus">About Us</NavLink>
                 </NavItem>
                 <NavItem>
+                  <NavLink onClick={this.handleNavbarClick} to="/carousel">carousel</NavLink>
+                </NavItem>
+                <NavItem>
                     <NavLink to="#!"><Fa icon="user" className="d-inline-inline"/>  <div className="d-none d-md-inline">My Account</div></NavLink>
                 </NavItem>
                 

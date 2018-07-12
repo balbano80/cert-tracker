@@ -6,7 +6,7 @@ import API from '../utils/API';
 import axios from "axios";
 
 // MD React-Bootstrap
-import { Container, Row, Col, Button, Card, CardBody, Modal, ModalBody, ModalHeader, ModalFooter, Select, SelectInput, SelectOptions, SelectOption, CardHeader, Table, PerfectScrollbar } from 'mdbreact';
+import { Container, Row, Col, Button, Modal, ModalBody, ModalHeader, ModalFooter, Select, SelectInput, SelectOptions, SelectOption, PerfectScrollbar } from 'mdbreact';
 
 // Components
 import DropdownOption from "./DropdownOption";
