@@ -12,7 +12,7 @@ class FormEmployeePage extends React.Component {
       this.setState({
         user: res.data
       })
-      console.log("UserInfo ", this.state.user);
+      // console.log("UserInfo ", this.state.user);
 
       // console.log("this.state.user.sites: ", this.state.user.sites)
     });
@@ -43,21 +43,22 @@ class FormEmployeePage extends React.Component {
 
   handleCertIds = (certIds) => {
     this.setState({certIds:certIds}, function(){
-      console.log("certId state set to: ", this.state.certIds)
+      // console.log("certId state set to: ", this.state.certIds)
     })
     // Loop though certIds
     const crewCertsArray=[];
     for(let i = 0; i < certIds.length; i++) {
-      API.getCert(certIds[i].CertificateId).then(res => {
-        console.log("CertIds Objects is: ", res.data)
-        // this.state.crewsCerts.push(res.data)
-        crewCertsArray.push(res.data)
+      API.getCertificate(certIds[i].CertificateId).then(res => {
+        // console.log("::::::::::::: ", res)
+        // console.log("CertIds Objects is: ", res.data)
+      
+        crewCertsArray.push(res.data[0])
         this.setState({crewsCerts: crewCertsArray})
         })
-      }
+      //  console.log("crewCertsArray !!!!!!!!", crewCertsArray)
+       } // this.setState({crewsCerts: crewCertsArray})
       // console.log("this.state.crewsCerts: ", this.state.crewsCerts)
     };
-    
   
 
   // Handles updating component state when the user types into the input field
@@ -139,15 +140,11 @@ class FormEmployeePage extends React.Component {
                   </Row>
                   {this.state.crewsCerts.length > 0 &&
                     this.state.crewsCerts.map((certObj) => {
-                      {/* console.log("certObj.name: ", certObj.name) */}
+                      console.log("certObj.crew_type::::::::::::: ", certObj)
                       return (
                         <Row key={certObj.id}>
                           <Col>
-<<<<<<< HEAD
-                            <p className="grey-text">{certObj}</p>
-=======
-                            <p className="grey-text">{certObj.name}</p>
->>>>>>> 4a90c39dc6b83214693cd23c38ad98933c01ea40
+                            <p className="grey-text">{certObj.crew_type}</p>
                           </Col>
                           <Col>
                             <DatePickerMod />
