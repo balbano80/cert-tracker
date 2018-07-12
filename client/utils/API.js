@@ -48,8 +48,8 @@ export default {
     return axios.get("/api/employeecerts")
   },
 
-  getfindById: function(id) {
-    return axios.get("/api/certificates")
+  getCertById: function(id) {
+    return axios.get("/api/certificate/:" + id)
   },
 
   // New route for getting Certificates

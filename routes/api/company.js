@@ -6,9 +6,9 @@ router.route("/")
   .post(companyController.create);
 
 // Matches with "/api/books/:id"
-// router
-//   .route("/:")
-//   .get(userController.findByEmail)
+router
+  .route("/:id")
+    .get(companyController.findById);
 //   .put(userController.update)
 //   .delete(userController.remove)
 
