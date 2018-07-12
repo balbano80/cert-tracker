@@ -2,6 +2,68 @@ body {
 	background:#ededed;
 }
 
-.img-holder {
-	opacity: 0.9;
+
+.carousel {
+	position: relative;
 }
+
+.caption1,
+.caption3,
+.caption2 {
+	position: absolute;
+	bottom: 35%;
+}
+
+.caption2 {
+	color: rgb(27, 27, 27);
+	font-weight: 500;
+}
+
+.caption2-text {
+	font-weight: 400;
+}
+
+.carousel-item.active .carousel-title {
+	animation: animate-carousel-title 1s normal forwards;
+  }
+
+.carousel-item.active .carousel-subtitle {
+animation: animate-carousel-subtitle 1s normal forwards;
+}
+
+.carousel-item.active .caption2 {
+	animation: animate-carousel-title2 1s normal forwards;
+  }
+
+@keyframes animate-carousel-title {
+	0% {
+		opacity: 0;
+		transform: translate(-8em, 0);
+	}
+	100% {
+		opacity: 1;
+		transform: translate(0, 0);
+	}
+}
+
+@keyframes animate-carousel-subtitle {
+	0% {
+		opacity: 0;
+		transform: translate(8em, 0);
+	}
+	100% {
+		opacity: 1;
+		transform: translate(0, 0);
+	}
+}
+
+@keyframes animate-carousel-title2 {
+	0% {
+	  transform: translate(0, -2em);
+	  opacity: 0;
+	}
+	100% {
+	  transform: translate(0, 0);
+	  opacity: 1;
+	}
+  }
