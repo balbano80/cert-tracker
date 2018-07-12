@@ -143,11 +143,7 @@ class FormEmployeePage extends React.Component {
                       return (
                         <Row key={certObj.id}>
                           <Col>
-<<<<<<< HEAD
-                            <p className="grey-text">{certObj}</p>
-=======
                             <p className="grey-text">{certObj.name}</p>
->>>>>>> 4a90c39dc6b83214693cd23c38ad98933c01ea40
                           </Col>
                           <Col>
                             <DatePickerMod />
