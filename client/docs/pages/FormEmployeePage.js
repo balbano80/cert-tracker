@@ -50,15 +50,12 @@ class FormEmployeePage extends React.Component {
 
 
     for(let i = 0; i < certIds.length; i++) {
-      API.getCertificate(certIds[i].CertificateId).then(res => {
-        // console.log("CertIds Objects is: ", res.data)
-        this.state.crewsCerts.push(res.data)
+      API.getCert(certIds[i].CertificateId).then(res => {
+        console.log("CertIds Objects is: ", res.data)
+        // this.state.crewsCerts.push(res.data)
         })
       }
-    //   console.log("this.state.crewsCerts: ", this.state.crewsCerts)
-      // for(let l = 0; l < this.state.certCrews.length; l++) {
-      //   console.log("Crew names here please : ", this.state.certCrews[l].crew_type)
-      // }
+      // console.log("this.state.crewsCerts: ", this.state.crewsCerts)
     };
     
   

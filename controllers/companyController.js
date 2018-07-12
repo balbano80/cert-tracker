@@ -3,20 +3,21 @@ const db = require("../models");
 // Defining methods for the userController
 module.exports = {
     create: function(req, res) {
-        console.log("in companyController block", req.body);
+        // console.log("in companyController block", req.body);
       db.Company
         .create(req.body)
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     },
-    findByName: function(req, res) {
-      db.Company.findOne({
+    //altering for certificates
+    findById: function(req, res) {
+      db.Certificate.findOne({
         where: {
-          email: req.params.name
+          id: req.params.id
         }
       })
-        .then(function(dbCompany) {
-          res.json(dbCompany);
+        .then(function(dbCertificate) {
+          res.json(dbCertificate);
         });
     },
     update: function(req, res) {
